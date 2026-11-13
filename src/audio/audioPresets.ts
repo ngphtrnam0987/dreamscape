@@ -11,6 +11,7 @@ export const DEFAULT_PRESETS: SoundPreset[] = [
       ...INITIAL_CHANNEL_STATES,
       rain: { volume: 0.70, isPlaying: true },
       wind: { volume: 0.35, isPlaying: true },
+      binaural: { volume: 0.40, isPlaying: true },
       thunder: { volume: 0.20, isPlaying: false },
     },
     sceneSpecificSettings: {

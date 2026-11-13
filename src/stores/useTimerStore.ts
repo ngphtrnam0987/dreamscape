@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import confetti from 'canvas-confetti';
 import { TimerMode, TimerSettings } from '../types/timer';
 import { audioEngine } from '../audio/AudioEngine';
 import { useStatsStore } from './useStatsStore';
@@ -232,6 +233,16 @@ function handleSessionCompletion(
   if (state.mode === 'focus') {
     completedCount += 1;
     useStatsStore.getState().recordFocusSession(state.settings.focusMinutes);
+
+    try {
+      confetti({
+        particleCount: 65,
+        spread: 70,
+        origin: { y: 0.65 },
+        colors: ['#38bdf8', '#fbbf24', '#f43f5e', '#a855f7', '#34d399'],
+        disableForReducedMotion: true,
+      });
+    } catch {}
   }
 
   // Determine next mode

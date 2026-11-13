@@ -2,7 +2,7 @@ import React from 'react';
 import { useUIStore } from '../../stores/useUIStore';
 import { useSceneStore, SCENES_INFO } from '../../stores/useSceneStore';
 import { getTranslation } from '../../locales';
-import { Sparkles, Compass, BarChart2, Maximize2, Globe2 } from 'lucide-react';
+import { Sparkles, Compass, BarChart2, Maximize2, Globe2, Wind, FileText } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const { openModal, toggleFocusMode, language, setLanguage, isFocusMode } = useUIStore();
@@ -45,6 +45,26 @@ export const Header: React.FC = () => {
 
       {/* Right Controls */}
       <div className="flex items-center gap-2">
+        {/* Mindful Breathing Guide */}
+        <button
+          onClick={() => openModal('breathe')}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl glass-pill text-xs font-medium text-slate-300 hover:text-white transition-all"
+          title={getTranslation(language, 'breathe')}
+        >
+          <Wind className="w-3.5 h-3.5 text-teal-400" />
+          <span className="hidden sm:inline">{getTranslation(language, 'breathe')}</span>
+        </button>
+
+        {/* Focus Notes / Scratchpad */}
+        <button
+          onClick={() => openModal('notes')}
+          className="p-2 rounded-xl glass-pill text-slate-300 hover:text-white transition-all"
+          title={getTranslation(language, 'quickNotes')}
+          aria-label={getTranslation(language, 'quickNotes')}
+        >
+          <FileText className="w-4 h-4 text-amber-400" />
+        </button>
+
         {/* Language Switcher */}
         <button
           onClick={() => setLanguage(language === 'en' ? 'vi' : 'en')}

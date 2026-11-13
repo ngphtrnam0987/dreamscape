@@ -9,6 +9,8 @@ import { PomodoroTimerModal } from './components/timer/PomodoroTimerModal';
 import { PresetsModal } from './components/presets/PresetsModal';
 import { SceneSettingsModal } from './components/settings/SceneSettingsModal';
 import { StatsModal } from './components/stats/StatsModal';
+import { BreathingGuideModal } from './components/mindfulness/BreathingGuideModal';
+import { QuickNotesModal } from './components/notes/QuickNotesModal';
 import { Toast } from './components/ui/Toast';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { useTimerInterval } from './hooks/useTimerInterval';
@@ -37,6 +39,8 @@ export const App: React.FC = () => {
       <PresetsModal />
       <SceneSettingsModal />
       <StatsModal />
+      <BreathingGuideModal />
+      <QuickNotesModal />
 
       {/* Global Toast Alerts */}
       <Toast />

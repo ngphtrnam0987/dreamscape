@@ -11,6 +11,8 @@ export const vi: Record<TranslationKey, string> = {
   presets: 'Cài Đặt Sẵn',
   sceneSettings: 'Khí Quyển',
   statistics: 'Thống Kê',
+  breathe: 'Thở Chánh Niệm',
+  quickNotes: 'Ghi Chú Nhanh',
   focusMode: 'Chế Độ Tập Trung',
   exitFocusMode: 'Thoát Tập Trung (Esc)',
   fullscreen: 'Toàn Màn Hình',
@@ -45,6 +47,7 @@ export const vi: Record<TranslationKey, string> = {
   chInsects: 'Côn Trùng Đêm',
   chCity: 'Đô Thị Về Đêm',
   chCosmic: 'Tiếng Vọng Vũ Trụ',
+  chBinaural: 'Sóng Não Binaural (Alpha 10Hz)',
 
   // Categories
   catWeather: 'Thời Tiết',
@@ -85,6 +88,10 @@ export const vi: Record<TranslationKey, string> = {
   confirmDeletePreset: 'Bạn có chắc chắn muốn xóa bản phối này không?',
   sharePreset: 'Chia Sẻ Bản Phối',
   copiedToClipboard: 'Đã sao chép liên kết vào bộ nhớ tạm!',
+  exportPresets: 'Xuất Tệp JSON',
+  importPresets: 'Nhập Tệp JSON',
+  presetsImportedSuccess: 'Đã nhập thành công {count} bản phối!',
+  invalidJsonFile: 'Định dạng tệp không hợp lệ',
 
   // Pomodoro Timer
   focus: 'Tập Trung',
@@ -108,6 +115,25 @@ export const vi: Record<TranslationKey, string> = {
   sessionComplete: 'Hoàn Thành Phiên!',
   focusCompleteMsg: 'Tuyệt vời! Hãy dành chút thời gian thư giãn mắt và cơ thể.',
   breakCompleteMsg: 'Hết giờ nghỉ. Sẵn sàng bắt đầu phiên tập trung mới chưa?',
+
+  // Mindful Breathing Guide
+  breatheTitle: 'Thở Chánh Niệm',
+  breatheDesc: 'Điều hòa nhịp tim, xoa dịu hệ thần kinh và giải tỏa căng thẳng với nhịp thở điều độ',
+  inhale: 'Hít Vào',
+  hold: 'Giữ Hơi',
+  exhale: 'Thở Ra',
+  rest: 'Nghỉ',
+  boxBreathing: 'Thở Hộp (4-4-4-4)',
+  relaxing478: 'Thở Thư Giãn (4-7-8)',
+  deepCalm: 'Thở Sâu Êm (5-5)',
+  breathsCompleted: 'Chu Kỳ Đã Hoàn Thành',
+
+  // Focus Notes / Scratchpad
+  quickNotesDesc: 'Ghi lại những suy nghĩ, ý tưởng lóe lên hoặc việc cần làm mà không làm gián đoạn dòng chảy tập trung',
+  notesPlaceholder: 'Viết suy nghĩ, công việc cần làm hoặc ý tưởng tại đây...',
+  copyNotes: 'Sao Chép Ghi Chú',
+  notesCopied: 'Đã sao chép ghi chú vào bộ nhớ tạm',
+  clearNotes: 'Xóa Ghi Chú',
 
   // Atmosphere Settings
   brightness: 'Độ Sáng Không Gian',

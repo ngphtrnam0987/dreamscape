@@ -89,6 +89,14 @@ export const CHANNELS: ChannelConfig[] = [
     defaultVolume: 0.50,
     descriptionKey: 'Deep harmonic celestial drone and binaural space pad',
   },
+  {
+    id: 'binaural',
+    nameKey: 'chBinaural',
+    category: 'ethereal',
+    icon: 'Headphones',
+    defaultVolume: 0.45,
+    descriptionKey: 'Alpha brainwave beat (10Hz) for deep focus and flow state',
+  },
 ];
 
 export const INITIAL_CHANNEL_STATES: Record<ChannelId, { volume: number; isPlaying: boolean }> = {
@@ -103,4 +111,5 @@ export const INITIAL_CHANNEL_STATES: Record<ChannelId, { volume: number; isPlayi
   insects: { volume: 0.35, isPlaying: false },
   city: { volume: 0.40, isPlaying: false },
   cosmic: { volume: 0.50, isPlaying: false },
+  binaural: { volume: 0.45, isPlaying: false },
 };

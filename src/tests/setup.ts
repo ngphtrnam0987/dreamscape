@@ -59,6 +59,9 @@ class AudioContextMock {
       disconnect: vi.fn(),
     };
   }
+  createChannelMerger() {
+    return new AudioNodeMock();
+  }
   resume = vi.fn().mockResolvedValue(undefined);
   suspend = vi.fn().mockResolvedValue(undefined);
   close = vi.fn().mockResolvedValue(undefined);

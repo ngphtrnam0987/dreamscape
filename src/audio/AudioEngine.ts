@@ -496,6 +496,35 @@ export class AudioEngine {
         });
         break;
       }
+
+      case 'binaural': {
+        // Alpha brainwave entrainment (Left 200Hz, Right 210Hz => 10Hz Alpha differential)
+        const oscL = this.ctx.createOscillator();
+        const oscR = this.ctx.createOscillator();
+        oscL.type = 'sine';
+        oscL.frequency.value = 200;
+        oscR.type = 'sine';
+        oscR.frequency.value = 210;
+
+        const merger = this.ctx.createChannelMerger(2);
+        oscL.connect(merger, 0, 0); // Left channel
+        oscR.connect(merger, 0, 1); // Right channel
+
+        merger.connect(channelGain);
+        oscL.start();
+        oscR.start();
+
+        stopCallbacks.push(() => {
+          try {
+            oscL.stop();
+            oscR.stop();
+            oscL.disconnect();
+            oscR.disconnect();
+            merger.disconnect();
+          } catch {}
+        });
+        break;
+      }
     }
 
     this.channelSources.set(channelId, {

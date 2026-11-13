@@ -17,6 +17,7 @@ interface PresetStoreState {
   deletePreset: (id: string) => void;
   exportPresetUrl: (preset: SoundPreset) => string;
   importPresetFromUrl: (encoded: string) => SoundPreset | null;
+  importPresetsList: (presets: SoundPreset[]) => number;
   clearAllUserPresets: () => void;
 }
 
@@ -161,6 +162,22 @@ export const usePresetStore = create<PresetStoreState>((set, get) => ({
       console.warn('Failed to parse shareable preset:', e);
       return null;
     }
+  },
+
+  importPresetsList: (presets: SoundPreset[]) => {
+    const valid = presets.filter(p => p && p.id && p.name && p.sceneId && p.channelStates);
+    if (valid.length === 0) return 0;
+
+    set(state => {
+      const existingIds = new Set(state.userPresets.map(p => p.id));
+      const newItems = valid.filter(p => !existingIds.has(p.id));
+      const updated = [...newItems, ...state.userPresets];
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      } catch {}
+      return { userPresets: updated };
+    });
+    return valid.length;
   },
 
   clearAllUserPresets: () => {

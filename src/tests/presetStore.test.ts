@@ -51,6 +51,7 @@ describe('usePresetStore', () => {
         insects: { volume: 0, isPlaying: false },
         city: { volume: 0, isPlaying: false },
         cosmic: { volume: 0.7, isPlaying: true },
+        binaural: { volume: 0.4, isPlaying: false },
       },
       sceneSpecificSettings: {
         starDensity: 1.2,
@@ -69,6 +70,22 @@ describe('usePresetStore', () => {
     expect(imported?.sceneId).toBe('cosmic-dream');
     expect(imported?.channelStates.cosmic.isPlaying).toBe(true);
     expect(imported?.channelStates.cosmic.volume).toBe(0.7);
+  });
+
+  it('imports preset list from json structure properly', () => {
+    const store = usePresetStore.getState();
+    const importedCount = store.importPresetsList([
+      {
+        id: 'json-1',
+        name: 'JSON Preset',
+        sceneId: 'forest-retreat',
+        createdAt: 99999,
+        channelStates: store.defaultPresets[0].channelStates,
+      },
+    ]);
+    expect(importedCount).toBe(1);
+    expect(usePresetStore.getState().userPresets.length).toBe(1);
+    expect(usePresetStore.getState().userPresets[0].name).toBe('JSON Preset');
   });
 
   it('handles invalid or corrupted URL preset gracefully', () => {

@@ -17,38 +17,51 @@ Each scene is dynamically rendered with real-time canvas physics, atmospheric de
 - **✨ Cosmic Dream**: Dreamlike deep space with 3D parallax starfield, celestial nebulae luminance, camera drift, and shooting stars.
 
 ### 2. Centralized Web Audio API Multi-Channel Mixer
-- **11 Audio Channels**: Rain, Thunder, Wind, Songbirds, Forest Canopy, Babbling Stream, Ocean Waves, Fireplace Hearth, Night Insects, City Ambience, and Cosmic Drone.
+- **12 Audio Channels**: Rain, Thunder, Wind, Songbirds, Forest Canopy, Babbling Stream, Ocean Waves, Fireplace Hearth, Night Insects, City Ambience, Cosmic Drone, and **Binaural Beats (Alpha 10Hz)** for cognitive flow state.
 - **Procedural Sound Generation**: 100% self-contained Web Audio synthesis (pink/brown noise filters, LFO swept bandpass, FM birdsong synthesis, fire crackle bursts, and celestial drones). Zero broken external links, zero CORS issues, instant playback, zero megabytes of asset downloads.
 - **Individual Volume & Mute Controls**: Smooth linear and exponential gain ramping to eliminate clicks or pops.
 - **Master Controls**: Master volume slider, global mute (M), "Stop All", and "Reset Mixer".
 - **Integrated Sleep Timer**: Configurable timers (15m, 30m, 45m, 60m, or custom) with smooth 15-second master volume fade-out.
 
-### 3. Pomodoro Focus Timer
+### 3. Pomodoro Focus Timer & Confetti Celebration
 - **High-Precision Timestamp Synchronization**: Drift-free calculation (`targetEndTime - Date.now()`) that remains perfectly accurate across background tabs, tab switches, and system sleep.
 - **Modes**: Focus (25 min), Short Break (5 min), Long Break (15 min) with custom duration configuration.
 - **Circular Animated Progress Ring**: Real-time SVG stroke calculation.
+- **Confetti Celebration**: Vibrant celebratory confetti shower upon completing a focus milestone!
 - **Harmonic Singing Bowl Chime**: Pleasant crystal bell notification sound upon completion.
 - **Browser Notifications**: Optional native notification prompts.
 - **Document Title Countdown**: Live status in browser tab `(24:59) Focus — DreamScape`.
 
-### 4. Distraction-Free Focus Mode
+### 4. Mindful Breathing Guide (New!)
+- **Rhythmic Visual Breathing Orb**: Smooth harmonic scaling circle with glowing aura.
+- **Techniques**: Box Breathing (4-4-4-4), Relaxing Breath (4-7-8), and Deep Calm (5-5).
+- Real-time phase cues ("Inhale", "Hold", "Exhale", "Rest") with acoustic phase chime and cycle tracking.
+
+### 5. Focus Quick Notes / Scratchpad (New!)
+- Frosted glass scratchpad for capturing fleeting thoughts, tasks, or insights without leaving your flow.
+- Real-time word and character counts.
+- Persistent local storage auto-save and one-click copy to clipboard.
+
+### 6. Distraction-Free Focus Mode
 - Clean minimal interface that auto-dims after 4 seconds of idle mouse activity.
 - Floating minimal timer pill with quick play/pause.
 - Fullscreen support (`F` or Fullscreen button).
 - Instant exit with `Esc`.
 
-### 5. Sound Presets & URL Sharing
+### 7. Sound Presets, URL Sharing & JSON Backup
 - **Curated Default Presets**: *Deep Focus*, *Cozy Night*, *Forest Morning*, *Ocean Calm*, *Sleep Mode*.
 - **Custom User Presets**: Save custom mixes, rename, and delete with confirmation dialogs.
 - **Shareable Preset URLs**: Encodes sound volume configurations and scene settings into base64 URL parameters for one-click sharing.
+- **JSON Export & Import**: Download your customized presets as a `.json` backup and import them on any machine.
 
-### 6. Local Session Statistics
+### 8. Local Session Statistics
 - Tracks total focus minutes, completed sessions, and today's milestones.
 - 7-day activity bar chart with daily peak indicators.
 - 100% local and private—no accounts, no tracking cookies, no server dependencies.
 
-### 7. Bilingual UI
+### 9. Bilingual UI & PWA Ready
 - Full bilingual English and Vietnamese (Tiếng Việt) localization switchable with one click.
+- Web App Manifest (`manifest.webmanifest`) configured for standalone PWA home screen installation.
 
 ---
 

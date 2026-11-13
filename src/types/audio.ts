@@ -9,7 +9,8 @@ export type ChannelId =
   | 'fire'
   | 'insects'
   | 'city'
-  | 'cosmic';
+  | 'cosmic'
+  | 'binaural';
 
 export interface ChannelConfig {
   id: ChannelId;

@@ -14,6 +14,8 @@ import {
   Play,
   Sparkles,
   Layers,
+  Download,
+  Upload,
 } from 'lucide-react';
 
 export const PresetsModal: React.FC = () => {
@@ -27,6 +29,7 @@ export const PresetsModal: React.FC = () => {
     deletePreset,
     renamePreset,
     exportPresetUrl,
+    importPresetsList,
   } = usePresetStore();
 
   const [isSavingNew, setIsSavingNew] = useState(false);
@@ -65,6 +68,41 @@ export const PresetsModal: React.FC = () => {
     await loadPreset(preset);
     showToast(getTranslation(language, 'presetLoadedSuccess', { name: preset.name }));
     closeModal();
+  };
+
+  const handleExportJson = () => {
+    if (userPresets.length === 0) return;
+    const blob = new Blob([JSON.stringify(userPresets, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `dreamscape-presets-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Presets exported successfully');
+  };
+
+  const handleImportJson = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const parsed = JSON.parse(event.target?.result as string);
+        const list = Array.isArray(parsed) ? parsed : [parsed];
+        const count = importPresetsList(list);
+        if (count > 0) {
+          showToast(getTranslation(language, 'presetsImportedSuccess', { count }));
+        } else {
+          showToast(getTranslation(language, 'invalidJsonFile'));
+        }
+      } catch {
+        showToast(getTranslation(language, 'invalidJsonFile'));
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
   };
 
   return (
@@ -131,10 +169,32 @@ export const PresetsModal: React.FC = () => {
         {/* User Saved Presets */}
         {userPresets.length > 0 && (
           <div className="space-y-2">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <Bookmark className="w-3.5 h-3.5 text-sky-400" />
-              <span>{getTranslation(language, 'savedPresets')}</span>
-            </h4>
+            <div className="flex items-center justify-between">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                <Bookmark className="w-3.5 h-3.5 text-sky-400" />
+                <span>{getTranslation(language, 'savedPresets')}</span>
+              </h4>
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={handleExportJson}
+                  className="px-2.5 py-1 rounded-lg glass-pill text-[11px] text-slate-300 hover:text-white flex items-center gap-1"
+                  title="Export presets JSON"
+                >
+                  <Download className="w-3 h-3 text-sky-400" />
+                  <span>{getTranslation(language, 'exportPresets')}</span>
+                </button>
+                <label className="px-2.5 py-1 rounded-lg glass-pill text-[11px] text-slate-300 hover:text-white flex items-center gap-1 cursor-pointer">
+                  <Upload className="w-3 h-3 text-emerald-400" />
+                  <span>{getTranslation(language, 'importPresets')}</span>
+                  <input
+                    type="file"
+                    accept=".json"
+                    onChange={handleImportJson}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+            </div>
 
             <div className="space-y-2">
               {userPresets.map(preset => {

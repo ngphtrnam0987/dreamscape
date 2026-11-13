@@ -9,6 +9,8 @@ export const en = {
   presets: 'Presets',
   sceneSettings: 'Atmosphere',
   statistics: 'Statistics',
+  breathe: 'Breathe',
+  quickNotes: 'Focus Notes',
   focusMode: 'Focus Mode',
   exitFocusMode: 'Exit Focus (Esc)',
   fullscreen: 'Fullscreen',
@@ -43,6 +45,7 @@ export const en = {
   chInsects: 'Night Insects',
   chCity: 'City Ambience',
   chCosmic: 'Cosmic Drone',
+  chBinaural: 'Binaural Beats (Alpha 10Hz)',
 
   // Categories
   catWeather: 'Weather',
@@ -83,6 +86,10 @@ export const en = {
   confirmDeletePreset: 'Are you sure you want to delete this preset?',
   sharePreset: 'Share Preset URL',
   copiedToClipboard: 'Shareable link copied to clipboard!',
+  exportPresets: 'Export JSON',
+  importPresets: 'Import JSON',
+  presetsImportedSuccess: 'Successfully imported {count} preset(s)!',
+  invalidJsonFile: 'Invalid preset file format',
 
   // Pomodoro Timer
   focus: 'Focus',
@@ -106,6 +113,25 @@ export const en = {
   sessionComplete: 'Session Complete!',
   focusCompleteMsg: 'Great job! Time to take a breather.',
   breakCompleteMsg: 'Break is over. Ready to dive back in?',
+
+  // Mindful Breathing Guide
+  breatheTitle: 'Mindful Breathing',
+  breatheDesc: 'Harmonize your nervous system and release tension through rhythmic breathing',
+  inhale: 'Inhale',
+  hold: 'Hold',
+  exhale: 'Exhale',
+  rest: 'Rest',
+  boxBreathing: 'Box Breathing (4-4-4-4)',
+  relaxing478: 'Relaxing 4-7-8',
+  deepCalm: 'Deep Calm (5-5)',
+  breathsCompleted: 'Cycles Completed',
+
+  // Focus Notes / Scratchpad
+  quickNotesDesc: 'Jot down fleeting ideas, tasks, or insights without leaving your flow',
+  notesPlaceholder: 'Write your thoughts, to-dos, or reflections here...',
+  copyNotes: 'Copy to Clipboard',
+  notesCopied: 'Notes copied to clipboard',
+  clearNotes: 'Clear Notes',
 
   // Atmosphere Settings
   brightness: 'Scene Brightness',

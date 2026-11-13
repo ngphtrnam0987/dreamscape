@@ -34,7 +34,9 @@ describe('AudioEngine', () => {
 
   it('starts and stops channels safely', async () => {
     await engine.startChannel('rain', 0.6);
+    await engine.startChannel('binaural', 0.5);
     expect(() => engine.stopChannel('rain')).not.toThrow();
+    expect(() => engine.stopChannel('binaural')).not.toThrow();
     expect(() => engine.stopAllChannels()).not.toThrow();
   });
 
