@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSceneStore } from '../stores/useSceneStore';
+import { useLofiStore } from '../stores/useLofiStore';
 import { RainyNightScene } from './RainyNight/RainyNightScene';
 import { ForestRetreatScene } from './ForestRetreat/ForestRetreatScene';
 import { OceanSunsetScene } from './OceanSunset/OceanSunsetScene';
@@ -8,13 +9,20 @@ import { CosmicDreamScene } from './CosmicDream/CosmicDreamScene';
 import { CherryBlossomScene } from './CherryBlossom/CherryBlossomScene';
 import { CozyCafeScene } from './CozyCafe/CozyCafeScene';
 import { SnowyAuroraScene } from './SnowyAurora/SnowyAuroraScene';
+import { NeonCyberpunkScene } from './NeonCyberpunk/NeonCyberpunkScene';
+import { BambooSanctuaryScene } from './BambooSanctuary/BambooSanctuaryScene';
 
 export const SceneContainer: React.FC = () => {
   const { currentSceneId, settings } = useSceneStore();
+  const { videoMode, isPlaying } = useLofiStore();
+
+  const isVideoBackdrop = isPlaying && videoMode === 'background';
 
   return (
     <div
-      className="fixed inset-0 w-full h-full overflow-hidden select-none transition-[filter] duration-500 pointer-events-none"
+      className={`fixed inset-0 w-full h-full overflow-hidden select-none transition-[filter] duration-500 pointer-events-none ${
+        isVideoBackdrop ? 'opacity-30' : 'opacity-100'
+      }`}
       style={{
         filter: `brightness(${settings.brightness})`,
       }}
@@ -90,6 +98,24 @@ export const SceneContainer: React.FC = () => {
         }`}
       >
         {currentSceneId === 'snowy-aurora' && <SnowyAuroraScene />}
+      </div>
+
+      {/* 9. Neon Cyberpunk Tokyo */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+          currentSceneId === 'neon-cyberpunk' ? 'opacity-100 z-10' : 'opacity-0 z-0'
+        }`}
+      >
+        {currentSceneId === 'neon-cyberpunk' && <NeonCyberpunkScene />}
+      </div>
+
+      {/* 10. Arashiyama Bamboo Grove */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+          currentSceneId === 'bamboo-sanctuary' ? 'opacity-100 z-10' : 'opacity-0 z-0'
+        }`}
+      >
+        {currentSceneId === 'bamboo-sanctuary' && <BambooSanctuaryScene />}
       </div>
 
       {/* Vignette & Scene Overlay Darkening Filter */}

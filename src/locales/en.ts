@@ -38,13 +38,26 @@ export const en = {
   sceneCozyCafeDesc: 'Warm coffee shop with steamed window overlooking a rainy metropolis.',
   sceneSnowyAurora: 'Snowy Aurora',
   sceneSnowyAuroraDesc: 'Majestic arctic mountains under dancing emerald and violet northern lights.',
+  sceneNeonCyberpunk: 'Neon Tokyo Rain',
+  sceneNeonCyberpunkDesc: 'Rain-slicked alleyway glowing with neon signs, lanterns, and distant futuristic traffic.',
+  sceneBambooSanctuary: 'Arashiyama Bamboo Grove',
+  sceneBambooSanctuaryDesc: 'Tranquil Kyoto bamboo forest with swaying culms, mossy stone lantern, and fireflies.',
 
-  // Lofi Radio
-  lofiRadio: 'Lofi Girl Radio',
-  lofiStations: 'Curated Stations',
-  lofiVolume: 'Lofi Music Volume',
+  // Lofi Radio & Study With Me
+  lofiRadio: 'Lofi Girl & Study With Me',
+  lofiStations: 'Curated Channels',
+  lofiVolume: 'Stream Volume',
   customYoutube: '+ Custom YouTube Stream',
-  lofiTip: 'Lofi Girl beats blend seamlessly alongside ambient rain, fireplace, and nature soundscapes!',
+  lofiTip: 'Study streams and Lo-Fi beats blend seamlessly alongside ambient rain, fireplace, and nature soundscapes!',
+  studyWithMe: 'Study With Me',
+  studyWithMeDesc: 'Live study companion streams and real-time focus sessions',
+  videoMode: 'Video Display Mode',
+  pipMode: 'Picture-in-Picture',
+  backgroundVideoMode: 'Fullscreen Backdrop',
+  audioOnlyMode: 'Audio Only',
+  allStations: 'All Streams',
+  studyStations: 'Study With Me',
+  lofiStationsTab: 'Lo-Fi Chill Beats',
 
   // Channels
   chRain: 'Rain',
@@ -166,6 +179,12 @@ export const en = {
   starDensity: 'Cosmic Star Density',
   cameraDriftEnabled: 'Slow Celestial Camera Drift',
   nebulaGlow: 'Nebula Luminance',
+  neonGlow: 'Neon Glow Luminance',
+  cyberRainIntensity: 'Cyber Rain Density',
+  hologramFlicker: 'Hologram Ambient Pulse',
+  fireflyDensity: 'Firefly Density',
+  bambooSway: 'Bamboo Sway Speed',
+  mistDensity: 'Ground Mist Density',
 
   // Statistics
   statsTitle: 'Focus Statistics',

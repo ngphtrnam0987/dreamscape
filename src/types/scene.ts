@@ -6,7 +6,9 @@ export type SceneId =
   | 'cosmic-dream'
   | 'cherry-blossom'
   | 'cozy-cafe'
-  | 'snowy-aurora';
+  | 'snowy-aurora'
+  | 'neon-cyberpunk'
+  | 'bamboo-sanctuary';
 
 export interface SceneSpecificSettings {
   // Rainy Night
@@ -44,6 +46,16 @@ export interface SceneSpecificSettings {
   snowIntensity?: number; // 0.2 - 2.0
   auroraSpeed?: number; // 0.2 - 2.0
   auroraGlow?: number; // 0.5 - 1.5
+
+  // Neon Cyberpunk
+  neonGlow?: number; // 0.5 - 1.5
+  cyberRainIntensity?: number; // 0.2 - 2.0
+  hologramFlicker?: boolean;
+
+  // Bamboo Sanctuary
+  fireflyDensity?: number; // 0.2 - 2.0
+  bambooSway?: number; // 0.2 - 2.0
+  mistDensity?: number; // 0.2 - 2.0
 }
 
 export interface SceneSettings {

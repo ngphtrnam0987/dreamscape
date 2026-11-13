@@ -72,6 +72,39 @@ window.AudioContext = AudioContextMock;
 // @ts-expect-error mock webkitAudioContext
 window.webkitAudioContext = AudioContextMock;
 
+// Mock canvas-confetti
+vi.mock('canvas-confetti', () => {
+  const confetti = vi.fn();
+  // @ts-expect-error mock properties
+  confetti.reset = vi.fn();
+  // @ts-expect-error mock properties
+  confetti.create = vi.fn(() => vi.fn());
+  return { default: confetti };
+});
+
+// Mock HTMLCanvasElement getContext
+HTMLCanvasElement.prototype.getContext = vi.fn().mockImplementation((contextId: string) => {
+  if (contextId === '2d') {
+    return {
+      clearRect: vi.fn(),
+      fillRect: vi.fn(),
+      beginPath: vi.fn(),
+      closePath: vi.fn(),
+      arc: vi.fn(),
+      fill: vi.fn(),
+      stroke: vi.fn(),
+      save: vi.fn(),
+      restore: vi.fn(),
+      translate: vi.fn(),
+      rotate: vi.fn(),
+      scale: vi.fn(),
+      drawImage: vi.fn(),
+      measureText: vi.fn().mockReturnValue({ width: 0 }),
+    };
+  }
+  return null;
+}) as any;
+
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

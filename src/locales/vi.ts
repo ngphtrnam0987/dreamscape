@@ -40,13 +40,26 @@ export const vi: Record<TranslationKey, string> = {
   sceneCozyCafeDesc: 'Góc quán cà phê ấm cúng với ly cà phê bốc khói nhìn ra mưa phố đêm.',
   sceneSnowyAurora: 'Cực Quang Tuyết Trắng',
   sceneSnowyAuroraDesc: 'Dải cực quang huyền ảo nhảy múa trên nền trời bắc cực và núi tuyết trắng.',
+  sceneNeonCyberpunk: 'Phố Đêm Tokyo Mưa',
+  sceneNeonCyberpunkDesc: 'Hẻm phố Tokyo ngập tràn ánh đèn neon huyền ảo và mặt đường ướt mưa phản chiếu.',
+  sceneBambooSanctuary: 'Rừng Trúc & Đom Đóm',
+  sceneBambooSanctuaryDesc: 'Rừng trúc Arashiyama tĩnh mịch lung linh ánh đom đóm và đèn đá rêu phong.',
 
-  // Lofi Radio
-  lofiRadio: 'Đài Nhạc Lofi Girl',
+  // Lofi Radio & Study With Me
+  lofiRadio: 'Đài Nhạc Lofi & Study With Me',
   lofiStations: 'Kênh Phát Tuyển Chọn',
-  lofiVolume: 'Âm Lượng Nhạc Lofi',
+  lofiVolume: 'Âm Lượng Kênh Phát',
   customYoutube: '+ Nhập Luồng YouTube',
-  lofiTip: 'Nhạc Lofi Girl phối hợp mượt mà cùng tiếng mưa rơi, lò sưởi và âm thanh thiên nhiên!',
+  lofiTip: 'Video học cùng và nhạc Lofi Girl phối hợp mượt mà cùng tiếng mưa, lò sưởi và âm thanh thiên nhiên!',
+  studyWithMe: 'Học Cùng Tôi (Study With Me)',
+  studyWithMeDesc: 'Luồng video trực tiếp bạn đồng hành học tập và làm việc thời gian thực',
+  videoMode: 'Chế Độ Hiển Thị Video',
+  pipMode: 'Cửa Sổ Thu Nhỏ (PiP)',
+  backgroundVideoMode: 'Toàn Màn Hình Nền',
+  audioOnlyMode: 'Chỉ Nghe Âm Thanh',
+  allStations: 'Tất Cả Kênh',
+  studyStations: 'Study With Me 📹',
+  lofiStationsTab: 'Nhạc Lofi Chill 🎵',
 
   // Channels
   chRain: 'Tiếng Mưa',
@@ -168,6 +181,12 @@ export const vi: Record<TranslationKey, string> = {
   starDensity: 'Mật Độ Sao Vũ Trụ',
   cameraDriftEnabled: 'Chuyển Động Trôi Chậm',
   nebulaGlow: 'Độ Sáng Tinh Vân',
+  neonGlow: 'Độ Rực Rỡ Đèn Neon',
+  cyberRainIntensity: 'Mật Độ Mưa Cyber',
+  hologramFlicker: 'Hiệu Ứng Hologram Chớp Nháy',
+  fireflyDensity: 'Mật Độ Đom Đóm',
+  bambooSway: 'Tốc Độ Cây Trúc Lay',
+  mistDensity: 'Độ Dày Sương Đất',
 
   // Statistics
   statsTitle: 'Thống Kê Tập Trung',

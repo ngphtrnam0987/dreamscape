@@ -8,26 +8,32 @@ DreamScape is a production-grade, immersive ambient sanctuary designed to help p
 
 ## 🌟 Key Features
 
-### 1. Eight Dynamic Interactive Atmospheric Scenery
+### 1. Ten Dynamic Interactive Atmospheric Scenery
 Each scene is dynamically rendered with real-time canvas physics, atmospheric depth, and customizable parameters:
 - **🌧️ Rainy Night**: A cozy room overlooking a rain-swept nocturnal metropolis with window streaks, raindrop physics, warm ambient lamp glow, and occasional lightning flashes.
 - **🌲 Forest Retreat**: Early morning canopy with volumetric fog mist, gentle swaying emerald leaves, moving sunlight god rays, and floating light motes.
 - **🌅 Ocean Sunset**: Peaceful golden hour beach with multi-harmonic ocean wave simulations, sunset sky gradient, clouds, and specular solar glints.
 - **🔥 Cozy Fireplace**: Warm mountain cabin hearth with procedural flame dancing, glowing wood coals, floating embers, and optional window rain.
 - **✨ Cosmic Dream**: Dreamlike deep space with 3D parallax starfield, celestial nebulae luminance, camera drift, and shooting stars.
-- **🌸 Cherry Blossom Shrine (New!)**: Kyoto Zen garden with pagodas, stone lantern candle flickers, and gentle drifting pink sakura blossom petals.
-- **☕ Cozy Rainy Cafe (New!)**: Warm lofi coffee shop interior with steaming coffee mug, hanging Edison bulb, blurred streetlights, and rain on the window.
-- **🏔️ Snowy Aurora (New!)**: Majestic snow-capped arctic mountain peaks, shimmering emerald and violet northern lights (Aurora Borealis), and drifting snow.
+- **🌸 Cherry Blossom Shrine**: Kyoto Zen garden with pagodas, stone lantern candle flickers, and gentle drifting pink sakura blossom petals.
+- **☕ Cozy Rainy Cafe**: Warm lofi coffee shop interior with steaming coffee mug, hanging Edison bulb, blurred streetlights, and rain on the window.
+- **🏔️ Snowy Aurora**: Majestic snow-capped arctic mountain peaks, shimmering emerald and violet northern lights (Aurora Borealis), and drifting snow.
+- **⚡ Neon Tokyo Rain (New!)**: Shinjuku cyberpunk rainy alleyway with glowing neon kanji signs, hanging paper lanterns, reflective wet asphalt, and steam vents.
+- **🎋 Arashiyama Bamboo Grove (New!)**: Tranquil Japanese bamboo sanctuary with swaying green culms, rolling ground mist, ancient mossy stone lanterns, and thousands of pulsating fireflies.
 
-### 2. Official Lofi Girl Radio & YouTube Player (New!)
-- **Embedded 24/7 Lofi Girl Streams**: Official streams from YouTube embedded seamlessly:
-  - 🎧 *Lofi Girl — Beats to Relax/Study to* (24/7 live stream)
-  - 💤 *Lofi Girl — Beats to Sleep/Chill to* (24/7 sleep stream)
-  - ☕ *Peaceful Coffee Shop Lofi Piano*
-  - 🌆 *Synthwave Chill Radio — Retro Sunset Drive*
-- **Custom YouTube Stream Link**: Paste any YouTube live stream, music link, or video ID to play directly inside DreamScape!
-- **Independent Lofi Volume Mixing**: Blends harmoniously with rain, fireplace, stream, and nature soundscapes without overpowering.
-- **Animated Vinyl & Audio Visualizer**: Real-time rotating vinyl record and dock audio visualizer equalizers.
+### 2. Live "Study With Me" Video Feeds & Lofi Girl Radio (New!)
+- **Real-Time Study With Me Video Companions**: Live YouTube study sessions to keep you accountable and focused:
+  - 📹 *Lofi Girl Official Live Study Desk (24/7)*
+  - 🌧️ *Rainy Room Study With Me (Pomodoro 50/10 Session)*
+  - 📚 *Vintage Midnight Library — 3H Deep Study Session*
+  - ☕ *Seoul Rain Cafe — Realtime Study & Work With Me*
+- **3 Flexible Video Display Modes**:
+  - 🖼️ **Picture-in-Picture (PiP)**: Elegant floating video player in the corner of your screen with quick controls.
+  - 🖥️ **Fullscreen Video Backdrop**: Embed the live video across your entire screen behind the floating UI controls while preserving scene ambient particle overlays.
+  - 🎧 **Audio Only**: Hide the video completely to save bandwidth while enjoying continuous background audio stream.
+- **Curated Lofi Girl Channels**: 24/7 Lo-Fi beats, sleep radio, acoustic cafe piano, and retro synthwave chill.
+- **Custom YouTube Embed**: Paste any YouTube video URL or live stream link to embed your favorite study buddy or playlist.
+- **Seamless Soundscape Layering**: Stream audio and videos blend harmoniously with procedural rain, thunder, stream, and nature soundscapes without clipping.
 
 ### 3. Centralized Web Audio API Multi-Channel Mixer
 - **12 Audio Channels**: Rain, Thunder, Wind, Songbirds, Forest Canopy, Babbling Stream, Ocean Waves, Fireplace Hearth, Night Insects, City Ambience, Cosmic Drone, and **Binaural Beats (Alpha 10Hz)** for cognitive flow state.

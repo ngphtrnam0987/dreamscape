@@ -90,6 +90,28 @@ export const SCENES_INFO: SceneInfo[] = [
     themeGradient: 'from-teal-950 via-slate-950 to-cyan-950',
     defaultChannels: [{ id: 'wind', volume: 0.5 }, { id: 'cosmic', volume: 0.4 }],
   },
+  {
+    id: 'neon-cyberpunk',
+    name: 'Neon Tokyo Rain',
+    nameVi: 'Phố Đêm Tokyo Mưa',
+    subtitle: 'Futuristic neon alleys & glistening wet asphalt',
+    subtitleVi: 'Hẻm phố Tokyo ngập tràn ánh đèn neon huyền ảo',
+    badge: 'Vibrant & Cinematic',
+    accentColor: '#06b6d4',
+    themeGradient: 'from-cyan-950 via-fuchsia-950 to-slate-950',
+    defaultChannels: [{ id: 'rain', volume: 0.7 }, { id: 'city', volume: 0.55 }, { id: 'cosmic', volume: 0.3 }],
+  },
+  {
+    id: 'bamboo-sanctuary',
+    name: 'Arashiyama Bamboo Grove',
+    nameVi: 'Rừng Trúc & Đom Đóm',
+    subtitle: 'Whispering bamboo forest & glowing fireflies',
+    subtitleVi: 'Rừng trúc Arashiyama lung linh hàng vạn đom đóm',
+    badge: 'Mystical & Serene',
+    accentColor: '#84cc16',
+    themeGradient: 'from-lime-950 via-emerald-950 to-slate-950',
+    defaultChannels: [{ id: 'wind', volume: 0.4 }, { id: 'insects', volume: 0.6 }, { id: 'forest', volume: 0.45 }],
+  },
 ];
 
 const DEFAULT_SETTINGS: SceneSettings = {
@@ -107,6 +129,8 @@ const DEFAULT_SETTINGS: SceneSettings = {
     'cherry-blossom': { petalDensity: 1.0, windBreeze: 1.0 },
     'cozy-cafe': { cafeLighting: 1.0, steamIntensity: 1.0, windowRain: true },
     'snowy-aurora': { snowIntensity: 1.0, auroraSpeed: 1.0, auroraGlow: 1.0 },
+    'neon-cyberpunk': { neonGlow: 1.0, cyberRainIntensity: 1.0, hologramFlicker: true },
+    'bamboo-sanctuary': { fireflyDensity: 1.0, bambooSway: 1.0, mistDensity: 1.0 },
   },
 };
 

@@ -3,7 +3,7 @@ import { useUIStore } from '../../stores/useUIStore';
 import { useSceneStore, SCENES_INFO } from '../../stores/useSceneStore';
 import { Modal } from '../ui/Modal';
 import { getTranslation } from '../../locales';
-import { Check, CloudRain, Trees, Waves, Flame, MoonStar, Flower, Coffee, MountainSnow } from 'lucide-react';
+import { Check, CloudRain, Trees, Waves, Flame, MoonStar, Flower, Coffee, MountainSnow, Zap, Sprout } from 'lucide-react';
 import { SceneId } from '../../types/scene';
 
 export const SceneSelectorModal: React.FC = () => {
@@ -20,6 +20,8 @@ export const SceneSelectorModal: React.FC = () => {
       case 'cherry-blossom': return <Flower className="w-5 h-5 text-pink-400" />;
       case 'cozy-cafe': return <Coffee className="w-5 h-5 text-amber-500" />;
       case 'snowy-aurora': return <MountainSnow className="w-5 h-5 text-teal-400" />;
+      case 'neon-cyberpunk': return <Zap className="w-5 h-5 text-cyan-400" />;
+      case 'bamboo-sanctuary': return <Sprout className="w-5 h-5 text-lime-400" />;
     }
   };
 

@@ -328,6 +328,72 @@ export const SceneSettingsModal: React.FC = () => {
               />
             </>
           )}
+
+          {/* Neon Cyberpunk Tokyo */}
+          {currentSceneId === 'neon-cyberpunk' && (
+            <>
+              <Slider
+                label={getTranslation(language, 'neonGlow')}
+                min={0.5}
+                max={1.5}
+                step={0.05}
+                value={specific.neonGlow ?? 1.0}
+                onChange={val => updateSpecificSettings('neon-cyberpunk', { neonGlow: val })}
+                formatValue={v => `${Math.round(v * 100)}%`}
+              />
+              <Slider
+                label={getTranslation(language, 'cyberRainIntensity')}
+                min={0.2}
+                max={2.0}
+                step={0.1}
+                value={specific.cyberRainIntensity ?? 1.0}
+                onChange={val => updateSpecificSettings('neon-cyberpunk', { cyberRainIntensity: val })}
+                formatValue={v => `${Math.round(v * 100)}%`}
+              />
+              <label className="flex items-center justify-between text-xs text-slate-300 cursor-pointer pt-1">
+                <span>{getTranslation(language, 'hologramFlicker')}</span>
+                <input
+                  type="checkbox"
+                  checked={specific.hologramFlicker ?? true}
+                  onChange={e => updateSpecificSettings('neon-cyberpunk', { hologramFlicker: e.target.checked })}
+                  className="w-4 h-4 accent-cyan-400 rounded"
+                />
+              </label>
+            </>
+          )}
+
+          {/* Bamboo Sanctuary */}
+          {currentSceneId === 'bamboo-sanctuary' && (
+            <>
+              <Slider
+                label={getTranslation(language, 'fireflyDensity')}
+                min={0.2}
+                max={2.0}
+                step={0.1}
+                value={specific.fireflyDensity ?? 1.0}
+                onChange={val => updateSpecificSettings('bamboo-sanctuary', { fireflyDensity: val })}
+                formatValue={v => `${Math.round(v * 100)}%`}
+              />
+              <Slider
+                label={getTranslation(language, 'bambooSway')}
+                min={0.2}
+                max={2.0}
+                step={0.1}
+                value={specific.bambooSway ?? 1.0}
+                onChange={val => updateSpecificSettings('bamboo-sanctuary', { bambooSway: val })}
+                formatValue={v => `${v.toFixed(1)}x`}
+              />
+              <Slider
+                label={getTranslation(language, 'mistDensity')}
+                min={0.2}
+                max={2.0}
+                step={0.1}
+                value={specific.mistDensity ?? 1.0}
+                onChange={val => updateSpecificSettings('bamboo-sanctuary', { mistDensity: val })}
+                formatValue={v => `${Math.round(v * 100)}%`}
+              />
+            </>
+          )}
         </div>
 
         {/* Reset Button */}

@@ -1,3 +1,5 @@
+export type VideoMode = 'hidden' | 'pip' | 'background';
+
 export interface LofiStation {
   id: string;
   title: string;
@@ -6,6 +8,7 @@ export interface LofiStation {
   badge: string;
   youtubeId: string;
   thumbnail: string;
+  isStudyWithMe?: boolean;
 }
 
 export interface LofiState {
@@ -14,5 +17,5 @@ export interface LofiState {
   volume: number; // 0 to 1
   stations: LofiStation[];
   customYoutubeId: string | null;
-  showPlayerModal: boolean;
+  videoMode: VideoMode;
 }
