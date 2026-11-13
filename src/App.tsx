@@ -2,6 +2,7 @@ import React from 'react';
 import { SceneContainer } from './scenes/SceneContainer';
 import { Header } from './components/layout/Header';
 import { BottomControls } from './components/layout/BottomControls';
+import { AmbientClock } from './components/timer/AmbientClock';
 import { FocusModeOverlay } from './components/timer/FocusModeOverlay';
 import { SceneSelectorModal } from './components/navigation/SceneSelectorModal';
 import { AudioMixerPanel } from './components/audio/AudioMixerPanel';
@@ -31,6 +32,7 @@ export const App: React.FC = () => {
 
       {/* Primary Floating Application Chrome */}
       <Header />
+      <AmbientClock />
       <BottomControls />
       <FocusModeOverlay />
 

@@ -42,7 +42,15 @@ Each scene is dynamically rendered with real-time canvas physics, atmospheric de
 - **Master Controls**: Master volume slider, global mute (M), "Stop All", and "Reset Mixer".
 - **Integrated Sleep Timer**: Configurable timers (15m, 30m, 45m, 60m, or custom) with smooth 15-second master volume fade-out.
 
-### 3. Pomodoro Focus Timer & Confetti Celebration
+### 4. Pomodoro Focus Timer & Ambient Screen Clock (New!)
+- **Adjustable Clock Sizes**:
+  - 📏 **Small (Nhỏ)**: Compact floating glass pill widget for minimal screen footprint.
+  - 📐 **Medium (Vừa)**: Elegant frosted glass card with status badge, progress bar, and playback controls.
+  - 🖥️ **Large (To / Cinematic)**: Majestic, aesthetic center clock with glowing atmosphere-matched font (`text-9xl`), perfect for secondary monitor desk setups and deep focus sessions.
+  - 👁️ **Hidden (Ẩn)**: Completely hides the on-screen clock widget for zero distraction.
+- **Dual Display Modes**:
+  - ⏳ **Pomodoro Countdown**: Remaining session time, cycle progress, and pause/resume states.
+  - 🕒 **Real-Time Digital Clock**: Current local time (12h/24h) with localized date and day of week.
 - **High-Precision Timestamp Synchronization**: Drift-free calculation (`targetEndTime - Date.now()`) that remains perfectly accurate across background tabs, tab switches, and system sleep.
 - **Modes**: Focus (25 min), Short Break (5 min), Long Break (15 min) with custom duration configuration.
 - **Circular Animated Progress Ring**: Real-time SVG stroke calculation.

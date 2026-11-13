@@ -20,7 +20,7 @@ import {
 export const BottomControls: React.FC = () => {
   const { openModal, toggleModal, isFocusMode, language, isFullscreen, toggleFullscreen } = useUIStore();
   const { masterVolume, setMasterVolume, isMuted, toggleMute, channels, sleepTimerRemainingSeconds } = useAudioStore();
-  const { remainingSeconds, isRunning, mode } = useTimerStore();
+  const { remainingSeconds, isRunning, mode, settings, toggleClockSize } = useTimerStore();
   const { isPlaying: isLofiPlaying } = useLofiStore();
 
   if (isFocusMode) return null;
@@ -82,22 +82,36 @@ export const BottomControls: React.FC = () => {
           )}
         </button>
 
-        {/* Pomodoro Timer Toggle */}
-        <button
-          onClick={() => toggleModal('timer')}
-          className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-            isRunning
-              ? 'bg-amber-500/25 border border-amber-400/40 text-amber-200 shadow-sm animate-pulse-subtle'
-              : 'glass-pill text-slate-300 hover:text-white'
-          }`}
-          title={getTranslation(language, 'focusTimer')}
-        >
-          <Timer className="w-4 h-4 text-amber-400" />
-          <span className="font-mono text-xs">{formatTimerMinSec(remainingSeconds)}</span>
-          <span className="hidden md:inline text-[11px] text-slate-400">
-            ({mode === 'focus' ? 'Focus' : 'Break'})
-          </span>
-        </button>
+        {/* Pomodoro Timer Toggle & Size Pill */}
+        <div className="flex items-center gap-0.5">
+          <button
+            onClick={() => toggleModal('timer')}
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-l-xl text-xs font-medium transition-all ${
+              isRunning
+                ? 'bg-amber-500/25 border border-r-0 border-amber-400/40 text-amber-200 shadow-sm animate-pulse-subtle'
+                : 'glass-pill rounded-r-none border-r-0 text-slate-300 hover:text-white'
+            }`}
+            title={getTranslation(language, 'focusTimer')}
+          >
+            <Timer className="w-4 h-4 text-amber-400" />
+            <span className="font-mono text-xs">{formatTimerMinSec(remainingSeconds)}</span>
+            <span className="hidden md:inline text-[11px] text-slate-400">
+              ({mode === 'focus' ? 'Focus' : 'Break'})
+            </span>
+          </button>
+
+          <button
+            onClick={toggleClockSize}
+            className={`px-2 py-2 rounded-r-xl border border-l-0 text-[10px] font-mono font-bold uppercase transition-all ${
+              isRunning
+                ? 'bg-amber-500/20 border-amber-400/40 text-amber-300 hover:bg-amber-500/30'
+                : 'glass-pill rounded-l-none text-slate-400 hover:text-white'
+            }`}
+            title={`Clock Size: ${settings.clockSize || 'medium'} (Click to cycle Small / Medium / Large / Hidden)`}
+          >
+            {(settings.clockSize || 'medium')[0]}
+          </button>
+        </div>
 
         {/* Presets */}
         <button

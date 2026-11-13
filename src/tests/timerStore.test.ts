@@ -58,4 +58,31 @@ describe('useTimerStore', () => {
     expect(after.completedSessions).toBe(initialCompleted + 1);
     expect(after.mode).toBe('short-break');
   });
+
+  it('updates clockSize and toggles size correctly', () => {
+    const store = useTimerStore.getState();
+    store.setClockSize('small');
+    expect(useTimerStore.getState().settings.clockSize).toBe('small');
+
+    store.toggleClockSize(); // small -> medium
+    expect(useTimerStore.getState().settings.clockSize).toBe('medium');
+
+    store.toggleClockSize(); // medium -> large
+    expect(useTimerStore.getState().settings.clockSize).toBe('large');
+
+    store.toggleClockSize(); // large -> hidden
+    expect(useTimerStore.getState().settings.clockSize).toBe('hidden');
+
+    store.toggleClockSize(); // hidden -> small
+    expect(useTimerStore.getState().settings.clockSize).toBe('small');
+  });
+
+  it('updates clockDisplayType between pomodoro and realtime', () => {
+    const store = useTimerStore.getState();
+    store.setClockDisplayType('realtime');
+    expect(useTimerStore.getState().settings.clockDisplayType).toBe('realtime');
+
+    store.setClockDisplayType('pomodoro');
+    expect(useTimerStore.getState().settings.clockDisplayType).toBe('pomodoro');
+  });
 });

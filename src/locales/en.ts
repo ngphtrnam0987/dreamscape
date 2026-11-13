@@ -139,6 +139,15 @@ export const en = {
   sessionComplete: 'Session Complete!',
   focusCompleteMsg: 'Great job! Time to take a breather.',
   breakCompleteMsg: 'Break is over. Ready to dive back in?',
+  clockSize: 'Clock Size',
+  clockSizeSmall: 'Small',
+  clockSizeMedium: 'Medium',
+  clockSizeLarge: 'Large (Cinematic)',
+  clockSizeHidden: 'Hidden',
+  clockDisplayType: 'Display Mode',
+  clockTypePomodoro: 'Pomodoro Countdown',
+  clockTypeRealtime: 'Real-Time Clock',
+  clockSizeHint: 'Customize on-screen clock size from minimal pill to cinematic desk clock',
 
   // Mindful Breathing Guide
   breatheTitle: 'Mindful Breathing',

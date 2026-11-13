@@ -1,5 +1,8 @@
 export type TimerMode = 'focus' | 'short-break' | 'long-break';
 
+export type ClockSize = 'hidden' | 'small' | 'medium' | 'large';
+export type ClockDisplayType = 'pomodoro' | 'realtime';
+
 export interface TimerSettings {
   focusMinutes: number;
   shortBreakMinutes: number;
@@ -8,6 +11,8 @@ export interface TimerSettings {
   autoStartBreaks: boolean;
   autoStartFocus: boolean;
   soundAlertEnabled: boolean;
+  clockSize: ClockSize;
+  clockDisplayType: ClockDisplayType;
 }
 
 export interface PomodoroState {

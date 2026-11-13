@@ -13,6 +13,7 @@ import {
   Settings,
   Bell,
   CheckCircle,
+  Clock,
 } from 'lucide-react';
 
 export const PomodoroTimerModal: React.FC = () => {
@@ -91,6 +92,58 @@ export const PomodoroTimerModal: React.FC = () => {
               {m.label}
             </button>
           ))}
+        </div>
+
+        {/* On-Screen Clock Size Quick Selector */}
+        <div className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-white/5 border border-white/10 text-xs">
+          <div className="flex items-center gap-1.5 text-slate-300">
+            <Clock className="w-3.5 h-3.5 text-amber-400" />
+            <span className="font-medium">{getTranslation(language, 'clockSize')}</span>
+          </div>
+
+          <div className="flex items-center gap-1 bg-slate-900/80 p-0.5 rounded-xl border border-white/10 font-mono text-[11px]">
+            <button
+              onClick={() => updateSettings({ clockSize: 'small' })}
+              className={`px-2.5 py-1 rounded-lg transition-all ${
+                (settings.clockSize || 'medium') === 'small'
+                  ? 'bg-amber-500 text-slate-950 font-bold shadow-sm'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              {getTranslation(language, 'clockSizeSmall')}
+            </button>
+            <button
+              onClick={() => updateSettings({ clockSize: 'medium' })}
+              className={`px-2.5 py-1 rounded-lg transition-all ${
+                (settings.clockSize || 'medium') === 'medium'
+                  ? 'bg-amber-500 text-slate-950 font-bold shadow-sm'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              {getTranslation(language, 'clockSizeMedium')}
+            </button>
+            <button
+              onClick={() => updateSettings({ clockSize: 'large' })}
+              className={`px-2.5 py-1 rounded-lg transition-all ${
+                (settings.clockSize || 'medium') === 'large'
+                  ? 'bg-amber-500 text-slate-950 font-bold shadow-sm'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              {getTranslation(language, 'clockSizeLarge')}
+            </button>
+            <button
+              onClick={() => updateSettings({ clockSize: 'hidden' })}
+              className={`px-2 py-1 rounded-lg transition-all ${
+                settings.clockSize === 'hidden'
+                  ? 'bg-rose-500/30 text-rose-300 font-bold'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+              title="Hide Clock"
+            >
+              {getTranslation(language, 'clockSizeHidden')}
+            </button>
+          </div>
         </div>
 
         {/* Circular Dial Timer */}
@@ -200,6 +253,35 @@ export const PomodoroTimerModal: React.FC = () => {
                 <span>Enable Notifications</span>
               </button>
             </h4>
+
+            {/* Display Mode Selection */}
+            <div className="flex items-center justify-between pt-1">
+              <span className="text-slate-300 font-medium">{getTranslation(language, 'clockDisplayType')}</span>
+              <div className="flex items-center gap-1 bg-slate-900/80 p-0.5 rounded-xl border border-white/10 text-[11px]">
+                <button
+                  type="button"
+                  onClick={() => updateSettings({ clockDisplayType: 'pomodoro' })}
+                  className={`px-2.5 py-1 rounded-lg transition-all ${
+                    (settings.clockDisplayType || 'pomodoro') === 'pomodoro'
+                      ? 'bg-amber-500 text-slate-950 font-bold'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {getTranslation(language, 'clockTypePomodoro')}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => updateSettings({ clockDisplayType: 'realtime' })}
+                  className={`px-2.5 py-1 rounded-lg transition-all ${
+                    settings.clockDisplayType === 'realtime'
+                      ? 'bg-amber-500 text-slate-950 font-bold'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {getTranslation(language, 'clockTypeRealtime')}
+                </button>
+              </div>
+            </div>
 
             {/* Durations Inputs */}
             <div className="grid grid-cols-3 gap-2">

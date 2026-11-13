@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import confetti from 'canvas-confetti';
-import { TimerMode, TimerSettings } from '../types/timer';
+import { TimerMode, TimerSettings, ClockSize, ClockDisplayType } from '../types/timer';
 import { audioEngine } from '../audio/AudioEngine';
 import { useStatsStore } from './useStatsStore';
 
@@ -20,6 +20,9 @@ interface TimerStoreState {
   skipSession: () => void;
   setMode: (mode: TimerMode) => void;
   updateSettings: (partial: Partial<TimerSettings>) => void;
+  setClockSize: (size: ClockSize) => void;
+  setClockDisplayType: (type: ClockDisplayType) => void;
+  toggleClockSize: () => void;
   tick: () => void;
 }
 
@@ -31,6 +34,8 @@ const DEFAULT_SETTINGS: TimerSettings = {
   autoStartBreaks: false,
   autoStartFocus: false,
   soundAlertEnabled: true,
+  clockSize: 'medium',
+  clockDisplayType: 'pomodoro',
 };
 
 const STORAGE_KEY = 'dreamscape_timer_state';
@@ -192,6 +197,25 @@ export const useTimerStore = create<TimerStoreState>((set, get) => ({
       saveTimerToStorage({ ...state, ...newState });
       return newState;
     });
+  },
+
+  setClockSize: (clockSize: ClockSize) => {
+    get().updateSettings({ clockSize });
+  },
+
+  setClockDisplayType: (clockDisplayType: ClockDisplayType) => {
+    get().updateSettings({ clockDisplayType });
+  },
+
+  toggleClockSize: () => {
+    const current = get().settings.clockSize;
+    const cycle: Record<ClockSize, ClockSize> = {
+      small: 'medium',
+      medium: 'large',
+      large: 'hidden',
+      hidden: 'small',
+    };
+    get().setClockSize(cycle[current] || 'medium');
   },
 
   tick: () => {

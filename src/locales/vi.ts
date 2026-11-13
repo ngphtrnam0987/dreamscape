@@ -141,6 +141,15 @@ export const vi: Record<TranslationKey, string> = {
   sessionComplete: 'Hoàn Thành Phiên!',
   focusCompleteMsg: 'Tuyệt vời! Hãy dành chút thời gian thư giãn mắt và cơ thể.',
   breakCompleteMsg: 'Hết giờ nghỉ. Sẵn sàng bắt đầu phiên tập trung mới chưa?',
+  clockSize: 'Kích Thước Đồng Hồ',
+  clockSizeSmall: 'Nhỏ',
+  clockSizeMedium: 'Vừa',
+  clockSizeLarge: 'To (Toàn Cảnh)',
+  clockSizeHidden: 'Ẩn',
+  clockDisplayType: 'Chế Độ Hiển Thị',
+  clockTypePomodoro: 'Đếm Ngược Pomodoro',
+  clockTypeRealtime: 'Đồng Hồ Thực Tế',
+  clockSizeHint: 'Tùy chỉnh kích thước đồng hồ trên màn hình từ nhỏ gọn tới đồng hồ lớn phong cách rạp chiếu phim',
 
   // Mindful Breathing Guide
   breatheTitle: 'Thở Chánh Niệm',
