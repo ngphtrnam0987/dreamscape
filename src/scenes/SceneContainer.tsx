@@ -1,0 +1,76 @@
+import React from 'react';
+import { useSceneStore } from '../stores/useSceneStore';
+import { RainyNightScene } from './RainyNight/RainyNightScene';
+import { ForestRetreatScene } from './ForestRetreat/ForestRetreatScene';
+import { OceanSunsetScene } from './OceanSunset/OceanSunsetScene';
+import { CozyFireplaceScene } from './CozyFireplace/CozyFireplaceScene';
+import { CosmicDreamScene } from './CosmicDream/CosmicDreamScene';
+
+export const SceneContainer: React.FC = () => {
+  const { currentSceneId, settings } = useSceneStore();
+
+  return (
+    <div
+      className="fixed inset-0 w-full h-full overflow-hidden select-none transition-[filter] duration-500 pointer-events-none"
+      style={{
+        filter: `brightness(${settings.brightness})`,
+      }}
+      aria-hidden="true"
+    >
+      {/* 1. Rainy Night */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+          currentSceneId === 'rainy-night' ? 'opacity-100 z-10' : 'opacity-0 z-0'
+        }`}
+      >
+        {currentSceneId === 'rainy-night' && <RainyNightScene />}
+      </div>
+
+      {/* 2. Forest Retreat */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+          currentSceneId === 'forest-retreat' ? 'opacity-100 z-10' : 'opacity-0 z-0'
+        }`}
+      >
+        {currentSceneId === 'forest-retreat' && <ForestRetreatScene />}
+      </div>
+
+      {/* 3. Ocean Sunset */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+          currentSceneId === 'ocean-sunset' ? 'opacity-100 z-10' : 'opacity-0 z-0'
+        }`}
+      >
+        {currentSceneId === 'ocean-sunset' && <OceanSunsetScene />}
+      </div>
+
+      {/* 4. Cozy Fireplace */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+          currentSceneId === 'cozy-fireplace' ? 'opacity-100 z-10' : 'opacity-0 z-0'
+        }`}
+      >
+        {currentSceneId === 'cozy-fireplace' && <CozyFireplaceScene />}
+      </div>
+
+      {/* 5. Cosmic Dream */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+          currentSceneId === 'cosmic-dream' ? 'opacity-100 z-10' : 'opacity-0 z-0'
+        }`}
+      >
+        {currentSceneId === 'cosmic-dream' && <CosmicDreamScene />}
+      </div>
+
+      {/* Vignette & Scene Overlay Darkening Filter */}
+      <div
+        className="absolute inset-0 transition-opacity duration-300 pointer-events-none z-20"
+        style={{
+          backgroundColor: `rgba(0, 0, 0, ${settings.overlayOpacity})`,
+          backgroundImage:
+            'radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.6) 100%)',
+        }}
+      />
+    </div>
+  );
+};
