@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { Language } from '../locales';
 
-export type ModalType = 'scenes' | 'mixer' | 'timer' | 'presets' | 'settings' | 'stats' | 'breathe' | 'notes';
+export type ModalType = 'scenes' | 'mixer' | 'timer' | 'presets' | 'settings' | 'stats' | 'breathe' | 'notes' | 'lofi';
 
 interface UIStoreState {
   activeModal: ModalType | null;

@@ -3,7 +3,10 @@ export type SceneId =
   | 'forest-retreat' 
   | 'ocean-sunset' 
   | 'cozy-fireplace' 
-  | 'cosmic-dream';
+  | 'cosmic-dream'
+  | 'cherry-blossom'
+  | 'cozy-cafe'
+  | 'snowy-aurora';
 
 export interface SceneSpecificSettings {
   // Rainy Night
@@ -27,6 +30,20 @@ export interface SceneSpecificSettings {
   starDensity?: number; // 0.2 - 2.0
   cameraDriftEnabled?: boolean;
   nebulaGlow?: number; // 0.2 - 2.0
+
+  // Cherry Blossom
+  petalDensity?: number; // 0.2 - 2.0
+  windBreeze?: number; // 0.2 - 2.0
+
+  // Cozy Cafe
+  cafeLighting?: number; // 0.5 - 1.5
+  steamIntensity?: number; // 0.2 - 2.0
+  windowRain?: boolean;
+
+  // Snowy Aurora
+  snowIntensity?: number; // 0.2 - 2.0
+  auroraSpeed?: number; // 0.2 - 2.0
+  auroraGlow?: number; // 0.5 - 1.5
 }
 
 export interface SceneSettings {

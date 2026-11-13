@@ -2,6 +2,7 @@ import React from 'react';
 import { useUIStore } from '../../stores/useUIStore';
 import { useAudioStore } from '../../stores/useAudioStore';
 import { useTimerStore } from '../../stores/useTimerStore';
+import { useLofiStore } from '../../stores/useLofiStore';
 import { getTranslation } from '../../locales';
 import {
   Volume2,
@@ -13,12 +14,14 @@ import {
   Maximize,
   Minimize,
   Moon,
+  Radio,
 } from 'lucide-react';
 
 export const BottomControls: React.FC = () => {
   const { openModal, toggleModal, isFocusMode, language, isFullscreen, toggleFullscreen } = useUIStore();
   const { masterVolume, setMasterVolume, isMuted, toggleMute, channels, sleepTimerRemainingSeconds } = useAudioStore();
   const { remainingSeconds, isRunning, mode } = useTimerStore();
+  const { isPlaying: isLofiPlaying } = useLofiStore();
 
   if (isFocusMode) return null;
 
@@ -54,6 +57,27 @@ export const BottomControls: React.FC = () => {
           {activeSoundCount > 0 && (
             <span className="w-4 h-4 rounded-full bg-sky-400 text-slate-950 font-bold text-[10px] flex items-center justify-center">
               {activeSoundCount}
+            </span>
+          )}
+        </button>
+
+        {/* Lofi Radio Toggle */}
+        <button
+          onClick={() => toggleModal('lofi')}
+          className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
+            isLofiPlaying
+              ? 'bg-rose-500/25 border border-rose-400/40 text-rose-200 shadow-sm'
+              : 'glass-pill text-slate-300 hover:text-white'
+          }`}
+          title={getTranslation(language, 'lofiRadio')}
+        >
+          <Radio className={`w-4 h-4 ${isLofiPlaying ? 'text-rose-400 animate-pulse' : 'text-slate-400'}`} />
+          <span className="hidden sm:inline">{getTranslation(language, 'lofiRadio')}</span>
+          {isLofiPlaying && (
+            <span className="flex items-center gap-0.5 ml-0.5">
+              <span className="w-1 h-2.5 bg-rose-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+              <span className="w-1 h-3.5 bg-rose-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+              <span className="w-1 h-2 bg-rose-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
             </span>
           )}
         </button>

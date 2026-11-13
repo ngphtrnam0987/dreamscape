@@ -57,6 +57,39 @@ export const SCENES_INFO: SceneInfo[] = [
     themeGradient: 'from-purple-950 via-slate-950 to-violet-950',
     defaultChannels: [{ id: 'cosmic', volume: 0.5 }, { id: 'rain', volume: 0.25 }],
   },
+  {
+    id: 'cherry-blossom',
+    name: 'Cherry Blossom Shrine',
+    nameVi: 'Đền Hoa Anh Đào',
+    subtitle: 'Kyoto garden with drifting sakura petals',
+    subtitleVi: 'Vườn thiền Kyoto ngập tràn cánh hoa anh đào',
+    badge: 'Zen & Peaceful',
+    accentColor: '#f472b6',
+    themeGradient: 'from-pink-950 via-slate-950 to-rose-950',
+    defaultChannels: [{ id: 'wind', volume: 0.45 }, { id: 'birds', volume: 0.35 }],
+  },
+  {
+    id: 'cozy-cafe',
+    name: 'Cozy Rainy Cafe',
+    nameVi: 'Quán Cà Phê Mưa',
+    subtitle: 'Warm coffee aroma & rain on glass',
+    subtitleVi: 'Góc cà phê ấm áp ngắm mưa rơi',
+    badge: 'Lofi & Mellow',
+    accentColor: '#d97706',
+    themeGradient: 'from-amber-950 via-stone-950 to-orange-950',
+    defaultChannels: [{ id: 'rain', volume: 0.65 }, { id: 'city', volume: 0.3 }],
+  },
+  {
+    id: 'snowy-aurora',
+    name: 'Snowy Aurora',
+    nameVi: 'Cực Quang Tuyết Trắng',
+    subtitle: 'Dancing northern lights over arctic peaks',
+    subtitleVi: 'Cực quang huyền ảo trên đỉnh núi tuyết',
+    badge: 'Magical & Ethereal',
+    accentColor: '#2dd4bf',
+    themeGradient: 'from-teal-950 via-slate-950 to-cyan-950',
+    defaultChannels: [{ id: 'wind', volume: 0.5 }, { id: 'cosmic', volume: 0.4 }],
+  },
 ];
 
 const DEFAULT_SETTINGS: SceneSettings = {
@@ -71,6 +104,9 @@ const DEFAULT_SETTINGS: SceneSettings = {
     'ocean-sunset': { waveIntensity: 1.0, sunsetBrightness: 1.0 },
     'cozy-fireplace': { fireIntensity: 1.0, embersEnabled: true, windowRainEnabled: true },
     'cosmic-dream': { starDensity: 1.0, cameraDriftEnabled: true, nebulaGlow: 1.0 },
+    'cherry-blossom': { petalDensity: 1.0, windBreeze: 1.0 },
+    'cozy-cafe': { cafeLighting: 1.0, steamIntensity: 1.0, windowRain: true },
+    'snowy-aurora': { snowIntensity: 1.0, auroraSpeed: 1.0, auroraGlow: 1.0 },
   },
 };
 

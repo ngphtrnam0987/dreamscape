@@ -247,6 +247,87 @@ export const SceneSettingsModal: React.FC = () => {
               </label>
             </>
           )}
+
+          {/* Cherry Blossom */}
+          {currentSceneId === 'cherry-blossom' && (
+            <>
+              <Slider
+                label="Sakura Petal Density"
+                min={0.2}
+                max={2.0}
+                step={0.1}
+                value={specific.petalDensity ?? 1.0}
+                onChange={val => updateSpecificSettings('cherry-blossom', { petalDensity: val })}
+                formatValue={v => `${Math.round(v * 100)}%`}
+              />
+              <Slider
+                label="Wind Breeze Speed"
+                min={0.2}
+                max={2.0}
+                step={0.1}
+                value={specific.windBreeze ?? 1.0}
+                onChange={val => updateSpecificSettings('cherry-blossom', { windBreeze: val })}
+                formatValue={v => `${v.toFixed(1)}x`}
+              />
+            </>
+          )}
+
+          {/* Cozy Cafe */}
+          {currentSceneId === 'cozy-cafe' && (
+            <>
+              <Slider
+                label="Cafe Ambient Warmth"
+                min={0.5}
+                max={1.5}
+                step={0.05}
+                value={specific.cafeLighting ?? 1.0}
+                onChange={val => updateSpecificSettings('cozy-cafe', { cafeLighting: val })}
+                formatValue={v => `${Math.round(v * 100)}%`}
+              />
+              <Slider
+                label="Coffee Steam Density"
+                min={0.2}
+                max={2.0}
+                step={0.1}
+                value={specific.steamIntensity ?? 1.0}
+                onChange={val => updateSpecificSettings('cozy-cafe', { steamIntensity: val })}
+                formatValue={v => `${Math.round(v * 100)}%`}
+              />
+            </>
+          )}
+
+          {/* Snowy Aurora */}
+          {currentSceneId === 'snowy-aurora' && (
+            <>
+              <Slider
+                label="Snowfall Density"
+                min={0.2}
+                max={2.0}
+                step={0.1}
+                value={specific.snowIntensity ?? 1.0}
+                onChange={val => updateSpecificSettings('snowy-aurora', { snowIntensity: val })}
+                formatValue={v => `${Math.round(v * 100)}%`}
+              />
+              <Slider
+                label="Northern Lights Speed"
+                min={0.2}
+                max={2.0}
+                step={0.1}
+                value={specific.auroraSpeed ?? 1.0}
+                onChange={val => updateSpecificSettings('snowy-aurora', { auroraSpeed: val })}
+                formatValue={v => `${v.toFixed(1)}x`}
+              />
+              <Slider
+                label="Aurora Luminance"
+                min={0.5}
+                max={1.5}
+                step={0.05}
+                value={specific.auroraGlow ?? 1.0}
+                onChange={val => updateSpecificSettings('snowy-aurora', { auroraGlow: val })}
+                formatValue={v => `${Math.round(v * 100)}%`}
+              />
+            </>
+          )}
         </div>
 
         {/* Reset Button */}

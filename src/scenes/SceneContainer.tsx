@@ -5,6 +5,9 @@ import { ForestRetreatScene } from './ForestRetreat/ForestRetreatScene';
 import { OceanSunsetScene } from './OceanSunset/OceanSunsetScene';
 import { CozyFireplaceScene } from './CozyFireplace/CozyFireplaceScene';
 import { CosmicDreamScene } from './CosmicDream/CosmicDreamScene';
+import { CherryBlossomScene } from './CherryBlossom/CherryBlossomScene';
+import { CozyCafeScene } from './CozyCafe/CozyCafeScene';
+import { SnowyAuroraScene } from './SnowyAurora/SnowyAuroraScene';
 
 export const SceneContainer: React.FC = () => {
   const { currentSceneId, settings } = useSceneStore();
@@ -60,6 +63,33 @@ export const SceneContainer: React.FC = () => {
         }`}
       >
         {currentSceneId === 'cosmic-dream' && <CosmicDreamScene />}
+      </div>
+
+      {/* 6. Cherry Blossom Shrine */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+          currentSceneId === 'cherry-blossom' ? 'opacity-100 z-10' : 'opacity-0 z-0'
+        }`}
+      >
+        {currentSceneId === 'cherry-blossom' && <CherryBlossomScene />}
+      </div>
+
+      {/* 7. Cozy Cafe */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+          currentSceneId === 'cozy-cafe' ? 'opacity-100 z-10' : 'opacity-0 z-0'
+        }`}
+      >
+        {currentSceneId === 'cozy-cafe' && <CozyCafeScene />}
+      </div>
+
+      {/* 8. Snowy Aurora */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+          currentSceneId === 'snowy-aurora' ? 'opacity-100 z-10' : 'opacity-0 z-0'
+        }`}
+      >
+        {currentSceneId === 'snowy-aurora' && <SnowyAuroraScene />}
       </div>
 
       {/* Vignette & Scene Overlay Darkening Filter */}

@@ -34,6 +34,19 @@ export const vi: Record<TranslationKey, string> = {
   sceneCozyFireplaceDesc: 'Ngọn lửa bập bùng trong căn nhà gỗ ấm cúng giữa tiết trời se lạnh.',
   sceneCosmicDream: 'Giấc Mơ Vũ Trụ',
   sceneCosmicDreamDesc: 'Dải ngân hà lấp lánh cùng những tinh vân huyền ảo lững lờ trôi.',
+  sceneCherryBlossom: 'Đền Hoa Anh Đào',
+  sceneCherryBlossomDesc: 'Khu vườn thiền Kyoto yên bình ngập tràn cánh hoa anh đào và ánh đèn lồng ấm.',
+  sceneCozyCafe: 'Quán Cà Phê Mưa',
+  sceneCozyCafeDesc: 'Góc quán cà phê ấm cúng với ly cà phê bốc khói nhìn ra mưa phố đêm.',
+  sceneSnowyAurora: 'Cực Quang Tuyết Trắng',
+  sceneSnowyAuroraDesc: 'Dải cực quang huyền ảo nhảy múa trên nền trời bắc cực và núi tuyết trắng.',
+
+  // Lofi Radio
+  lofiRadio: 'Đài Nhạc Lofi Girl',
+  lofiStations: 'Kênh Phát Tuyển Chọn',
+  lofiVolume: 'Âm Lượng Nhạc Lofi',
+  customYoutube: '+ Nhập Luồng YouTube',
+  lofiTip: 'Nhạc Lofi Girl phối hợp mượt mà cùng tiếng mưa rơi, lò sưởi và âm thanh thiên nhiên!',
 
   // Channels
   chRain: 'Tiếng Mưa',

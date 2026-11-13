@@ -11,6 +11,8 @@ import { SceneSettingsModal } from './components/settings/SceneSettingsModal';
 import { StatsModal } from './components/stats/StatsModal';
 import { BreathingGuideModal } from './components/mindfulness/BreathingGuideModal';
 import { QuickNotesModal } from './components/notes/QuickNotesModal';
+import { LofiPlayerModal } from './components/lofi/LofiPlayerModal';
+import { YouTubeAudioPlayer } from './components/lofi/YouTubeAudioPlayer';
 import { Toast } from './components/ui/Toast';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { useTimerInterval } from './hooks/useTimerInterval';
@@ -41,6 +43,10 @@ export const App: React.FC = () => {
       <StatsModal />
       <BreathingGuideModal />
       <QuickNotesModal />
+      <LofiPlayerModal />
+
+      {/* Hidden/Background Lo-Fi Stream Audio */}
+      <YouTubeAudioPlayer />
 
       {/* Global Toast Alerts */}
       <Toast />

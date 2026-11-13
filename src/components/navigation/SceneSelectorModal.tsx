@@ -3,7 +3,7 @@ import { useUIStore } from '../../stores/useUIStore';
 import { useSceneStore, SCENES_INFO } from '../../stores/useSceneStore';
 import { Modal } from '../ui/Modal';
 import { getTranslation } from '../../locales';
-import { Check, CloudRain, Trees, Waves, Flame, MoonStar } from 'lucide-react';
+import { Check, CloudRain, Trees, Waves, Flame, MoonStar, Flower, Coffee, MountainSnow } from 'lucide-react';
 import { SceneId } from '../../types/scene';
 
 export const SceneSelectorModal: React.FC = () => {
@@ -17,6 +17,9 @@ export const SceneSelectorModal: React.FC = () => {
       case 'ocean-sunset': return <Waves className="w-5 h-5 text-amber-400" />;
       case 'cozy-fireplace': return <Flame className="w-5 h-5 text-orange-500" />;
       case 'cosmic-dream': return <MoonStar className="w-5 h-5 text-purple-400" />;
+      case 'cherry-blossom': return <Flower className="w-5 h-5 text-pink-400" />;
+      case 'cozy-cafe': return <Coffee className="w-5 h-5 text-amber-500" />;
+      case 'snowy-aurora': return <MountainSnow className="w-5 h-5 text-teal-400" />;
     }
   };
 

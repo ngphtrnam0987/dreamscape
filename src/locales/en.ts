@@ -32,6 +32,19 @@ export const en = {
   sceneCozyFireplaceDesc: 'Warm crackling hearth in a tranquil mountain cabin.',
   sceneCosmicDream: 'Cosmic Dream',
   sceneCosmicDreamDesc: 'Floating starfield with serene nebulae and celestial drift.',
+  sceneCherryBlossom: 'Cherry Blossom Shrine',
+  sceneCherryBlossomDesc: 'Peaceful Kyoto garden with drifting sakura petals and warm lantern light.',
+  sceneCozyCafe: 'Cozy Rainy Cafe',
+  sceneCozyCafeDesc: 'Warm coffee shop with steamed window overlooking a rainy metropolis.',
+  sceneSnowyAurora: 'Snowy Aurora',
+  sceneSnowyAuroraDesc: 'Majestic arctic mountains under dancing emerald and violet northern lights.',
+
+  // Lofi Radio
+  lofiRadio: 'Lofi Girl Radio',
+  lofiStations: 'Curated Stations',
+  lofiVolume: 'Lofi Music Volume',
+  customYoutube: '+ Custom YouTube Stream',
+  lofiTip: 'Lofi Girl beats blend seamlessly alongside ambient rain, fireplace, and nature soundscapes!',
 
   // Channels
   chRain: 'Rain',
