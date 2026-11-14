@@ -144,14 +144,14 @@ export const BreathingGuideModal: React.FC = () => {
         </div>
 
         {/* Breathing Orb Visualization */}
-        <div className="relative w-64 h-64 flex items-center justify-center my-2">
+        <div className="relative w-48 h-48 sm:w-64 sm:h-64 flex items-center justify-center my-1 sm:my-2 shrink-0">
           {/* Outer Ambient Aura Rings */}
           <div
             style={{
               transform: `scale(${scale * 1.15})`,
               transition: 'transform 1s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
-            className="absolute w-44 h-44 rounded-full bg-sky-500/10 blur-xl pointer-events-none"
+            className="absolute w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-sky-500/10 blur-xl pointer-events-none"
           />
 
           <div
@@ -159,7 +159,7 @@ export const BreathingGuideModal: React.FC = () => {
               transform: `scale(${scale * 1.08})`,
               transition: 'transform 1s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
-            className="absolute w-36 h-36 rounded-full bg-teal-400/20 blur-md pointer-events-none"
+            className="absolute w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-teal-400/20 blur-md pointer-events-none"
           />
 
           {/* Core Breathing Orb */}
@@ -168,11 +168,11 @@ export const BreathingGuideModal: React.FC = () => {
               transform: `scale(${scale})`,
               transition: 'transform 1s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
-            className="w-32 h-32 rounded-full bg-gradient-to-tr from-sky-500 via-teal-400 to-indigo-400 shadow-2xl flex items-center justify-center text-slate-950 font-bold border-2 border-white/30"
+            className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-tr from-sky-500 via-teal-400 to-indigo-400 shadow-2xl flex items-center justify-center text-slate-950 font-bold border-2 border-white/30"
           >
             <div className="flex flex-col items-center">
-              <Wind className="w-6 h-6 text-slate-900/80 mb-0.5 animate-pulse" />
-              <span className="text-2xl font-mono">{phaseSecondsLeft}s</span>
+              <Wind className="w-5 h-5 sm:w-6 sm:h-6 text-slate-900/80 mb-0.5 animate-pulse" />
+              <span className="text-xl sm:text-2xl font-mono">{phaseSecondsLeft}s</span>
             </div>
           </div>
         </div>

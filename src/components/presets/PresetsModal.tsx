@@ -116,9 +116,9 @@ export const PresetsModal: React.FC = () => {
       <div className="space-y-5">
         {/* Save Current Mix Action Header */}
         {!isSavingNew ? (
-          <div className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-sky-500/15 via-indigo-500/15 to-purple-500/15 border border-sky-400/20">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-sky-500/15 via-indigo-500/15 to-purple-500/15 border border-sky-400/20 gap-3">
             <div className="flex items-center gap-2.5">
-              <Sparkles className="w-4 h-4 text-sky-400" />
+              <Sparkles className="w-4 h-4 text-sky-400 shrink-0" />
               <div>
                 <h4 className="text-xs font-semibold text-white">Love your current atmosphere?</h4>
                 <p className="text-[11px] text-slate-300">Save your active sounds and scene settings to re-open anytime.</p>
@@ -126,7 +126,7 @@ export const PresetsModal: React.FC = () => {
             </div>
             <button
               onClick={() => setIsSavingNew(true)}
-              className="px-3 py-1.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs flex items-center gap-1.5 shadow-md transition-all shrink-0"
+              className="px-3 py-1.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs flex items-center gap-1.5 shadow-md transition-all shrink-0 self-end sm:self-auto"
             >
               <Plus className="w-3.5 h-3.5 stroke-[3]" />
               <span>{getTranslation(language, 'saveCurrentAsPreset')}</span>

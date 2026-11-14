@@ -95,16 +95,16 @@ export const PomodoroTimerModal: React.FC = () => {
         </div>
 
         {/* On-Screen Clock Size Quick Selector */}
-        <div className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-white/5 border border-white/10 text-xs">
+        <div className="w-full flex flex-col xs:flex-row items-start xs:items-center justify-between p-2.5 rounded-2xl bg-white/5 border border-white/10 text-xs gap-2">
           <div className="flex items-center gap-1.5 text-slate-300">
             <Clock className="w-3.5 h-3.5 text-amber-400" />
             <span className="font-medium">{getTranslation(language, 'clockSize')}</span>
           </div>
 
-          <div className="flex items-center gap-1 bg-slate-900/80 p-0.5 rounded-xl border border-white/10 font-mono text-[11px]">
+          <div className="grid grid-cols-4 w-full xs:w-auto gap-1 bg-slate-900/80 p-0.5 rounded-xl border border-white/10 font-mono text-[11px]">
             <button
               onClick={() => updateSettings({ clockSize: 'small' })}
-              className={`px-2.5 py-1 rounded-lg transition-all ${
+              className={`px-2 py-1 rounded-lg transition-all text-center ${
                 (settings.clockSize || 'medium') === 'small'
                   ? 'bg-amber-500 text-slate-950 font-bold shadow-sm'
                   : 'text-slate-400 hover:text-white'
@@ -114,7 +114,7 @@ export const PomodoroTimerModal: React.FC = () => {
             </button>
             <button
               onClick={() => updateSettings({ clockSize: 'medium' })}
-              className={`px-2.5 py-1 rounded-lg transition-all ${
+              className={`px-2 py-1 rounded-lg transition-all text-center ${
                 (settings.clockSize || 'medium') === 'medium'
                   ? 'bg-amber-500 text-slate-950 font-bold shadow-sm'
                   : 'text-slate-400 hover:text-white'
@@ -124,7 +124,7 @@ export const PomodoroTimerModal: React.FC = () => {
             </button>
             <button
               onClick={() => updateSettings({ clockSize: 'large' })}
-              className={`px-2.5 py-1 rounded-lg transition-all ${
+              className={`px-2 py-1 rounded-lg transition-all text-center ${
                 (settings.clockSize || 'medium') === 'large'
                   ? 'bg-amber-500 text-slate-950 font-bold shadow-sm'
                   : 'text-slate-400 hover:text-white'
@@ -134,7 +134,7 @@ export const PomodoroTimerModal: React.FC = () => {
             </button>
             <button
               onClick={() => updateSettings({ clockSize: 'hidden' })}
-              className={`px-2 py-1 rounded-lg transition-all ${
+              className={`px-2 py-1 rounded-lg transition-all text-center ${
                 settings.clockSize === 'hidden'
                   ? 'bg-rose-500/30 text-rose-300 font-bold'
                   : 'text-slate-400 hover:text-white'
@@ -147,7 +147,7 @@ export const PomodoroTimerModal: React.FC = () => {
         </div>
 
         {/* Circular Dial Timer */}
-        <div className="relative w-64 h-64 flex items-center justify-center my-1">
+        <div className="relative w-48 h-48 sm:w-64 sm:h-64 flex items-center justify-center my-1 shrink-0">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 240 240">
             {/* Background track */}
             <circle
@@ -176,7 +176,7 @@ export const PomodoroTimerModal: React.FC = () => {
 
           {/* Time & Session Center Content */}
           <div className="absolute flex flex-col items-center justify-center text-center">
-            <span className="text-5xl font-bold font-mono tracking-tighter text-white drop-shadow-md">
+            <span className="text-4xl sm:text-5xl font-bold font-mono tracking-tighter text-white drop-shadow-md">
               {formatTime(remainingSeconds)}
             </span>
             <span className="text-xs uppercase font-mono tracking-widest text-slate-400 mt-1">

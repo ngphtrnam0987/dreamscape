@@ -55,11 +55,11 @@ export const QuickNotesModal: React.FC = () => {
       <div className="space-y-4 py-1">
         <div className="relative">
           <textarea
-            rows={10}
+            rows={6}
             value={notes}
             onChange={e => setNotes(e.target.value)}
             placeholder={getTranslation(language, 'notesPlaceholder')}
-            className="w-full p-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent resize-y custom-scrollbar font-sans leading-relaxed"
+            className="w-full p-3 sm:p-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent resize-y custom-scrollbar font-sans leading-relaxed min-h-[140px] sm:min-h-[220px]"
           />
         </div>
 

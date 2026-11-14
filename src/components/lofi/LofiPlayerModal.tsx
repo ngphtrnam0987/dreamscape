@@ -80,10 +80,10 @@ export const LofiPlayerModal: React.FC = () => {
     >
       <div className="space-y-4 py-1">
         {/* Active Now Playing Banner */}
-        <div className="p-4 rounded-2xl bg-gradient-to-r from-rose-950/60 via-purple-950/50 to-slate-900 border border-rose-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3.5 min-w-0">
+        <div className="p-3 sm:p-4 rounded-2xl bg-gradient-to-r from-rose-950/60 via-purple-950/50 to-slate-900 border border-rose-500/30 flex items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
             {/* Spinning Vinyl Record or Video Thumbnail */}
-            <div className="relative w-14 h-14 rounded-2xl overflow-hidden bg-slate-950 border border-rose-500/40 flex items-center justify-center shrink-0 shadow-lg group">
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden bg-slate-950 border border-rose-500/40 flex items-center justify-center shrink-0 shadow-lg group">
               {currentStation.thumbnail ? (
                 <img
                   src={currentStation.thumbnail}
@@ -92,7 +92,7 @@ export const LofiPlayerModal: React.FC = () => {
                 />
               ) : (
                 <Disc3
-                  className={`w-9 h-9 text-rose-400 ${isPlaying ? 'animate-spin' : ''}`}
+                  className={`w-8 h-8 sm:w-9 sm:h-9 text-rose-400 ${isPlaying ? 'animate-spin' : ''}`}
                   style={{ animationDuration: '4s' }}
                 />
               )}
@@ -103,29 +103,29 @@ export const LofiPlayerModal: React.FC = () => {
               )}
             </div>
 
-            <div className="min-w-0">
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] uppercase font-mono tracking-wider px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">
+            <div className="min-w-0 pr-1">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <span className="text-[9px] sm:text-[10px] uppercase font-mono tracking-wider px-1.5 sm:px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">
                   {currentStation.badge}
                 </span>
                 {isPlaying && (
-                  <span className="flex items-center gap-1 text-[11px] font-medium text-emerald-400">
+                  <span className="flex items-center gap-1 text-[10px] sm:text-[11px] font-medium text-emerald-400">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                     Live
                   </span>
                 )}
               </div>
-              <h3 className="text-base font-semibold text-white font-display mt-0.5 truncate max-w-xs sm:max-w-sm">
+              <h3 className="text-sm sm:text-base font-semibold text-white font-display mt-0.5 truncate max-w-[160px] xs:max-w-xs sm:max-w-sm">
                 {language === 'vi' ? currentStation.titleVi : currentStation.title}
               </h3>
-              <p className="text-xs text-slate-400 truncate">{currentStation.artist}</p>
+              <p className="text-[11px] sm:text-xs text-slate-400 truncate">{currentStation.artist}</p>
             </div>
           </div>
 
           {/* Big Play/Pause Button */}
           <button
             onClick={togglePlay}
-            className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-all transform active:scale-95 shadow-lg ${
+            className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center shrink-0 transition-all transform active:scale-95 shadow-lg ${
               isPlaying
                 ? 'bg-rose-500 text-slate-950 shadow-rose-500/30 ring-2 ring-rose-400/40'
                 : 'bg-white/15 hover:bg-white/25 text-white'
@@ -133,9 +133,9 @@ export const LofiPlayerModal: React.FC = () => {
             title={isPlaying ? 'Pause' : 'Play'}
           >
             {isPlaying ? (
-              <Pause className="w-5 h-5 fill-current" />
+              <Pause className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
             ) : (
-              <Play className="w-5 h-5 fill-current ml-0.5" />
+              <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current ml-0.5" />
             )}
           </button>
         </div>

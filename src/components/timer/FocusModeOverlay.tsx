@@ -49,10 +49,10 @@ export const FocusModeOverlay: React.FC = () => {
       }`}
     >
       {/* Top Floating Exit & Clock Mode Bar */}
-      <div className="absolute top-6 right-6 pointer-events-auto flex items-center gap-2 p-1.5 rounded-2xl glass-panel shadow-2xl border border-white/15 animate-fade-in">
+      <div className="absolute top-3 sm:top-6 right-2.5 sm:right-6 pointer-events-auto flex items-center gap-1.5 sm:gap-2 p-1.5 rounded-2xl glass-panel shadow-2xl border border-white/15 animate-fade-in max-w-[94vw]">
         {/* If clock is hidden on screen, show minimal time here */}
         {clockSize === 'hidden' && (
-          <div className="flex items-center gap-2 px-2.5 py-1 font-mono text-xs font-bold text-white border-r border-white/10 pr-3">
+          <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-1 font-mono text-xs font-bold text-white border-r border-white/10 pr-2 sm:pr-3">
             <span>{formatTime(remainingSeconds)}</span>
             <button
               onClick={isRunning ? pauseTimer : startTimer}
@@ -66,20 +66,20 @@ export const FocusModeOverlay: React.FC = () => {
         {/* Quick Clock Size Pill */}
         <button
           onClick={toggleClockSize}
-          className="px-2.5 py-1 rounded-xl glass-pill text-[11px] font-mono text-slate-300 hover:text-white transition-all uppercase"
+          className="px-2 sm:px-2.5 py-1 rounded-xl glass-pill text-[10px] sm:text-[11px] font-mono text-slate-300 hover:text-white transition-all uppercase"
           title={`Clock size: ${clockSize} (Click to toggle Small / Medium / Large / Hidden)`}
         >
-          {clockSize === 'large' ? 'Large Clock' : clockSize === 'small' ? 'Small Clock' : clockSize === 'medium' ? 'Medium Clock' : 'Hidden Clock'}
+          {clockSize === 'large' ? 'Large' : clockSize === 'small' ? 'Small' : clockSize === 'medium' ? 'Medium' : 'Hidden'}
         </button>
 
         {/* Exit Focus Mode Button */}
         <button
           onClick={toggleFocusMode}
-          className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white/15 hover:bg-white/25 text-slate-200 hover:text-white transition-all text-xs font-medium"
+          className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-white/15 hover:bg-white/25 text-slate-200 hover:text-white transition-all text-xs font-medium"
           title={getTranslation(language, 'exitFocusMode')}
         >
           <Minimize2 className="w-3.5 h-3.5" />
-          <span className="text-[11px] font-medium">{getTranslation(language, 'exitFocusMode')}</span>
+          <span className="text-[10px] sm:text-[11px] font-medium hidden xs:inline">{getTranslation(language, 'exitFocusMode')}</span>
         </button>
       </div>
     </div>

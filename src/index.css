@@ -108,3 +108,17 @@ input[type="range"]::-moz-range-thumb {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.4);
 }
+
+/* Safe area padding utilities for mobile edge-to-edge screens */
+.pt-safe {
+  padding-top: max(env(safe-area-inset-top, 0px), 8px);
+}
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 12px);
+}
+.pl-safe {
+  padding-left: max(env(safe-area-inset-left, 0px), 8px);
+}
+.pr-safe {
+  padding-right: max(env(safe-area-inset-right, 0px), 8px);
+}

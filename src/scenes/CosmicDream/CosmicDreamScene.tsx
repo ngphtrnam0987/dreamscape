@@ -147,8 +147,9 @@ export const CosmicDreamScene: React.FC = () => {
 
           ctx.fillStyle = star.color;
           ctx.globalAlpha = Math.max(0.1, Math.min(1, alpha));
+          const starRadius = Math.max(0.2, star.size * Math.max(0.1, 1 - (star.z / width) * 0.5));
           ctx.beginPath();
-          ctx.arc(px, py, star.size * (1 - star.z / width * 0.5), 0, Math.PI * 2);
+          ctx.arc(px, py, starRadius, 0, Math.PI * 2);
           ctx.fill();
         }
       });

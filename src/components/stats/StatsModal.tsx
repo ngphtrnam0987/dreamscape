@@ -149,7 +149,7 @@ export const StatsModal: React.FC = () => {
         </div>
 
         {/* Clear Data Section */}
-        <div className="pt-2 flex items-center justify-between">
+        <div className="pt-2 flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-1 text-slate-400 text-xs">
             <Calendar className="w-3.5 h-3.5" />
             <span>Timezone: {Intl.DateTimeFormat().resolvedOptions().timeZone}</span>

@@ -25,22 +25,22 @@ export const StudyWithMeVideo: React.FC = () => {
 
         {/* Floating pill to switch back or minimize video */}
         {!isFocusMode && (
-          <div className="absolute top-20 right-6 pointer-events-auto flex items-center gap-2 p-1.5 rounded-2xl glass-panel shadow-2xl border border-white/15 animate-fade-in z-20">
+          <div className="absolute top-14 sm:top-20 right-2 sm:right-6 pointer-events-auto flex items-center gap-1.5 sm:gap-2 p-1.5 rounded-2xl glass-panel shadow-2xl border border-white/15 animate-fade-in z-20">
             <button
               onClick={() => setVideoMode('pip')}
-              className="px-2.5 py-1 rounded-xl glass-pill text-xs text-slate-300 hover:text-white flex items-center gap-1.5"
+              className="px-2 sm:px-2.5 py-1 rounded-xl glass-pill text-xs text-slate-300 hover:text-white flex items-center gap-1.5"
               title="Switch to Picture-in-Picture"
             >
               <Minimize2 className="w-3.5 h-3.5" />
-              <span>PiP Mode</span>
+              <span>PiP</span>
             </button>
             <button
               onClick={() => setVideoMode('hidden')}
-              className="px-2.5 py-1 rounded-xl glass-pill text-xs text-slate-300 hover:text-white flex items-center gap-1.5"
+              className="px-2 sm:px-2.5 py-1 rounded-xl glass-pill text-xs text-slate-300 hover:text-white flex items-center gap-1.5"
               title="Hide video (Audio only)"
             >
               <EyeOff className="w-3.5 h-3.5" />
-              <span>Audio Only</span>
+              <span className="hidden xs:inline">Audio Only</span>
             </button>
           </div>
         )}
@@ -54,8 +54,8 @@ export const StudyWithMeVideo: React.FC = () => {
       <div
         className={`fixed z-30 transition-all duration-300 pointer-events-auto ${
           isFocusMode
-            ? 'bottom-20 right-4 sm:right-6 w-56 sm:w-72'
-            : 'bottom-20 sm:bottom-24 right-3 sm:right-6 w-60 sm:w-80'
+            ? 'top-14 sm:top-auto sm:bottom-20 right-2 sm:right-6 w-48 xs:w-56 sm:w-72'
+            : 'top-14 sm:top-auto sm:bottom-24 right-2 sm:right-6 w-48 xs:w-56 sm:w-80'
         } rounded-2xl overflow-hidden glass-panel shadow-2xl border border-white/20 animate-fade-in group`}
       >
         {/* Video Player Header Bar */}
