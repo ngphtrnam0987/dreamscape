@@ -52,6 +52,8 @@ describe('usePresetStore', () => {
         city: { volume: 0, isPlaying: false },
         cosmic: { volume: 0.7, isPlaying: true },
         binaural: { volume: 0.4, isPlaying: false },
+        keyboard: { volume: 0, isPlaying: false },
+        cafe: { volume: 0, isPlaying: false },
       },
       sceneSpecificSettings: {
         starDensity: 1.2,

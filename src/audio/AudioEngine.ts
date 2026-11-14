@@ -10,6 +10,8 @@ import {
   BirdSongSynthesizer,
   ThunderSynthesizer,
   FireCrackleSynthesizer,
+  MechanicalKeyboardSynthesizer,
+  CafeMurmurSynthesizer,
   playChimeSound,
 } from './proceduralAudio';
 
@@ -34,6 +36,8 @@ export class AudioEngine {
   private birdSynth: BirdSongSynthesizer | null = null;
   private thunderSynth: ThunderSynthesizer | null = null;
   private fireCrackleSynth: FireCrackleSynthesizer | null = null;
+  private keyboardSynth: MechanicalKeyboardSynthesizer | null = null;
+  private cafeSynth: CafeMurmurSynthesizer | null = null;
 
   // Sleep timer tracking
   private sleepTimerId: ReturnType<typeof setInterval> | null = null;
@@ -521,6 +525,38 @@ export class AudioEngine {
             oscL.disconnect();
             oscR.disconnect();
             merger.disconnect();
+          } catch {}
+        });
+        break;
+      }
+
+      case 'keyboard': {
+        // Procedural mechanical typing clicks and bottoming out thocks
+        if (!this.keyboardSynth) {
+          this.keyboardSynth = new MechanicalKeyboardSynthesizer(this.ctx, channelGain);
+        }
+        this.keyboardSynth.start();
+
+        stopCallbacks.push(() => {
+          try {
+            this.keyboardSynth?.stop();
+          } catch {}
+        });
+        break;
+      }
+
+      case 'cafe': {
+        // Procedural warm cafe background murmur + occasional ceramic cup clink
+        if (!this.cafeSynth) {
+          this.cafeSynth = new CafeMurmurSynthesizer(this.ctx, channelGain);
+        }
+        if (this.pinkBuffer) {
+          this.cafeSynth.start(this.pinkBuffer);
+        }
+
+        stopCallbacks.push(() => {
+          try {
+            this.cafeSynth?.stop();
           } catch {}
         });
         break;

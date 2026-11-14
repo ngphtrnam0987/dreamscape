@@ -281,6 +281,17 @@ export const PomodoroTimerModal: React.FC = () => {
                 >
                   {getTranslation(language, 'clockTypeRealtime')}
                 </button>
+                <button
+                  type="button"
+                  onClick={() => updateSettings({ clockDisplayType: 'stopwatch' })}
+                  className={`px-2.5 py-1 rounded-lg transition-all ${
+                    settings.clockDisplayType === 'stopwatch'
+                      ? 'bg-amber-500 text-slate-950 font-bold'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {language === 'vi' ? 'Đếm Xuôi' : 'Stopwatch'}
+                </button>
               </div>
             </div>
 

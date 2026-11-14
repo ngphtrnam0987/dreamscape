@@ -97,6 +97,22 @@ export const CHANNELS: ChannelConfig[] = [
     defaultVolume: 0.45,
     descriptionKey: 'Alpha brainwave beat (10Hz) for deep focus and flow state',
   },
+  {
+    id: 'keyboard',
+    nameKey: 'chKeyboard',
+    category: 'urban',
+    icon: 'Keyboard',
+    defaultVolume: 0.50,
+    descriptionKey: 'Rhythmic mechanical keyboard click-clacks for peak typing flow',
+  },
+  {
+    id: 'cafe',
+    nameKey: 'chCafe',
+    category: 'urban',
+    icon: 'Coffee',
+    defaultVolume: 0.45,
+    descriptionKey: 'Cozy coffee shop murmur, distant whispers, and ceramic tea cups',
+  },
 ];
 
 export const INITIAL_CHANNEL_STATES: Record<ChannelId, { volume: number; isPlaying: boolean }> = {
@@ -112,4 +128,6 @@ export const INITIAL_CHANNEL_STATES: Record<ChannelId, { volume: number; isPlayi
   city: { volume: 0.40, isPlaying: false },
   cosmic: { volume: 0.50, isPlaying: false },
   binaural: { volume: 0.45, isPlaying: false },
+  keyboard: { volume: 0.50, isPlaying: false },
+  cafe: { volume: 0.45, isPlaying: false },
 };

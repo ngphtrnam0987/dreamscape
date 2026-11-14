@@ -72,6 +72,8 @@ export const en = {
   chCity: 'City Ambience',
   chCosmic: 'Cosmic Drone',
   chBinaural: 'Binaural Beats (Alpha 10Hz)',
+  chKeyboard: 'Mechanical Keyboard',
+  chCafe: 'Cafe Murmur & Cups',
 
   // Categories
   catWeather: 'Weather',
@@ -248,6 +250,40 @@ export const en = {
   oneToEightShortcut: 'Quick Switch Scenes 1 - 8',
   helpShortcut: 'Keyboard Shortcuts Guide (?)',
   
+  // Tasks & To-Do List
+  tasks: 'Task Focus',
+  tasksTitle: 'Daily Tasks & Objectives',
+  tasksSubtitle: 'Track your focus goals and celebrate completions with confetti',
+  addTaskPlaceholder: 'What are you focusing on today? (Press Enter)',
+  noTasksYet: 'No tasks added yet. Add an objective to stay in flow!',
+  completedTasksCount: '{completed} of {total} completed',
+  clearCompletedTasks: 'Clear Completed',
+  activeFocusTask: 'Focusing on: {title}',
+  setActiveTask: 'Set as Active Pomodoro Task',
+  taskActiveBadge: 'Active Focus',
+  allTasksCompleted: 'All daily objectives completed! Outstanding work 🎉',
+  kShortcut: 'Toggle Daily Tasks (K)',
+
+  // Wellness & Ergonomics Reminders
+  wellness: 'Wellness & Ergonomics',
+  hydrationReminderTitle: 'Time for a sip of water 💧',
+  hydrationReminderDesc: 'Stay hydrated to maintain peak focus and cognitive stamina.',
+  hydrationAcknowledge: 'Drank Water',
+  eyeRestReminderTitle: '20-20-20 Eye Rest 👁️',
+  eyeRestReminderDesc: 'Look at something 20 feet (6m) away for 20 seconds to relax your eyes.',
+  eyeRestAcknowledge: 'Rested Eyes',
+  dismissReminder: 'Dismiss',
+  enableHydrationReminder: 'Hydration Reminders (every 35m)',
+  enableEyeRestReminder: '20-20-20 Eye Rest Reminders (every 20m)',
+
+  // Stopwatch / Flow timer mode
+  stopwatchMode: 'Flow Stopwatch (Count Up)',
+  stopwatchDesc: 'Unbounded deep work timer that tracks your total flow session',
+
+  // PWA Install
+  installApp: 'Install Dreamscape App',
+  installAppDesc: 'Install as a standalone desktop or mobile application for instant offline access',
+
   // Generic
   cancel: 'Cancel',
   save: 'Save',

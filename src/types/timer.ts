@@ -1,7 +1,7 @@
 export type TimerMode = 'focus' | 'short-break' | 'long-break';
 
 export type ClockSize = 'hidden' | 'small' | 'medium' | 'large';
-export type ClockDisplayType = 'pomodoro' | 'realtime';
+export type ClockDisplayType = 'pomodoro' | 'realtime' | 'stopwatch';
 
 export interface TimerSettings {
   focusMinutes: number;

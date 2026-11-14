@@ -15,6 +15,8 @@ import { QuickNotesModal } from './components/notes/QuickNotesModal';
 import { LofiPlayerModal } from './components/lofi/LofiPlayerModal';
 import { ShortcutsModal } from './components/ui/ShortcutsModal';
 import { ZenModeOverlay } from './components/ui/ZenModeOverlay';
+import { TaskModal } from './components/tasks/TaskModal';
+import { WellnessNotificationOverlay } from './components/wellness/WellnessNotificationOverlay';
 import { StudyWithMeVideo } from './components/study/StudyWithMeVideo';
 import { Toast } from './components/ui/Toast';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
@@ -38,6 +40,7 @@ export const App: React.FC = () => {
       <BottomControls />
       <FocusModeOverlay />
       <ZenModeOverlay />
+      <WellnessNotificationOverlay />
 
       {/* Modals & Panels */}
       <SceneSelectorModal />
@@ -50,6 +53,7 @@ export const App: React.FC = () => {
       <QuickNotesModal />
       <LofiPlayerModal />
       <ShortcutsModal />
+      <TaskModal />
 
       {/* Study With Me Video Feed & Lo-Fi Stream Audio */}
       <StudyWithMeVideo />

@@ -21,6 +21,8 @@ export const AmbientClock: React.FC = () => {
     remainingSeconds,
     isRunning,
     totalDurationSeconds,
+    stopwatchSeconds,
+    resetStopwatch,
     mode,
     startTimer,
     pauseTimer,
@@ -68,6 +70,17 @@ export const AmbientClock: React.FC = () => {
     return withSeconds ? `${h}:${m}:${s}` : `${h}:${m}`;
   };
 
+  // Format Stopwatch HH:MM:SS or MM:SS
+  const formatStopwatch = (sec: number) => {
+    const h = Math.floor(sec / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    const s = sec % 60;
+    if (h > 0) {
+      return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
   // Format Date Subtitle
   const formatDateString = (date: Date) => {
     return date.toLocaleDateString(language === 'vi' ? 'vi-VN' : 'en-US', {
@@ -92,7 +105,12 @@ export const AmbientClock: React.FC = () => {
 
   const toggleDisplayType = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setClockDisplayType(displayType === 'pomodoro' ? 'realtime' : 'pomodoro');
+    const nextType: Record<ClockDisplayType, ClockDisplayType> = {
+      pomodoro: 'realtime',
+      realtime: 'stopwatch',
+      stopwatch: 'pomodoro',
+    };
+    setClockDisplayType(nextType[displayType] || 'pomodoro');
   };
 
   // -------------------------------------------------------------
@@ -115,12 +133,14 @@ export const AmbientClock: React.FC = () => {
           <button
             onClick={toggleDisplayType}
             className="text-slate-400 hover:text-white transition-colors shrink-0"
-            title={`Switch to ${displayType === 'pomodoro' ? 'Realtime Clock' : 'Pomodoro Timer'}`}
+            title={`Display mode: ${displayType}. Click to cycle Pomodoro / Realtime / Stopwatch`}
           >
             {displayType === 'pomodoro' ? (
               <Timer className="w-3.5 h-3.5 text-amber-400" />
-            ) : (
+            ) : displayType === 'realtime' ? (
               <Clock className="w-3.5 h-3.5 text-sky-400" />
+            ) : (
+              <RotateCcw className="w-3.5 h-3.5 text-emerald-400" />
             )}
           </button>
 
@@ -129,18 +149,27 @@ export const AmbientClock: React.FC = () => {
             onClick={toggleDisplayType}
             className="font-mono text-sm sm:text-base font-bold text-white tracking-wider cursor-pointer select-none"
           >
-            {displayType === 'pomodoro' ? formatPomodoro(remainingSeconds) : formatRealtime(realtime, false)}
+            {displayType === 'pomodoro'
+              ? formatPomodoro(remainingSeconds)
+              : displayType === 'realtime'
+              ? formatRealtime(realtime, false)
+              : formatStopwatch(stopwatchSeconds)}
           </span>
 
-          {/* Mode badge for Pomodoro */}
+          {/* Mode badge */}
           {displayType === 'pomodoro' && (
             <span className="text-[9px] uppercase font-mono tracking-wider px-1.5 py-0.5 rounded-md bg-white/10 text-slate-300 hidden xs:inline">
               {mode === 'focus' ? 'Focus' : 'Break'}
             </span>
           )}
+          {displayType === 'stopwatch' && (
+            <span className="text-[9px] uppercase font-mono tracking-wider px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 hidden xs:inline">
+              Flow
+            </span>
+          )}
 
-          {/* Quick Play/Pause (Pomodoro mode) */}
-          {displayType === 'pomodoro' && (
+          {/* Quick Play/Pause (Pomodoro or Stopwatch) */}
+          {displayType !== 'realtime' && (
             <button
               onClick={handlePlayPause}
               className="p-1 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors shrink-0"
@@ -210,17 +239,22 @@ export const AmbientClock: React.FC = () => {
             <button
               onClick={toggleDisplayType}
               className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 transition-colors"
-              title="Click to toggle Pomodoro / Realtime"
+              title="Click to toggle Pomodoro / Realtime / Stopwatch"
             >
               {displayType === 'pomodoro' ? (
                 <>
                   <Timer className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                   <span className="font-semibold capitalize text-[11px]">{mode}</span>
                 </>
-              ) : (
+              ) : displayType === 'realtime' ? (
                 <>
                   <Clock className="w-3.5 h-3.5 text-sky-400 shrink-0" />
                   <span className="font-semibold text-[11px]">{getTranslation(language, 'clockTypeRealtime')}</span>
+                </>
+              ) : (
+                <>
+                  <RotateCcw className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <span className="font-semibold text-[11px]">Flow Stopwatch</span>
                 </>
               )}
             </button>
@@ -265,13 +299,19 @@ export const AmbientClock: React.FC = () => {
             title="Click to toggle display mode"
           >
             <div className="text-4xl sm:text-5xl font-mono font-extrabold text-white tracking-tighter drop-shadow-lg">
-              {displayType === 'pomodoro' ? formatPomodoro(remainingSeconds) : formatRealtime(realtime, true)}
+              {displayType === 'pomodoro'
+                ? formatPomodoro(remainingSeconds)
+                : displayType === 'realtime'
+                ? formatRealtime(realtime, true)
+                : formatStopwatch(stopwatchSeconds)}
             </div>
             <div className="text-xs text-slate-400 mt-0.5 font-medium truncate max-w-[280px]">
               {displayType === 'pomodoro' ? (
                 isRunning ? 'Counting down...' : 'Paused — Click to Resume'
-              ) : (
+              ) : displayType === 'realtime' ? (
                 formatDateString(realtime)
+              ) : (
+                isRunning ? 'Flow state active...' : 'Stopwatch paused — Click start'
               )}
             </div>
           </div>
@@ -329,6 +369,45 @@ export const AmbientClock: React.FC = () => {
                   <Settings className="w-3.5 h-3.5" />
                 </button>
               </>
+            ) : displayType === 'stopwatch' ? (
+              <>
+                <button
+                  onClick={resetStopwatch}
+                  className="p-2 rounded-xl glass-pill text-slate-400 hover:text-white transition-all shrink-0"
+                  title="Reset Stopwatch"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                </button>
+
+                <button
+                  onClick={handlePlayPause}
+                  className={`px-4 py-1.5 rounded-xl font-semibold text-xs transition-all flex items-center gap-1.5 shadow-md ${
+                    isRunning
+                      ? 'bg-emerald-500 text-slate-950 shadow-emerald-500/20'
+                      : 'bg-white/15 hover:bg-white/25 text-white'
+                  }`}
+                >
+                  {isRunning ? (
+                    <>
+                      <Pause className="w-3.5 h-3.5 fill-current" />
+                      <span>{getTranslation(language, 'pause')}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-3.5 h-3.5 fill-current" />
+                      <span>{getTranslation(language, 'start')}</span>
+                    </>
+                  )}
+                </button>
+
+                <button
+                  onClick={() => openModal('timer')}
+                  className="p-2 rounded-xl glass-pill text-slate-400 hover:text-white transition-all shrink-0"
+                  title="Settings"
+                >
+                  <Settings className="w-3.5 h-3.5" />
+                </button>
+              </>
             ) : (
               <button
                 onClick={() => setClockDisplayType('pomodoro')}
@@ -374,11 +453,18 @@ export const AmbientClock: React.FC = () => {
                   {mode === 'focus' ? getTranslation(language, 'focus') : getTranslation(language, 'shortBreak')}
                 </span>
               </>
-            ) : (
+            ) : displayType === 'realtime' ? (
               <>
                 <Clock className="w-3.5 h-3.5 text-sky-400 shrink-0" />
                 <span className="tracking-wider text-[10px] sm:text-[11px]">
                   {formatDateString(realtime)}
+                </span>
+              </>
+            ) : (
+              <>
+                <RotateCcw className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span className="uppercase tracking-widest text-[10px] sm:text-[11px] font-bold text-emerald-300">
+                  Flow Stopwatch
                 </span>
               </>
             )}
@@ -397,7 +483,11 @@ export const AmbientClock: React.FC = () => {
               textShadow: `0 0 35px ${accentColor}40, 0 10px 40px rgba(0,0,0,0.9)`,
             }}
           >
-            {displayType === 'pomodoro' ? formatPomodoro(remainingSeconds) : formatRealtime(realtime, true)}
+            {displayType === 'pomodoro'
+              ? formatPomodoro(remainingSeconds)
+              : displayType === 'realtime'
+              ? formatRealtime(realtime, true)
+              : formatStopwatch(stopwatchSeconds)}
           </h1>
         </div>
 
@@ -407,8 +497,10 @@ export const AmbientClock: React.FC = () => {
             <span>
               {isRunning ? 'Flow State Active' : 'Session Paused'} • {Math.round(totalDurationSeconds / 60)} min
             </span>
-          ) : (
+          ) : displayType === 'realtime' ? (
             <span>{realtime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
+          ) : (
+            <span>{isRunning ? 'Deep Work Flowing...' : 'Stopwatch Paused'}</span>
           )}
         </div>
 
@@ -418,11 +510,15 @@ export const AmbientClock: React.FC = () => {
             isHovered || !isRunning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
           }`}
         >
-          {displayType === 'pomodoro' && (
+          {displayType !== 'realtime' && (
             <>
               <button
                 onClick={handlePlayPause}
-                className="px-3.5 sm:px-4 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-all transform active:scale-95 shadow-md"
+                className={`px-3.5 sm:px-4 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all transform active:scale-95 shadow-md ${
+                  displayType === 'stopwatch'
+                    ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-emerald-500/20'
+                    : 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-amber-500/20'
+                }`}
               >
                 {isRunning ? (
                   <>
@@ -438,7 +534,7 @@ export const AmbientClock: React.FC = () => {
               </button>
 
               <button
-                onClick={resetTimer}
+                onClick={displayType === 'stopwatch' ? resetStopwatch : resetTimer}
                 className="p-1.5 rounded-xl glass-pill text-slate-300 hover:text-white"
                 title={getTranslation(language, 'reset')}
               >

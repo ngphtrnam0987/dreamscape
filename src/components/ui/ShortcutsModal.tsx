@@ -31,6 +31,7 @@ export const ShortcutsModal: React.FC = () => {
       icon: <Timer className="w-4 h-4 text-amber-400" />,
       items: [
         { key: 'T', desc: getTranslation(language, 'tShortcut') },
+        { key: 'K', desc: getTranslation(language, 'kShortcut') },
         { key: 'L', desc: getTranslation(language, 'lShortcut') },
         { key: 'B', desc: getTranslation(language, 'bShortcut') },
         { key: 'N', desc: getTranslation(language, 'nShortcut') },

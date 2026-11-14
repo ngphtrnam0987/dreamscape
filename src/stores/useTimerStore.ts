@@ -11,12 +11,14 @@ interface TimerStoreState {
   remainingSeconds: number;
   totalDurationSeconds: number;
   completedSessions: number;
+  stopwatchSeconds: number;
   settings: TimerSettings;
 
   startTimer: () => void;
   pauseTimer: () => void;
   resumeTimer: () => void;
   resetTimer: () => void;
+  resetStopwatch: () => void;
   skipSession: () => void;
   setMode: (mode: TimerMode) => void;
   updateSettings: (partial: Partial<TimerSettings>) => void;
@@ -113,6 +115,7 @@ export const useTimerStore = create<TimerStoreState>((set, get) => ({
   remainingSeconds: initial.remainingSeconds,
   totalDurationSeconds: getDurationSeconds(initial.mode, initial.settings),
   completedSessions: initial.completedSessions,
+  stopwatchSeconds: 0,
   settings: initial.settings,
 
   startTimer: () => {
@@ -160,8 +163,13 @@ export const useTimerStore = create<TimerStoreState>((set, get) => ({
       targetEndTime: null,
       remainingSeconds: total,
       totalDurationSeconds: total,
+      stopwatchSeconds: 0,
     });
     saveTimerToStorage(get());
+  },
+
+  resetStopwatch: () => {
+    set({ stopwatchSeconds: 0 });
   },
 
   setMode: (mode: TimerMode) => {
@@ -220,7 +228,14 @@ export const useTimerStore = create<TimerStoreState>((set, get) => ({
 
   tick: () => {
     const state = get();
-    if (!state.isRunning || !state.targetEndTime) return;
+    if (!state.isRunning) return;
+
+    // Increment stopwatch count up
+    if (state.settings.clockDisplayType === 'stopwatch') {
+      set(s => ({ stopwatchSeconds: s.stopwatchSeconds + 1 }));
+    }
+
+    if (!state.targetEndTime) return;
 
     const remainingMs = state.targetEndTime - Date.now();
     const remainingSeconds = Math.max(0, Math.ceil(remainingMs / 1000));

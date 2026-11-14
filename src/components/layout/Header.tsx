@@ -2,6 +2,7 @@ import React from 'react';
 import { useUIStore } from '../../stores/useUIStore';
 import { useSceneStore, SCENES_INFO } from '../../stores/useSceneStore';
 import { useAudioStore } from '../../stores/useAudioStore';
+import { useTaskStore } from '../../stores/useTaskStore';
 import { getTranslation } from '../../locales';
 import {
   Sparkles,
@@ -14,6 +15,7 @@ import {
   Bell,
   Eye,
   HelpCircle,
+  CheckSquare,
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
@@ -28,8 +30,11 @@ export const Header: React.FC = () => {
   } = useUIStore();
   const { currentSceneId } = useSceneStore();
   const { playChime } = useAudioStore();
+  const { tasks } = useTaskStore();
 
   if (isFocusMode || isZenMode) return null;
+
+  const pendingTaskCount = tasks.filter(t => !t.completed).length;
 
   const currentScene = SCENES_INFO.find(s => s.id === currentSceneId) || SCENES_INFO[0];
   const sceneName = language === 'vi' ? currentScene.nameVi : currentScene.name;
@@ -87,6 +92,22 @@ export const Header: React.FC = () => {
         >
           <Wind className="w-3.5 h-3.5 text-teal-400 shrink-0" />
           <span className="hidden md:inline">{getTranslation(language, 'breathe')}</span>
+        </button>
+
+        {/* Task Focus / To-Do List */}
+        <button
+          onClick={() => openModal('tasks')}
+          className="relative p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl glass-pill text-xs font-medium text-slate-300 hover:text-white transition-all flex items-center gap-1.5"
+          title={`${getTranslation(language, 'tasks')} (K)`}
+          aria-label={getTranslation(language, 'tasks')}
+        >
+          <CheckSquare className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+          <span className="hidden md:inline">{getTranslation(language, 'tasks')}</span>
+          {pendingTaskCount > 0 && (
+            <span className="w-4 h-4 rounded-full bg-emerald-500/30 border border-emerald-400/40 text-emerald-300 text-[10px] font-mono font-bold flex items-center justify-center shrink-0">
+              {pendingTaskCount}
+            </span>
+          )}
         </button>
 
         {/* Focus Notes / Scratchpad */}

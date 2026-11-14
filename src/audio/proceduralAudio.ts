@@ -264,6 +264,215 @@ export class FireCrackleSynthesizer {
   }
 }
 
+// Procedural Mechanical Keyboard Synthesizer
+export class MechanicalKeyboardSynthesizer {
+  private ctx: AudioContext;
+  private outputNode: GainNode;
+  private timerId: ReturnType<typeof setTimeout> | null = null;
+  private isRunning = false;
+  private keysInCurrentBurst = 0;
+  private burstTarget = 5;
+
+  constructor(ctx: AudioContext, output: GainNode) {
+    this.ctx = ctx;
+    this.outputNode = output;
+  }
+
+  start() {
+    if (this.isRunning) return;
+    this.isRunning = true;
+    this.keysInCurrentBurst = 0;
+    this.burstTarget = 3 + Math.floor(Math.random() * 6);
+    this.scheduleNextKey();
+  }
+
+  stop() {
+    this.isRunning = false;
+    if (this.timerId) {
+      clearTimeout(this.timerId);
+      this.timerId = null;
+    }
+  }
+
+  private scheduleNextKey() {
+    if (!this.isRunning) return;
+
+    let delayMs: number;
+    if (this.keysInCurrentBurst >= this.burstTarget) {
+      // Pause between sentences / code lines (pause for breath/thinking)
+      delayMs = 600 + Math.random() * 1200;
+      this.keysInCurrentBurst = 0;
+      this.burstTarget = 3 + Math.floor(Math.random() * 8);
+    } else {
+      // Rhythmic typing speed: 85ms - 220ms
+      delayMs = 85 + Math.random() * 135;
+      this.keysInCurrentBurst++;
+    }
+
+    this.timerId = setTimeout(() => {
+      if (this.isRunning) {
+        const isSpaceOrEnter = this.keysInCurrentBurst === this.burstTarget || Math.random() < 0.15;
+        this.playKeyStroke(isSpaceOrEnter);
+        this.scheduleNextKey();
+      }
+    }, delayMs);
+  }
+
+  private playKeyStroke(isHeavyKey = false) {
+    try {
+      const now = this.ctx.currentTime;
+      const duration = isHeavyKey ? 0.055 : 0.038;
+
+      // 1. Switch activation click (crisp high transient)
+      const clickOsc = this.ctx.createOscillator();
+      const clickGain = this.ctx.createGain();
+      const clickFilter = this.ctx.createBiquadFilter();
+
+      clickFilter.type = 'bandpass';
+      clickFilter.frequency.value = (isHeavyKey ? 2200 : 3200) + (Math.random() * 600 - 300);
+      clickFilter.Q.value = 3.5;
+
+      clickOsc.type = 'sawtooth';
+      clickOsc.frequency.setValueAtTime(isHeavyKey ? 800 : 1400, now);
+      clickOsc.frequency.exponentialRampToValueAtTime(200, now + duration);
+
+      clickGain.gain.setValueAtTime(isHeavyKey ? 0.28 : 0.22, now);
+      clickGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+      clickOsc.connect(clickFilter);
+      clickFilter.connect(clickGain);
+      clickGain.connect(this.outputNode);
+
+      clickOsc.start(now);
+      clickOsc.stop(now + duration);
+
+      // 2. Bottoming-out body "thock" (warm low resonant body impact)
+      const thockOsc = this.ctx.createOscillator();
+      const thockGain = this.ctx.createGain();
+
+      thockOsc.type = 'sine';
+      const thockFreq = (isHeavyKey ? 240 : 340) + (Math.random() * 40 - 20);
+      thockOsc.frequency.setValueAtTime(thockFreq, now);
+      thockOsc.frequency.exponentialRampToValueAtTime(90, now + duration * 1.2);
+
+      const thockAmp = isHeavyKey ? 0.35 : 0.25;
+      thockGain.gain.setValueAtTime(thockAmp, now);
+      thockGain.gain.exponentialRampToValueAtTime(0.0001, now + duration * 1.2);
+
+      thockOsc.connect(thockGain);
+      thockGain.connect(this.outputNode);
+
+      thockOsc.start(now);
+      thockOsc.stop(now + duration * 1.2);
+    } catch {
+      // AudioContext safe
+    }
+  }
+}
+
+// Procedural Cafe Murmur & Cups Synthesizer
+export class CafeMurmurSynthesizer {
+  private ctx: AudioContext;
+  private outputNode: GainNode;
+  private timerId: ReturnType<typeof setTimeout> | null = null;
+  private isRunning = false;
+  private murmurSource: AudioBufferSourceNode | null = null;
+  private murmurGain: GainNode | null = null;
+
+  constructor(ctx: AudioContext, output: GainNode) {
+    this.ctx = ctx;
+    this.outputNode = output;
+  }
+
+  start(pinkBuffer: AudioBuffer) {
+    if (this.isRunning) return;
+    this.isRunning = true;
+
+    try {
+      // Create continuous warm filtered murmur background
+      this.murmurSource = this.ctx.createBufferSource();
+      this.murmurSource.buffer = pinkBuffer;
+      this.murmurSource.loop = true;
+
+      // Resonant dual formant filters to mimic distant chatter
+      const lowFilter = this.ctx.createBiquadFilter();
+      lowFilter.type = 'bandpass';
+      lowFilter.frequency.value = 420;
+      lowFilter.Q.value = 2.0;
+
+      const midFilter = this.ctx.createBiquadFilter();
+      midFilter.type = 'lowpass';
+      midFilter.frequency.value = 750;
+
+      this.murmurGain = this.ctx.createGain();
+      this.murmurGain.gain.setValueAtTime(0.5, this.ctx.currentTime);
+
+      this.murmurSource.connect(lowFilter);
+      lowFilter.connect(midFilter);
+      midFilter.connect(this.murmurGain);
+      this.murmurGain.connect(this.outputNode);
+
+      this.murmurSource.start(0);
+    } catch {}
+
+    this.scheduleCupClink();
+  }
+
+  stop() {
+    this.isRunning = false;
+    if (this.timerId) {
+      clearTimeout(this.timerId);
+      this.timerId = null;
+    }
+    if (this.murmurSource) {
+      try {
+        this.murmurSource.stop();
+        this.murmurSource.disconnect();
+      } catch {}
+      this.murmurSource = null;
+    }
+  }
+
+  private scheduleCupClink() {
+    if (!this.isRunning) return;
+    const interval = 4500 + Math.random() * 8500; // Occasional clink every 4-13s
+    this.timerId = setTimeout(() => {
+      if (this.isRunning) {
+        this.playCupClink();
+        this.scheduleCupClink();
+      }
+    }, interval);
+  }
+
+  private playCupClink() {
+    try {
+      const now = this.ctx.currentTime;
+      // High ceramic resonant chime
+      const freqs = [2480, 3620];
+      const duration = 0.8;
+
+      freqs.forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq + (Math.random() * 40 - 20), now);
+
+        const amp = (0.06 / (idx + 1)) * (0.8 + Math.random() * 0.4);
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.linearRampToValueAtTime(amp, now + 0.005);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+        osc.connect(gain);
+        gain.connect(this.outputNode);
+
+        osc.start(now);
+        osc.stop(now + duration);
+      });
+    } catch {}
+  }
+}
+
 // Procedural Bell Chime for Pomodoro
 export function playChimeSound(ctx: AudioContext, volume = 0.5) {
   try {

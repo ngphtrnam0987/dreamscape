@@ -113,6 +113,13 @@ export function useKeyboardShortcuts() {
         return;
       }
 
+      // 'K' or 'k': Toggle Daily Tasks Modal
+      if (e.key === 'k' || e.key === 'K') {
+        e.preventDefault();
+        toggleModal('tasks');
+        return;
+      }
+
       // 'S' or 's': Toggle Sound Mixer Modal
       if (e.key === 's' || e.key === 'S') {
         e.preventDefault();

@@ -16,6 +16,8 @@ import {
   Building2,
   MoonStar,
   Headphones,
+  Keyboard,
+  Coffee,
   Volume2,
 } from 'lucide-react';
 
@@ -45,6 +47,8 @@ export const ChannelVolumeRow: React.FC<ChannelRowProps> = ({ config }) => {
       case 'Building2': return <Building2 {...props} />;
       case 'MoonStar': return <MoonStar {...props} />;
       case 'Headphones': return <Headphones {...props} />;
+      case 'Keyboard': return <Keyboard {...props} />;
+      case 'Coffee': return <Coffee {...props} />;
       default: return <Volume2 {...props} />;
     }
   };

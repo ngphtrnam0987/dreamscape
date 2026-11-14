@@ -74,6 +74,8 @@ export const vi: Record<TranslationKey, string> = {
   chCity: 'Đô Thị Về Đêm',
   chCosmic: 'Tiếng Vọng Vũ Trụ',
   chBinaural: 'Sóng Não Binaural (Alpha 10Hz)',
+  chKeyboard: 'Bàn Phím Cơ',
+  chCafe: 'Quán Cà Phê & Tách Gốm',
 
   // Categories
   catWeather: 'Thời Tiết',
@@ -249,6 +251,40 @@ export const vi: Record<TranslationKey, string> = {
   escShortcut: 'Đóng Cửa Sổ / Thoát Tập Trung (Esc)',
   oneToEightShortcut: 'Chuyển Đổi Nhanh Không Gian 1 - 8',
   helpShortcut: 'Bảng Hướng Dẫn Phím Tắt (?)',
+
+  // Tasks & To-Do List
+  tasks: 'Mục Tiêu Công Việc',
+  tasksTitle: 'Mục Tiêu & Việc Cần Làm',
+  tasksSubtitle: 'Ghi lại mục tiêu học tập và đón pháo hoa khi hoàn thành nhiệm vụ',
+  addTaskPlaceholder: 'Hôm nay bạn cần hoàn thành việc gì? (Nhấn Enter)',
+  noTasksYet: 'Chưa có mục tiêu nào. Hãy thêm công việc để duy trì nhịp tập trung!',
+  completedTasksCount: 'Đã xong {completed}/{total} việc',
+  clearCompletedTasks: 'Dọn Việc Đã Xong',
+  activeFocusTask: 'Đang làm: {title}',
+  setActiveTask: 'Đặt Làm Mục Tiêu Cho Pomodoro',
+  taskActiveBadge: 'Đang Thực Hiện',
+  allTasksCompleted: 'Đã hoàn thành toàn bộ mục tiêu hôm nay! Xuất sắc 🎉',
+  kShortcut: 'Bật/Tắt Mục Tiêu Việc Cần Làm (K)',
+
+  // Wellness & Ergonomics Reminders
+  wellness: 'Sức Khỏe & Thư Giãn',
+  hydrationReminderTitle: 'Đã đến lúc uống nước 💧',
+  hydrationReminderDesc: 'Uống một ngụm nước để giữ tinh thần minh mẫn và cơ thể tràn đầy năng lượng.',
+  hydrationAcknowledge: 'Đã Uống',
+  eyeRestReminderTitle: 'Quy Tắc Nghỉ Mắt 20-20-20 👁️',
+  eyeRestReminderDesc: 'Hãy phóng tầm mắt nhìn xa 6 mét trong 20 giây để mắt được thư giãn nhé.',
+  eyeRestAcknowledge: 'Đã Nghỉ Mắt',
+  dismissReminder: 'Để Sau',
+  enableHydrationReminder: 'Nhắc Uống Nước (mỗi 35 phút)',
+  enableEyeRestReminder: 'Nhắc Nghỉ Mắt 20-20-20 (mỗi 20 phút)',
+
+  // Stopwatch / Flow timer mode
+  stopwatchMode: 'Bấm Giờ Tự Do (Đếm Xuôi)',
+  stopwatchDesc: 'Đồng hồ đếm thời gian làm việc không giới hạn dành cho trạng thái tập trung sâu',
+
+  // PWA Install
+  installApp: 'Cài Đặt Ứng Dụng Dreamscape',
+  installAppDesc: 'Cài đặt như một ứng dụng độc lập trên máy tính hoặc điện thoại để dùng ngay kể cả khi offline',
 
   // Generic
   cancel: 'Hủy',

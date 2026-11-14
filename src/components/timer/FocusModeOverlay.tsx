@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useUIStore } from '../../stores/useUIStore';
 import { useTimerStore } from '../../stores/useTimerStore';
+import { useTaskStore } from '../../stores/useTaskStore';
 import { getTranslation } from '../../locales';
-import { Play, Pause, Minimize2 } from 'lucide-react';
+import { Play, Pause, Minimize2, Target, CheckCircle2 } from 'lucide-react';
 
 export const FocusModeOverlay: React.FC = () => {
   const { isFocusMode, toggleFocusMode, language } = useUIStore();
   const { isRunning, remainingSeconds, startTimer, pauseTimer, settings, toggleClockSize } = useTimerStore();
+  const { getActiveTask, toggleTask } = useTaskStore();
   const [controlsVisible, setControlsVisible] = useState(true);
+
+  const activeTask = getActiveTask();
 
   // Auto-dim controls after 4 seconds of idle in focus mode
   useEffect(() => {
@@ -48,6 +52,23 @@ export const FocusModeOverlay: React.FC = () => {
         controlsVisible ? 'opacity-100' : 'opacity-15 hover:opacity-100'
       }`}
     >
+      {/* Top-Left Active Focus Task Pill */}
+      {activeTask && (
+        <div className="absolute top-3 sm:top-6 left-2.5 sm:left-6 pointer-events-auto flex items-center gap-2 px-3 py-1.5 rounded-2xl glass-panel shadow-2xl border border-sky-400/30 text-xs animate-fade-in max-w-[85vw] sm:max-w-md">
+          <Target className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+          <span className="font-semibold text-white truncate text-[11px] sm:text-xs">
+            {activeTask.title}
+          </span>
+          <button
+            onClick={() => toggleTask(activeTask.id)}
+            className="p-1 rounded-lg text-slate-400 hover:text-emerald-400 transition-colors ml-1"
+            title="Mark completed"
+          >
+            <CheckCircle2 className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
+
       {/* Top Floating Exit & Clock Mode Bar */}
       <div className="absolute top-3 sm:top-6 right-2.5 sm:right-6 pointer-events-auto flex items-center gap-1.5 sm:gap-2 p-1.5 rounded-2xl glass-panel shadow-2xl border border-white/15 animate-fade-in max-w-[94vw]">
         {/* If clock is hidden on screen, show minimal time here */}

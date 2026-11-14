@@ -10,7 +10,9 @@ export type ChannelId =
   | 'insects'
   | 'city'
   | 'cosmic'
-  | 'binaural';
+  | 'binaural'
+  | 'keyboard'
+  | 'cafe';
 
 export interface ChannelConfig {
   id: ChannelId;
