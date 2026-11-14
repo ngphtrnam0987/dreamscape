@@ -18,6 +18,7 @@ import {
   CheckSquare,
   ChevronLeft,
   ChevronRight,
+  Type,
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
@@ -146,6 +147,16 @@ export const Header: React.FC = () => {
           aria-label={getTranslation(language, 'quickNotes')}
         >
           <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
+        </button>
+
+        {/* Typography & Fonts Quick Button */}
+        <button
+          onClick={() => openModal('typography')}
+          className="p-1.5 sm:p-2 rounded-xl glass-pill text-slate-300 hover:text-white transition-all"
+          title={getTranslation(language, 'typography')}
+          aria-label={getTranslation(language, 'typography')}
+        >
+          <Type className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-400" />
         </button>
 
         {/* Language Switcher */}

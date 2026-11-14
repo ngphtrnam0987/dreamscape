@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SceneContainer } from './scenes/SceneContainer';
 import { Header } from './components/layout/Header';
 import { BottomControls } from './components/layout/BottomControls';
@@ -14,6 +14,7 @@ import { BreathingGuideModal } from './components/mindfulness/BreathingGuideModa
 import { QuickNotesModal } from './components/notes/QuickNotesModal';
 import { LofiPlayerModal } from './components/lofi/LofiPlayerModal';
 import { ShortcutsModal } from './components/ui/ShortcutsModal';
+import { TypographyModal } from './components/typography/TypographyModal';
 import { ZenModeOverlay } from './components/ui/ZenModeOverlay';
 import { TaskModal } from './components/tasks/TaskModal';
 import { WellnessNotificationOverlay } from './components/wellness/WellnessNotificationOverlay';
@@ -23,12 +24,17 @@ import { Toast } from './components/ui/Toast';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { useTimerInterval } from './hooks/useTimerInterval';
 import { useSharedPresetLoader } from './hooks/useSharedPresetLoader';
+import { useFontStore } from './stores/useFontStore';
 
 export const App: React.FC = () => {
   // Global hooks
   useKeyboardShortcuts();
   useTimerInterval();
   useSharedPresetLoader();
+
+  useEffect(() => {
+    useFontStore.getState().initFont();
+  }, []);
 
   return (
     <main className="relative w-screen h-screen overflow-hidden bg-slate-950 text-slate-100 select-none">
@@ -54,6 +60,7 @@ export const App: React.FC = () => {
       <QuickNotesModal />
       <LofiPlayerModal />
       <ShortcutsModal />
+      <TypographyModal />
       <TaskModal />
 
       {/* Study With Me Video Feed & Lo-Fi Stream Audio */}

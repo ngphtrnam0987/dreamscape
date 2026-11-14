@@ -17,11 +17,16 @@ import {
   Compass,
   MousePointer2,
   Volume2,
+  Type,
+  Upload,
 } from 'lucide-react';
+import { useFontStore } from '../../stores/useFontStore';
+import { PRESET_FONTS } from '../../types/font';
 
 export const SceneSettingsModal: React.FC = () => {
-  const { activeModal, closeModal, language } = useUIStore();
+  const { activeModal, closeModal, openModal, language } = useUIStore();
   const { currentSceneId, settings, updateSettings, updateSpecificSettings, resetSettings } = useSceneStore();
+  const { currentFontId, setFont, customFontMeta } = useFontStore();
 
   const specific = settings.specific[currentSceneId] || {};
 
@@ -206,6 +211,72 @@ export const SceneSettingsModal: React.FC = () => {
               className="w-4 h-4 accent-emerald-500 rounded cursor-pointer"
             />
           </div>
+        </div>
+
+        {/* Typography & Fonts Customization */}
+        <div className="space-y-3.5 p-4 rounded-2xl bg-white/5 border border-white/10">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <Type className="w-4 h-4 text-sky-400" />
+              <span>{getTranslation(language, 'typography')}</span>
+            </div>
+            <button
+              onClick={() => openModal('typography')}
+              className="px-2.5 py-1 rounded-xl glass-pill text-xs font-medium text-sky-300 hover:text-white transition-all flex items-center gap-1.5"
+            >
+              <Upload className="w-3.5 h-3.5 text-sky-400" />
+              <span>{getTranslation(language, 'uploadCustomFont')}</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {PRESET_FONTS.slice(0, 6).map((font) => {
+              const active = currentFontId === font.id;
+              return (
+                <button
+                  key={font.id}
+                  onClick={() => setFont(font.id)}
+                  className={`px-3 py-2 rounded-xl text-xs font-medium transition-all text-left border ${
+                    active
+                      ? 'bg-sky-500/20 border-sky-400/50 text-white shadow-sm ring-1 ring-sky-400/30'
+                      : 'bg-white/5 border-white/10 text-slate-400 hover:text-white hover:bg-white/10'
+                  }`}
+                  style={{ fontFamily: font.fontFamily }}
+                >
+                  <div className="truncate font-semibold">{font.name}</div>
+                  <div className="text-[10px] text-slate-400 opacity-80 truncate">{font.sample}</div>
+                </button>
+              );
+            })}
+          </div>
+
+          {customFontMeta && (
+            <div
+              onClick={() => setFont('custom')}
+              className={`p-2.5 rounded-xl border text-left cursor-pointer transition-all flex items-center justify-between ${
+                currentFontId === 'custom'
+                  ? 'bg-sky-500/20 border-sky-400/50 text-white ring-1 ring-sky-400/30'
+                  : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10'
+              }`}
+            >
+              <div className="flex items-center gap-2 truncate">
+                <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300">
+                  {customFontMeta.format}
+                </span>
+                <span className="text-xs font-semibold truncate font-['DreamscapeCustomFont']">
+                  {customFontMeta.name}
+                </span>
+              </div>
+              <span className="text-[10px] text-slate-400">Custom Font</span>
+            </div>
+          )}
+
+          <button
+            onClick={() => openModal('typography')}
+            className="w-full py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium text-slate-300 hover:text-sky-300 transition-colors block text-center"
+          >
+            {getTranslation(language, 'viewAllFonts')} &rarr;
+          </button>
         </div>
 
         {/* Scene-Specific Controls */}
