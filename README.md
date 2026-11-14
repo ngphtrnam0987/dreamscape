@@ -2,6 +2,14 @@
 
 > **Calm. Cinematic. Minimal. Immersive. Beautiful.**
 
+🌐 **Live Production App:** [https://dreamscape.ngphtrnam0987.workers.dev](https://dreamscape.ngphtrnam0987.workers.dev)
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-dreamscape.workers.dev-0284c7?style=for-the-badge&logo=cloudflare&logoColor=white)](https://dreamscape.ngphtrnam0987.workers.dev)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Cloudflare](https://img.shields.io/badge/Deploy-Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](https://dreamscape.ngphtrnam0987.workers.dev)
+
 DreamScape is a production-grade, immersive ambient sanctuary designed to help people relax, study, focus, read, and sleep. Featuring real-time procedural Web Audio synthesis, interactive animated atmospheric environments, a Pomodoro focus timer with drift-free tracking, custom preset management, and bilingual localization (English & Tiếng Việt).
 
 ---
@@ -145,8 +153,12 @@ The static production assets will be built into the `dist/` folder.
 | Key | Action |
 |---|---|
 | <kbd>Space</kbd> | Start / Pause Pomodoro Timer |
+| <kbd>V</kbd> | Cycle Clock Visual Styles (Flip, LED, Analog, Radial, Matrix, Zen, Glass) |
 | <kbd>M</kbd> | Toggle Master Audio Mute |
 | <kbd>F</kbd> | Toggle Distraction-Free Focus Mode |
+| <kbd>Z</kbd> | Toggle Pure Zen Scenery View (hides all UI overlays) |
+| <kbd>1</kbd> - <kbd>9</kbd>, <kbd>0</kbd> | Switch Atmospheric Scenes |
+| <kbd>?</kbd> | Open Keyboard Shortcuts Cheat Sheet |
 | <kbd>Esc</kbd> | Close Active Modal / Exit Focus Mode |
 
 ---

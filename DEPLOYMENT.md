@@ -1,6 +1,8 @@
-# Deployment Guide — Cloudflare Pages & Static Hosting
+# Deployment Guide — Cloudflare & Static Hosting
 
-DreamScape is fully static and zero-dependency at runtime. It can be deployed to Cloudflare Pages, Vercel, Netlify, GitHub Pages, or any modern web server in seconds.
+🌐 **Live Production Link:** [https://dreamscape.ngphtrnam0987.workers.dev](https://dreamscape.ngphtrnam0987.workers.dev)
+
+DreamScape is fully static and zero-dependency at runtime. It is deployed to Cloudflare Workers / Pages and can also be hosted on Vercel, Netlify, GitHub Pages, or any modern web server in seconds.
 
 ---
 
