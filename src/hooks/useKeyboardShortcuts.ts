@@ -27,7 +27,7 @@ export function useKeyboardShortcuts() {
     showToast,
   } = useUIStore();
 
-  const { setScene } = useSceneStore();
+  const { setScene, nextScene, previousScene } = useSceneStore();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -145,6 +145,28 @@ export function useKeyboardShortcuts() {
         return;
       }
 
+      // '[': Previous Scene
+      if (e.key === '[') {
+        e.preventDefault();
+        previousScene();
+        const current = SCENES_INFO.find(s => s.id === useSceneStore.getState().currentSceneId);
+        if (current) {
+          showToast(`Scene: ${current.name}`);
+        }
+        return;
+      }
+
+      // ']': Next Scene
+      if (e.key === ']') {
+        e.preventDefault();
+        nextScene();
+        const current = SCENES_INFO.find(s => s.id === useSceneStore.getState().currentSceneId);
+        if (current) {
+          showToast(`Scene: ${current.name}`);
+        }
+        return;
+      }
+
       // 'Escape': Close open modal or exit focus / zen mode
       if (e.key === 'Escape') {
         if (activeModal) {
@@ -176,6 +198,8 @@ export function useKeyboardShortcuts() {
     isZenMode,
     toggleZenMode,
     setScene,
+    nextScene,
+    previousScene,
     showToast,
   ]);
 }

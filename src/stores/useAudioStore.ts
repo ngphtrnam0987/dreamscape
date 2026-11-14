@@ -3,6 +3,7 @@ import { ChannelId } from '../types/audio';
 import { INITIAL_CHANNEL_STATES } from '../audio/channelDefinitions';
 import { audioEngine } from '../audio/AudioEngine';
 import { SoundPreset } from '../types/preset';
+import { useSceneStore } from './useSceneStore';
 
 interface AudioState {
   masterVolume: number;
@@ -23,6 +24,7 @@ interface AudioState {
   startSleepTimer: (minutes: number) => void;
   cancelSleepTimer: () => void;
   playChime: (volume?: number) => void;
+  playUiFeedback: (type?: 'tap' | 'toggle' | 'pop') => void;
 }
 
 const STORAGE_KEY = 'dreamscape_audio_state';
@@ -202,5 +204,13 @@ export const useAudioStore = create<AudioState>((set, get) => ({
     audioEngine.init().then(() => {
       audioEngine.playChime(volume);
     });
+  },
+
+  playUiFeedback: (type = 'tap') => {
+    try {
+      if (useSceneStore.getState().settings.uiSounds) {
+        audioEngine.playUiClick(type);
+      }
+    } catch {}
   },
 }));

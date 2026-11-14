@@ -24,6 +24,7 @@ export const ShortcutsModal: React.FC = () => {
         { key: 'F', desc: getTranslation(language, 'fShortcut') },
         { key: 'C', desc: getTranslation(language, 'cShortcut') },
         { key: '1 - 8', desc: getTranslation(language, 'oneToEightShortcut') },
+        { key: '[ / ]', desc: getTranslation(language, 'prevNextSceneShortcut') },
       ],
     },
     {

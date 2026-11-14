@@ -1,6 +1,7 @@
 import React from 'react';
 import { useUIStore } from '../../stores/useUIStore';
 import { useSceneStore } from '../../stores/useSceneStore';
+import { ColorGrade } from '../../types/scene';
 import { Modal } from '../ui/Modal';
 import { Slider } from '../ui/Slider';
 import { getTranslation } from '../../locales';
@@ -11,6 +12,11 @@ import {
   Sparkles,
   BatteryCharging,
   RotateCcw,
+  Palette,
+  Film,
+  Compass,
+  MousePointer2,
+  Volume2,
 } from 'lucide-react';
 
 export const SceneSettingsModal: React.FC = () => {
@@ -99,6 +105,104 @@ export const SceneSettingsModal: React.FC = () => {
               type="checkbox"
               checked={settings.lowPerformanceMode}
               onChange={e => updateSettings({ lowPerformanceMode: e.target.checked })}
+              className="w-4 h-4 accent-emerald-500 rounded cursor-pointer"
+            />
+          </div>
+        </div>
+
+        {/* Cinematic Color Grading & Visual Aesthetics */}
+        <div className="space-y-3.5 p-4 rounded-2xl bg-white/5 border border-white/10">
+          <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-300">
+            <Palette className="w-4 h-4 text-purple-400" />
+            <span>{getTranslation(language, 'cinematicColorGrading')}</span>
+          </div>
+
+          {/* Color Grade Pills */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {[
+              { id: 'standard', label: getTranslation(language, 'gradeStandard'), color: 'from-slate-700 to-slate-900' },
+              { id: 'warm-sunset', label: getTranslation(language, 'gradeWarmSunset'), color: 'from-amber-600 to-orange-800' },
+              { id: 'cool-midnight', label: getTranslation(language, 'gradeCoolMidnight'), color: 'from-cyan-700 to-indigo-900' },
+              { id: 'cyber-neon', label: getTranslation(language, 'gradeCyberNeon'), color: 'from-fuchsia-600 to-purple-900' },
+              { id: 'noir', label: getTranslation(language, 'gradeNoir'), color: 'from-zinc-500 to-zinc-900' },
+            ].map(({ id, label, color }) => {
+              const active = (settings.colorGrade || 'standard') === id;
+              return (
+                <button
+                  key={id}
+                  onClick={() => updateSettings({ colorGrade: id as ColorGrade })}
+                  className={`px-3 py-2 rounded-xl text-xs font-medium transition-all flex items-center justify-between border ${
+                    active
+                      ? 'bg-gradient-to-r ' + color + ' text-white border-white/40 shadow-md ring-2 ring-white/20'
+                      : 'bg-white/5 border-white/10 text-slate-400 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <span className="truncate">{label}</span>
+                  {active && <span className="w-1.5 h-1.5 rounded-full bg-white ml-1" />}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Film Grain Toggle */}
+          <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Film className="w-4 h-4 text-rose-400" />
+              <div>
+                <span className="text-xs font-medium text-white block">
+                  {getTranslation(language, 'filmGrain')}
+                </span>
+                <span className="text-[11px] text-slate-400 block">
+                  {getTranslation(language, 'filmGrainDesc')}
+                </span>
+              </div>
+            </div>
+            <input
+              type="checkbox"
+              checked={settings.filmGrain}
+              onChange={e => updateSettings({ filmGrain: e.target.checked })}
+              className="w-4 h-4 accent-rose-500 rounded cursor-pointer"
+            />
+          </div>
+
+          {/* 3D Parallax Perspective Tilt */}
+          <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Compass className="w-4 h-4 text-sky-400" />
+              <div>
+                <span className="text-xs font-medium text-white block">
+                  {getTranslation(language, 'parallax3D')}
+                </span>
+                <span className="text-[11px] text-slate-400 block">
+                  {getTranslation(language, 'parallax3DDesc')}
+                </span>
+              </div>
+            </div>
+            <input
+              type="checkbox"
+              checked={settings.parallax3D}
+              onChange={e => updateSettings({ parallax3D: e.target.checked })}
+              className="w-4 h-4 accent-sky-500 rounded cursor-pointer"
+            />
+          </div>
+
+          {/* Glowing Ambient Cursor */}
+          <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <MousePointer2 className="w-4 h-4 text-emerald-400" />
+              <div>
+                <span className="text-xs font-medium text-white block">
+                  {getTranslation(language, 'ambientCursor')}
+                </span>
+                <span className="text-[11px] text-slate-400 block">
+                  {getTranslation(language, 'ambientCursorDesc')}
+                </span>
+              </div>
+            </div>
+            <input
+              type="checkbox"
+              checked={settings.ambientCursor}
+              onChange={e => updateSettings({ ambientCursor: e.target.checked })}
               className="w-4 h-4 accent-emerald-500 rounded cursor-pointer"
             />
           </div>

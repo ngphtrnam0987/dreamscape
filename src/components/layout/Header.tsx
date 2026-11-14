@@ -16,6 +16,8 @@ import {
   Eye,
   HelpCircle,
   CheckSquare,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
@@ -28,7 +30,7 @@ export const Header: React.FC = () => {
     isZenMode,
     toggleZenMode,
   } = useUIStore();
-  const { currentSceneId } = useSceneStore();
+  const { currentSceneId, nextScene, previousScene } = useSceneStore();
   const { playChime } = useAudioStore();
   const { tasks } = useTaskStore();
 
@@ -57,18 +59,44 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* Scene Pill Switcher */}
-        <button
-          onClick={() => openModal('scenes')}
-          className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-2xl glass-pill text-xs font-medium text-slate-200 transition-all hover:scale-105 min-w-0 shrink"
-          title={getTranslation(language, 'scenes')}
-        >
-          <Compass className="w-3.5 h-3.5 text-sky-400 shrink-0" />
-          <span className="hidden lg:inline text-slate-400">{getTranslation(language, 'scenes')}:</span>
-          <span className="font-semibold text-white truncate max-w-[85px] xs:max-w-[120px] sm:max-w-[160px] md:max-w-none">
-            {sceneName}
-          </span>
-        </button>
+        {/* Scene Pill Switcher with Step Chevrons */}
+        <div className="flex items-center rounded-2xl glass-pill text-xs font-medium text-slate-200 min-w-0 shrink p-0.5">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              previousScene();
+            }}
+            className="p-1 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+            title={getTranslation(language, 'prevScene')}
+            aria-label={getTranslation(language, 'prevScene')}
+          >
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </button>
+
+          <button
+            onClick={() => openModal('scenes')}
+            className="flex items-center gap-1.5 sm:gap-2 px-1.5 sm:px-2 py-0.5 sm:py-1 transition-all hover:text-white min-w-0"
+            title={getTranslation(language, 'scenes')}
+          >
+            <Compass className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+            <span className="hidden lg:inline text-slate-400">{getTranslation(language, 'scenes')}:</span>
+            <span className="font-semibold text-white truncate max-w-[70px] xs:max-w-[105px] sm:max-w-[145px] md:max-w-none">
+              {sceneName}
+            </span>
+          </button>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              nextScene();
+            }}
+            className="p-1 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+            title={getTranslation(language, 'nextScene')}
+            aria-label={getTranslation(language, 'nextScene')}
+          >
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
 
       {/* Right Controls */}

@@ -197,6 +197,24 @@ export const en = {
   bambooSway: 'Bamboo Sway Speed',
   mistDensity: 'Ground Mist Density',
 
+  // Atmosphere & Visual Upgrades
+  cinematicColorGrading: 'Cinematic Color Grading',
+  gradeStandard: 'Natural',
+  gradeWarmSunset: 'Warm Sunset',
+  gradeCoolMidnight: 'Cool Midnight',
+  gradeCyberNeon: 'Cyber Neon',
+  gradeNoir: 'Noir B&W',
+  filmGrain: 'Cinematic Film Grain',
+  filmGrainDesc: 'Subtle analog 35mm grain texture eliminating digital banding',
+  parallax3D: '3D Perspective Parallax',
+  parallax3DDesc: 'Subtle camera tilt and dynamic lighting following cursor',
+  ambientCursor: 'Glowing Ambient Cursor',
+  ambientCursorDesc: 'Interactive fluid ring cursor that reacts to buttons & controls',
+  uiSounds: 'Tactile UI Sound Feedback',
+  uiSoundsDesc: 'Delicate clicks and ticks when interacting with buttons & sliders',
+  prevScene: 'Previous Scene ([)',
+  nextScene: 'Next Scene (])',
+
   // Statistics
   statsTitle: 'Focus Statistics',
   totalFocusTime: 'Total Focus Time',
@@ -248,6 +266,7 @@ export const en = {
   sShortcut: 'Toggle Sound Mixer Panel',
   escShortcut: 'Close Modal / Exit Focus or Zen Mode',
   oneToEightShortcut: 'Quick Switch Scenes 1 - 8',
+  prevNextSceneShortcut: 'Previous / Next Scene ([ / ])',
   helpShortcut: 'Keyboard Shortcuts Guide (?)',
   
   // Tasks & To-Do List

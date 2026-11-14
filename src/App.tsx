@@ -18,6 +18,7 @@ import { ZenModeOverlay } from './components/ui/ZenModeOverlay';
 import { TaskModal } from './components/tasks/TaskModal';
 import { WellnessNotificationOverlay } from './components/wellness/WellnessNotificationOverlay';
 import { StudyWithMeVideo } from './components/study/StudyWithMeVideo';
+import { AmbientCursor } from './components/ui/AmbientCursor';
 import { Toast } from './components/ui/Toast';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { useTimerInterval } from './hooks/useTimerInterval';
@@ -60,6 +61,9 @@ export const App: React.FC = () => {
 
       {/* Global Toast Alerts */}
       <Toast />
+
+      {/* Interactive Glowing Ambient Cursor */}
+      <AmbientCursor />
     </main>
   );
 };

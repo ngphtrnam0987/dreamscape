@@ -58,12 +58,19 @@ export interface SceneSpecificSettings {
   mistDensity?: number; // 0.2 - 2.0
 }
 
+export type ColorGrade = 'standard' | 'warm-sunset' | 'cool-midnight' | 'cyber-neon' | 'noir';
+
 export interface SceneSettings {
   brightness: number; // 0.3 - 1.5
   overlayOpacity: number; // 0 - 0.7
   animationIntensity: number; // 0.2 - 2.0
   particleDensity: number; // 0.2 - 2.0
   lowPerformanceMode: boolean;
+  colorGrade: ColorGrade;
+  filmGrain: boolean;
+  parallax3D: boolean;
+  ambientCursor: boolean;
+  uiSounds: boolean;
   specific: Record<SceneId, SceneSpecificSettings>;
 }
 

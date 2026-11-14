@@ -199,6 +199,24 @@ export const vi: Record<TranslationKey, string> = {
   bambooSway: 'Tốc Độ Cây Trúc Lay',
   mistDensity: 'Độ Dày Sương Đất',
 
+  // Atmosphere & Visual Upgrades
+  cinematicColorGrading: 'Bộ Lọc Màu Điện Ảnh (Color Grading)',
+  gradeStandard: 'Tự Nhiên',
+  gradeWarmSunset: 'Hoàng Hôn Ấm',
+  gradeCoolMidnight: 'Đêm Lam',
+  gradeCyberNeon: 'Tím Neon',
+  gradeNoir: 'Cổ Điển Trắng Đen',
+  filmGrain: 'Hạt Phim Điện Ảnh (Film Grain)',
+  filmGrainDesc: 'Hiệu ứng nhiễu phim nhựa analog 35mm tạo chiều sâu thẩm mỹ',
+  parallax3D: 'Góc Nhìn Thị Lạc 3D (Mouse Parallax)',
+  parallax3DDesc: 'Cảnh sắc nghiêng góc 3D và vệt sáng nhẹ chuyển động theo chuột',
+  ambientCursor: 'Con Trỏ Chuột Ambient Phát Sáng',
+  ambientCursorDesc: 'Vòng tròn sáng mềm mại tương tác phóng to khi rê qua nút bấm',
+  uiSounds: 'Âm Thanh Phản Hồi Khi Nhấp Chuột',
+  uiSoundsDesc: 'Tiếng click nhẹ dịu êm tai khi tương tác nút bấm và thanh trượt',
+  prevScene: 'Cảnh Trước ([)',
+  nextScene: 'Cảnh Kế Tiếp (])',
+
   // Statistics
   statsTitle: 'Thống Kê Tập Trung',
   totalFocusTime: 'Tổng Thời Gian Tập Trung',
@@ -250,6 +268,7 @@ export const vi: Record<TranslationKey, string> = {
   sShortcut: 'Mở Bộ Phối Âm (S)',
   escShortcut: 'Đóng Cửa Sổ / Thoát Tập Trung (Esc)',
   oneToEightShortcut: 'Chuyển Đổi Nhanh Không Gian 1 - 8',
+  prevNextSceneShortcut: 'Cảnh Trước / Kế Tiếp ([ / ])',
   helpShortcut: 'Bảng Hướng Dẫn Phím Tắt (?)',
 
   // Tasks & To-Do List

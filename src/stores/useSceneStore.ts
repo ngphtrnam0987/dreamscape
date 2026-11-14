@@ -120,6 +120,11 @@ const DEFAULT_SETTINGS: SceneSettings = {
   animationIntensity: 1.0,
   particleDensity: 1.0,
   lowPerformanceMode: false,
+  colorGrade: 'standard',
+  filmGrain: false,
+  parallax3D: true,
+  ambientCursor: true,
+  uiSounds: true,
   specific: {
     'rainy-night': { rainIntensity: 1.0, lightningEnabled: true },
     'forest-retreat': { fogIntensity: 1.0, lightRaysEnabled: true },
@@ -138,6 +143,8 @@ interface SceneState {
   currentSceneId: SceneId;
   settings: SceneSettings;
   setScene: (sceneId: SceneId) => void;
+  nextScene: () => void;
+  previousScene: () => void;
   updateSettings: (partial: Partial<SceneSettings>) => void;
   updateSpecificSettings: (sceneId: SceneId, partial: SceneSpecificSettings) => void;
   resetSettings: () => void;
@@ -180,6 +187,20 @@ export const useSceneStore = create<SceneState>((set, get) => ({
         JSON.stringify({ currentSceneId: sceneId, settings: get().settings })
       );
     } catch {}
+  },
+
+  nextScene: () => {
+    const { currentSceneId, setScene } = get();
+    const currentIndex = SCENES_INFO.findIndex(s => s.id === currentSceneId);
+    const nextIndex = (currentIndex + 1) % SCENES_INFO.length;
+    setScene(SCENES_INFO[nextIndex].id);
+  },
+
+  previousScene: () => {
+    const { currentSceneId, setScene } = get();
+    const currentIndex = SCENES_INFO.findIndex(s => s.id === currentSceneId);
+    const prevIndex = (currentIndex - 1 + SCENES_INFO.length) % SCENES_INFO.length;
+    setScene(SCENES_INFO[prevIndex].id);
   },
 
   updateSettings: (partial) => {
