@@ -26,8 +26,28 @@ Each scene is dynamically rendered with real-time canvas physics, atmospheric de
 - **🌸 Cherry Blossom Shrine**: Kyoto Zen garden with pagodas, stone lantern candle flickers, and gentle drifting pink sakura blossom petals.
 - **☕ Cozy Rainy Cafe**: Warm lofi coffee shop interior with steaming coffee mug, hanging Edison bulb, blurred streetlights, and rain on the window.
 - **🏔️ Snowy Aurora**: Majestic snow-capped arctic mountain peaks, shimmering emerald and violet northern lights (Aurora Borealis), and drifting snow.
-- **⚡ Neon Tokyo Rain (New!)**: Shinjuku cyberpunk rainy alleyway with glowing neon kanji signs, hanging paper lanterns, reflective wet asphalt, and steam vents.
-- **🎋 Arashiyama Bamboo Grove (New!)**: Tranquil Japanese bamboo sanctuary with swaying green culms, rolling ground mist, ancient mossy stone lanterns, and thousands of pulsating fireflies.
+- **⚡ Neon Tokyo Rain**: Shinjuku cyberpunk rainy alleyway with glowing neon kanji signs, hanging paper lanterns, reflective wet asphalt, and steam vents.
+- **🎋 Arashiyama Bamboo Grove**: Tranquil Japanese bamboo sanctuary with swaying green culms, rolling ground mist, ancient mossy stone lanterns, and thousands of pulsating fireflies.
+
+### 2. Universal Dynamic Weather Engine & Atmosphere Studio (New!)
+- **8 Dynamic Weather Types**: Blend procedural weather atmospheres over any scene:
+  - ☀️ **Golden Sun & Motes**: Gentle warm sunlight motes and radiant daylight.
+  - 🌧️ **Gentle Rain**: Soothing translucent raindrops and window streaks.
+  - ⛈️ **Dramatic Thunderstorm**: Wind-driven squalls and realistic lightning illumination.
+  - ❄️ **Peaceful Snowfall**: Drifting crystalline hexagonal snowflakes.
+  - 🌫️ **Rolling Valley Mist**: Volumetric horizontal fog clouds.
+  - 🍂 **Autumn Wind & Leaves**: Swirling wind trails carrying amber and crimson maple leaves.
+  - 🌌 **Cosmic Aurora Veil**: Shimmering northern lights ribbons.
+  - ✨ **Scene Default**: Original ambient tuning.
+- **Automatic Ambient Audio Synchronization**: Automatically tunes rain, thunder, or wind channels to match selected weather.
+- **Intensity Slider**: Customize weather particle density and velocity from 50% to 200%.
+
+### 3. Graphics Quality & Hardware Performance Studio (New!)
+- **3 One-Click Performance Tiers**:
+  - 🍃 **Eco Saver (30 FPS)**: Ultra-low CPU/GPU usage (< 1-3%), 30 FPS cap, minimal particles, ideal for laptop battery life.
+  - ⚖️ **Balanced (60 FPS)**: Silky-smooth 60 FPS, gentle 3D parallax, standard particles, and low system load.
+  - 💎 **Ultra Cinema Max Setting (120 FPS Max)**: 120 FPS high refresh rate, 160% particle density, cinema diffuse bloom glow, and 35mm film grain.
+- **Fine-Tuning Controls**: Target FPS selector (30 / 60 / 120 FPS), particle density slider (20% - 200%), 3D parallax tilt, ambient cursor aura, and 35mm film grain.
 
 ### 2. Live "Study With Me" Video Feeds & Lofi Girl Radio (New!)
 - **Real-Time Study With Me Video Companions**: Live YouTube study sessions to keep you accountable and focused:
@@ -154,6 +174,8 @@ The static production assets will be built into the `dist/` folder.
 |---|---|
 | <kbd>Space</kbd> | Start / Pause Pomodoro Timer |
 | <kbd>V</kbd> | Cycle Clock Visual Styles (Flip, LED, Analog, Radial, Matrix, Zen, Glass) |
+| <kbd>G</kbd> | Cycle Graphics Quality Tier (Eco Saver 30FPS / Balanced 60FPS / Ultra Cinema 120Hz) |
+| <kbd>W</kbd> | Cycle Dynamic Weather Atmosphere (Clear Sun, Rain, Storm, Snow, Fog, Autumn Wind, Aurora) |
 | <kbd>M</kbd> | Toggle Master Audio Mute |
 | <kbd>F</kbd> | Toggle Distraction-Free Focus Mode |
 | <kbd>Z</kbd> | Toggle Pure Zen Scenery View (hides all UI overlays) |
