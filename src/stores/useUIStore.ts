@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 import { Language } from '../locales';
 
-export type ModalType = 'scenes' | 'mixer' | 'timer' | 'presets' | 'settings' | 'stats' | 'breathe' | 'notes' | 'lofi';
+export type ModalType = 'scenes' | 'mixer' | 'timer' | 'presets' | 'settings' | 'stats' | 'breathe' | 'notes' | 'lofi' | 'shortcuts';
 
 interface UIStoreState {
   activeModal: ModalType | null;
   isFocusMode: boolean;
+  isZenMode: boolean;
   isFullscreen: boolean;
   language: Language;
   toastMessage: string | null;
@@ -15,6 +16,8 @@ interface UIStoreState {
   toggleModal: (modal: ModalType) => void;
   toggleFocusMode: () => void;
   setFocusMode: (val: boolean) => void;
+  toggleZenMode: () => void;
+  setZenMode: (val: boolean) => void;
   toggleFullscreen: () => void;
   setFullscreen: (val: boolean) => void;
   setLanguage: (lang: Language) => void;
@@ -34,6 +37,7 @@ function getInitialLanguage(): Language {
 export const useUIStore = create<UIStoreState>((set, get) => ({
   activeModal: null,
   isFocusMode: false,
+  isZenMode: false,
   isFullscreen: false,
   language: getInitialLanguage(),
   toastMessage: null,
@@ -52,6 +56,14 @@ export const useUIStore = create<UIStoreState>((set, get) => ({
 
   setFocusMode: (val: boolean) => {
     set({ isFocusMode: val, activeModal: val ? null : get().activeModal });
+  },
+
+  toggleZenMode: () => {
+    set(state => ({ isZenMode: !state.isZenMode, activeModal: null }));
+  },
+
+  setZenMode: (val: boolean) => {
+    set({ isZenMode: val, activeModal: val ? null : get().activeModal });
   },
 
   toggleFullscreen: () => {

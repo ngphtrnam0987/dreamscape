@@ -207,12 +207,46 @@ export const en = {
   clearData: 'Reset All Data',
   confirmClearData: 'Clear all saved statistics and custom presets? This cannot be undone.',
 
+  // Video Appearance & Controls
+  videoSettings: 'Embedded Video Controls',
+  videoOpacity: 'Video Dimmer / Opacity',
+  videoBlur: 'Soft Blur Effect',
+  showNativeControls: 'Native YouTube Controls & Seek Bar',
+  showNativeControlsDesc: 'Display full YouTube scrub bar, time tracking, and playback settings',
+  muteVideoAudio: 'Mute Video Audio Only',
+  muteVideoAudioDesc: 'Keep video feed running visually while enjoying Dreamscape ambient soundscapes',
+  pipSize: 'PiP Window Sizing',
+  pipSmall: 'Small',
+  pipMedium: 'Medium',
+  pipLarge: 'Large (Theater)',
+
+  // Zen Scenery Mode
+  zenMode: 'Zen Mode (H)',
+  zenModeDesc: 'Hide all UI controls for an uninterrupted, cinematic ambient view',
+  exitZenModeHint: 'Press H or click screen to restore UI controls',
+
+  // Tibetan Singing Bowl Chime
+  tibetanChime: 'Mindfulness Bell',
+  playChimeTip: 'Ring resonant Tibetan singing bowl chime',
+
   // Keyboard shortcuts
-  shortcutsTitle: 'Keyboard Shortcuts',
+  shortcutsTitle: 'Keyboard Shortcuts Guide',
+  playbackShortcuts: 'Playback & Audio',
+  viewShortcuts: 'Views & Display',
+  toolShortcuts: 'Focus & Productivity',
   spaceShortcut: 'Start / Pause Timer',
-  mShortcut: 'Toggle Mute',
+  mShortcut: 'Toggle Audio Mute',
   fShortcut: 'Toggle Focus Mode',
-  escShortcut: 'Close Modal / Exit Focus',
+  hShortcut: 'Toggle Zen Scenery Mode (Hide UI)',
+  cShortcut: 'Cycle Ambient Clock Size (S / M / L / Off)',
+  lShortcut: 'Toggle Lofi Radio & Video Panel',
+  tShortcut: 'Toggle Pomodoro Timer',
+  bShortcut: 'Toggle Mindful Breathing Guide',
+  nShortcut: 'Toggle Focus Notes',
+  sShortcut: 'Toggle Sound Mixer Panel',
+  escShortcut: 'Close Modal / Exit Focus or Zen Mode',
+  oneToEightShortcut: 'Quick Switch Scenes 1 - 8',
+  helpShortcut: 'Keyboard Shortcuts Guide (?)',
   
   // Generic
   cancel: 'Cancel',

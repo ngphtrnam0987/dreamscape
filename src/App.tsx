@@ -13,6 +13,8 @@ import { StatsModal } from './components/stats/StatsModal';
 import { BreathingGuideModal } from './components/mindfulness/BreathingGuideModal';
 import { QuickNotesModal } from './components/notes/QuickNotesModal';
 import { LofiPlayerModal } from './components/lofi/LofiPlayerModal';
+import { ShortcutsModal } from './components/ui/ShortcutsModal';
+import { ZenModeOverlay } from './components/ui/ZenModeOverlay';
 import { StudyWithMeVideo } from './components/study/StudyWithMeVideo';
 import { Toast } from './components/ui/Toast';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
@@ -35,6 +37,7 @@ export const App: React.FC = () => {
       <AmbientClock />
       <BottomControls />
       <FocusModeOverlay />
+      <ZenModeOverlay />
 
       {/* Modals & Panels */}
       <SceneSelectorModal />
@@ -46,6 +49,7 @@ export const App: React.FC = () => {
       <BreathingGuideModal />
       <QuickNotesModal />
       <LofiPlayerModal />
+      <ShortcutsModal />
 
       {/* Study With Me Video Feed & Lo-Fi Stream Audio */}
       <StudyWithMeVideo />

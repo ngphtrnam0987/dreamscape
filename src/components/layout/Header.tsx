@@ -1,14 +1,35 @@
 import React from 'react';
 import { useUIStore } from '../../stores/useUIStore';
 import { useSceneStore, SCENES_INFO } from '../../stores/useSceneStore';
+import { useAudioStore } from '../../stores/useAudioStore';
 import { getTranslation } from '../../locales';
-import { Sparkles, Compass, BarChart2, Maximize2, Globe2, Wind, FileText } from 'lucide-react';
+import {
+  Sparkles,
+  Compass,
+  BarChart2,
+  Maximize2,
+  Globe2,
+  Wind,
+  FileText,
+  Bell,
+  Eye,
+  HelpCircle,
+} from 'lucide-react';
 
 export const Header: React.FC = () => {
-  const { openModal, toggleFocusMode, language, setLanguage, isFocusMode } = useUIStore();
+  const {
+    openModal,
+    toggleFocusMode,
+    language,
+    setLanguage,
+    isFocusMode,
+    isZenMode,
+    toggleZenMode,
+  } = useUIStore();
   const { currentSceneId } = useSceneStore();
+  const { playChime } = useAudioStore();
 
-  if (isFocusMode) return null;
+  if (isFocusMode || isZenMode) return null;
 
   const currentScene = SCENES_INFO.find(s => s.id === currentSceneId) || SCENES_INFO[0];
   const sceneName = language === 'vi' ? currentScene.nameVi : currentScene.name;
@@ -46,12 +67,22 @@ export const Header: React.FC = () => {
       </div>
 
       {/* Right Controls */}
-      <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+      <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+        {/* Tibetan Singing Bowl Chime */}
+        <button
+          onClick={() => playChime(0.6)}
+          className="p-1.5 sm:p-2 rounded-xl glass-pill text-slate-300 hover:text-amber-300 transition-all"
+          title={`${getTranslation(language, 'tibetanChime')} (${getTranslation(language, 'playChimeTip')})`}
+          aria-label={getTranslation(language, 'tibetanChime')}
+        >
+          <Bell className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
+        </button>
+
         {/* Mindful Breathing Guide */}
         <button
           onClick={() => openModal('breathe')}
-          className="p-1.5 sm:px-3 sm:py-1.5 rounded-xl glass-pill text-xs font-medium text-slate-300 hover:text-white transition-all flex items-center gap-1.5"
-          title={getTranslation(language, 'breathe')}
+          className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl glass-pill text-xs font-medium text-slate-300 hover:text-white transition-all flex items-center gap-1.5"
+          title={`${getTranslation(language, 'breathe')} (B)`}
           aria-label={getTranslation(language, 'breathe')}
         >
           <Wind className="w-3.5 h-3.5 text-teal-400 shrink-0" />
@@ -62,7 +93,7 @@ export const Header: React.FC = () => {
         <button
           onClick={() => openModal('notes')}
           className="p-1.5 sm:p-2 rounded-xl glass-pill text-slate-300 hover:text-white transition-all"
-          title={getTranslation(language, 'quickNotes')}
+          title={`${getTranslation(language, 'quickNotes')} (N)`}
           aria-label={getTranslation(language, 'quickNotes')}
         >
           <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
@@ -85,13 +116,34 @@ export const Header: React.FC = () => {
           title={getTranslation(language, 'statistics')}
           aria-label={getTranslation(language, 'statistics')}
         >
-          <BarChart2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+          <BarChart2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-400" />
+        </button>
+
+        {/* Shortcuts Guide Help Modal */}
+        <button
+          onClick={() => openModal('shortcuts')}
+          className="p-1.5 sm:p-2 rounded-xl glass-pill text-slate-400 hover:text-white transition-all hidden sm:block"
+          title={`${getTranslation(language, 'shortcutsTitle')} (?)`}
+          aria-label="Keyboard Shortcuts"
+        >
+          <HelpCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+        </button>
+
+        {/* Enter Zen Scenery Mode (Hide UI) */}
+        <button
+          onClick={toggleZenMode}
+          className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl glass-pill text-xs font-medium text-slate-300 hover:text-white transition-all flex items-center gap-1.5"
+          title={`${getTranslation(language, 'zenMode')} (H)`}
+          aria-label={getTranslation(language, 'zenMode')}
+        >
+          <Eye className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+          <span className="hidden xl:inline">{getTranslation(language, 'zenMode')}</span>
         </button>
 
         {/* Enter Focus Mode */}
         <button
           onClick={toggleFocusMode}
-          className="flex items-center gap-1.5 p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-sky-500/20 border border-sky-400/30 text-sky-200 hover:bg-sky-500/30 transition-all text-xs font-medium"
+          className="flex items-center gap-1.5 p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-sky-500/20 border border-sky-400/30 text-sky-200 hover:bg-sky-500/30 transition-all text-xs font-medium"
           title={`${getTranslation(language, 'focusMode')} (F)`}
           aria-label={getTranslation(language, 'focusMode')}
         >

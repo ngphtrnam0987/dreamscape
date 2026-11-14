@@ -4,11 +4,12 @@ import { useLofiStore } from '../../stores/useLofiStore';
 import { Modal } from '../ui/Modal';
 import { Slider } from '../ui/Slider';
 import { getTranslation } from '../../locales';
-import { VideoMode } from '../../types/lofi';
+import { VideoMode, PipSize } from '../../types/lofi';
 import {
   Play,
   Pause,
   Volume2,
+  VolumeX,
   Disc3,
   ExternalLink,
   Plus,
@@ -17,6 +18,8 @@ import {
   Monitor,
   Headphones,
   Tv,
+  Sliders,
+  SlidersHorizontal,
 } from 'lucide-react';
 
 type FilterTab = 'all' | 'study' | 'lofi';
@@ -33,6 +36,11 @@ export const LofiPlayerModal: React.FC = () => {
     setVolume,
     videoMode,
     setVideoMode,
+    videoSettings,
+    updateVideoSettings,
+    setPipSize,
+    toggleNativeControls,
+    toggleMuteVideoAudio,
     setCustomYoutubeUrl,
     getCurrentStation,
   } = useLofiStore();
@@ -172,6 +180,109 @@ export const LofiPlayerModal: React.FC = () => {
             })}
           </div>
         </div>
+
+        {/* Embedded Video Adjustments & Controls Bar */}
+        {videoMode !== 'hidden' && (
+          <div className="p-3.5 rounded-2xl bg-white/5 border border-rose-500/20 space-y-3.5 animate-fade-in">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold uppercase tracking-wider text-rose-300 flex items-center gap-1.5">
+                <Sliders className="w-3.5 h-3.5" />
+                <span>{getTranslation(language, 'videoSettings')}</span>
+              </span>
+              {videoMode === 'pip' && (
+                <div className="flex items-center gap-1">
+                  <span className="text-[10px] text-slate-400 mr-1">{getTranslation(language, 'pipSize')}:</span>
+                  {(['small', 'medium', 'large'] as PipSize[]).map(size => (
+                    <button
+                      key={size}
+                      onClick={() => setPipSize(size)}
+                      className={`px-2 py-0.5 rounded-lg text-[10px] font-mono font-bold transition-all ${
+                        videoSettings.pipSize === size
+                          ? 'bg-rose-500 text-slate-950 shadow-sm'
+                          : 'bg-white/10 text-slate-300 hover:bg-white/20'
+                      }`}
+                    >
+                      {size === 'small' ? 'S' : size === 'medium' ? 'M' : 'L'}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Native Seek Bar & YouTube Controls Toggle */}
+            <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/60 border border-white/10">
+              <div className="pr-2">
+                <div className="text-xs font-medium text-white flex items-center gap-1.5">
+                  <span>{getTranslation(language, 'showNativeControls')}</span>
+                </div>
+                <p className="text-[10px] text-slate-400 mt-0.5 leading-snug">
+                  {getTranslation(language, 'showNativeControlsDesc')}
+                </p>
+              </div>
+              <button
+                onClick={toggleNativeControls}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-all ${
+                  videoSettings.showNativeControls
+                    ? 'bg-rose-500 text-slate-950 shadow-md ring-2 ring-rose-400/30'
+                    : 'bg-white/10 text-slate-400 hover:text-white'
+                }`}
+              >
+                {videoSettings.showNativeControls ? 'Active (ON)' : 'Hidden (OFF)'}
+              </button>
+            </div>
+
+            {/* Mute Video Audio Only Toggle */}
+            <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/60 border border-white/10">
+              <div className="pr-2">
+                <div className="text-xs font-medium text-white flex items-center gap-1.5">
+                  {videoSettings.muteVideoAudio ? (
+                    <VolumeX className="w-3.5 h-3.5 text-amber-400" />
+                  ) : (
+                    <Volume2 className="w-3.5 h-3.5 text-slate-400" />
+                  )}
+                  <span>{getTranslation(language, 'muteVideoAudio')}</span>
+                </div>
+                <p className="text-[10px] text-slate-400 mt-0.5 leading-snug">
+                  {getTranslation(language, 'muteVideoAudioDesc')}
+                </p>
+              </div>
+              <button
+                onClick={toggleMuteVideoAudio}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-all ${
+                  videoSettings.muteVideoAudio
+                    ? 'bg-amber-500 text-slate-950 shadow-md ring-2 ring-amber-400/30'
+                    : 'bg-white/10 text-slate-400 hover:text-white'
+                }`}
+              >
+                {videoSettings.muteVideoAudio ? 'Muted (ON)' : 'Unmuted'}
+              </button>
+            </div>
+
+            {/* Video Opacity Slider */}
+            <Slider
+              label={getTranslation(language, 'videoOpacity')}
+              icon={<SlidersHorizontal className="w-3.5 h-3.5 text-rose-400" />}
+              min={0.15}
+              max={1.0}
+              step={0.05}
+              value={videoSettings.opacity}
+              onChange={v => updateVideoSettings({ opacity: v })}
+              formatValue={v => `${Math.round(v * 100)}%`}
+            />
+
+            {/* Soft Blur Slider */}
+            <Slider
+              label={getTranslation(language, 'videoBlur')}
+              icon={<Sparkles className="w-3.5 h-3.5 text-rose-400" />}
+              min={0}
+              max={10}
+              step={1}
+              value={videoSettings.blur}
+              onChange={v => updateVideoSettings({ blur: v })}
+              formatValue={v => `${v}px`}
+            />
+          </div>
+        )}
 
         {/* Volume Slider for Stream */}
         <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10">

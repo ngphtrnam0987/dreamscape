@@ -22,6 +22,7 @@ interface AudioState {
   applyPreset: (preset: SoundPreset) => Promise<void>;
   startSleepTimer: (minutes: number) => void;
   cancelSleepTimer: () => void;
+  playChime: (volume?: number) => void;
 }
 
 const STORAGE_KEY = 'dreamscape_audio_state';
@@ -195,5 +196,11 @@ export const useAudioStore = create<AudioState>((set, get) => ({
   cancelSleepTimer: () => {
     audioEngine.clearSleepTimer();
     set({ sleepTimerMinutes: null, sleepTimerRemainingSeconds: null });
+  },
+
+  playChime: (volume = 0.5) => {
+    audioEngine.init().then(() => {
+      audioEngine.playChime(volume);
+    });
   },
 }));

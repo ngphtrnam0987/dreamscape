@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useUIStore } from '../../stores/useUIStore';
 import { Modal } from '../ui/Modal';
 import { getTranslation } from '../../locales';
-import { Play, Pause, RotateCcw, Wind } from 'lucide-react';
+import { Play, Pause, RotateCcw, Wind, Bell } from 'lucide-react';
 import { audioEngine } from '../../audio/AudioEngine';
 
 type BreathingPattern = 'box' | '478' | 'calm';
@@ -196,6 +196,14 @@ export const BreathingGuideModal: React.FC = () => {
             title="Reset"
           >
             <RotateCcw className="w-4 h-4" />
+          </button>
+
+          <button
+            onClick={() => audioEngine.playChime(0.6)}
+            className="p-3 rounded-2xl glass-pill text-amber-300 hover:text-amber-200 hover:scale-105 transition-all"
+            title={getTranslation(language, 'tibetanChime')}
+          >
+            <Bell className="w-4 h-4" />
           </button>
 
           <button

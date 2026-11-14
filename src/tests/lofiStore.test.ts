@@ -36,4 +36,29 @@ describe('useLofiStore', () => {
     expect(useLofiStore.getState().customYoutubeId).toBe('5yx6BWlEVcY');
     expect(useLofiStore.getState().isPlaying).toBe(true);
   });
+
+  it('manages video appearance and native seek bar settings', () => {
+    const store = useLofiStore.getState();
+
+    // Default settings
+    expect(store.videoSettings.opacity).toBe(0.85);
+    expect(store.videoSettings.showNativeControls).toBe(true);
+
+    // Update opacity and blur
+    store.updateVideoSettings({ opacity: 0.5, blur: 4 });
+    expect(useLofiStore.getState().videoSettings.opacity).toBe(0.5);
+    expect(useLofiStore.getState().videoSettings.blur).toBe(4);
+
+    // PiP Size
+    store.setPipSize('large');
+    expect(useLofiStore.getState().videoSettings.pipSize).toBe('large');
+
+    // Toggle native seek controls
+    store.toggleNativeControls();
+    expect(useLofiStore.getState().videoSettings.showNativeControls).toBe(false);
+
+    // Toggle mute video audio
+    store.toggleMuteVideoAudio();
+    expect(useLofiStore.getState().videoSettings.muteVideoAudio).toBe(true);
+  });
 });

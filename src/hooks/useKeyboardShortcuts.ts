@@ -2,11 +2,32 @@ import { useEffect } from 'react';
 import { useTimerStore } from '../stores/useTimerStore';
 import { useAudioStore } from '../stores/useAudioStore';
 import { useUIStore } from '../stores/useUIStore';
+import { useSceneStore, SCENES_INFO } from '../stores/useSceneStore';
 
 export function useKeyboardShortcuts() {
-  const { isRunning, startTimer, pauseTimer, remainingSeconds, totalDurationSeconds, resumeTimer } = useTimerStore();
+  const {
+    isRunning,
+    startTimer,
+    pauseTimer,
+    remainingSeconds,
+    totalDurationSeconds,
+    resumeTimer,
+    toggleClockSize,
+  } = useTimerStore();
+
   const { toggleMute } = useAudioStore();
-  const { activeModal, closeModal, isFocusMode, toggleFocusMode } = useUIStore();
+  const {
+    activeModal,
+    closeModal,
+    toggleModal,
+    isFocusMode,
+    toggleFocusMode,
+    isZenMode,
+    toggleZenMode,
+    showToast,
+  } = useUIStore();
+
+  const { setScene } = useSceneStore();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -33,24 +54,96 @@ export function useKeyboardShortcuts() {
             startTimer();
           }
         }
+        return;
       }
 
       // 'M' or 'm': Toggle Mute
       if (e.key === 'm' || e.key === 'M') {
         e.preventDefault();
         toggleMute();
+        return;
       }
 
       // 'F' or 'f': Toggle Focus Mode
       if (e.key === 'f' || e.key === 'F') {
         e.preventDefault();
         toggleFocusMode();
+        return;
       }
 
-      // 'Escape': Close open modal or exit focus mode
+      // 'H' or 'h': Toggle Zen Scenery Mode (Hide all UI)
+      if (e.key === 'h' || e.key === 'H') {
+        e.preventDefault();
+        toggleZenMode();
+        return;
+      }
+
+      // 'C' or 'c': Cycle Clock Size
+      if (e.key === 'c' || e.key === 'C') {
+        e.preventDefault();
+        toggleClockSize();
+        return;
+      }
+
+      // 'L' or 'l': Toggle Lofi & Video Modal
+      if (e.key === 'l' || e.key === 'L') {
+        e.preventDefault();
+        toggleModal('lofi');
+        return;
+      }
+
+      // 'T' or 't': Toggle Pomodoro Timer Modal
+      if (e.key === 't' || e.key === 'T') {
+        e.preventDefault();
+        toggleModal('timer');
+        return;
+      }
+
+      // 'B' or 'b': Toggle Mindful Breathing Guide Modal
+      if (e.key === 'b' || e.key === 'B') {
+        e.preventDefault();
+        toggleModal('breathe');
+        return;
+      }
+
+      // 'N' or 'n': Toggle Focus Notes Modal
+      if (e.key === 'n' || e.key === 'N') {
+        e.preventDefault();
+        toggleModal('notes');
+        return;
+      }
+
+      // 'S' or 's': Toggle Sound Mixer Modal
+      if (e.key === 's' || e.key === 'S') {
+        e.preventDefault();
+        toggleModal('mixer');
+        return;
+      }
+
+      // '?' or '/': Toggle Shortcuts Guide Modal
+      if (e.key === '?' || (e.key === '/' && e.shiftKey)) {
+        e.preventDefault();
+        toggleModal('shortcuts');
+        return;
+      }
+
+      // '1' through '8': Quick Scene Switch
+      if (/^[1-8]$/.test(e.key)) {
+        const index = parseInt(e.key, 10) - 1;
+        if (SCENES_INFO[index]) {
+          e.preventDefault();
+          setScene(SCENES_INFO[index].id);
+          showToast(`Scene: ${SCENES_INFO[index].name}`);
+        }
+        return;
+      }
+
+      // 'Escape': Close open modal or exit focus / zen mode
       if (e.key === 'Escape') {
         if (activeModal) {
           closeModal();
+        } else if (isZenMode) {
+          toggleZenMode();
         } else if (isFocusMode) {
           toggleFocusMode();
         }
@@ -66,10 +159,16 @@ export function useKeyboardShortcuts() {
     resumeTimer,
     remainingSeconds,
     totalDurationSeconds,
+    toggleClockSize,
     toggleMute,
     activeModal,
     closeModal,
+    toggleModal,
     isFocusMode,
     toggleFocusMode,
+    isZenMode,
+    toggleZenMode,
+    setScene,
+    showToast,
   ]);
 }

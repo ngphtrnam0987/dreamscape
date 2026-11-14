@@ -31,7 +31,7 @@ export const AmbientClock: React.FC = () => {
     setClockDisplayType,
   } = useTimerStore();
 
-  const { isFocusMode, language, openModal } = useUIStore();
+  const { isFocusMode, isZenMode, language, openModal } = useUIStore();
   const { currentSceneId } = useSceneStore();
   const [realtime, setRealtime] = useState<Date>(new Date());
   const [isHovered, setIsHovered] = useState(false);
@@ -47,8 +47,8 @@ export const AmbientClock: React.FC = () => {
   const clockSize = settings.clockSize || 'medium';
   const displayType = settings.clockDisplayType || 'pomodoro';
 
-  // If set to hidden and not in focus mode, do not render on screen
-  if (clockSize === 'hidden') return null;
+  // If set to hidden or in pure Zen scenery mode, do not render on screen
+  if (clockSize === 'hidden' || isZenMode) return null;
 
   const currentScene = SCENES_INFO.find(s => s.id === currentSceneId) || SCENES_INFO[0];
   const accentColor = currentScene.accentColor || '#38bdf8';

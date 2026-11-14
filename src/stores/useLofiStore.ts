@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { LofiStation, VideoMode } from '../types/lofi';
+import { LofiStation, VideoMode, VideoSettings, PipSize } from '../types/lofi';
 
 export const DEFAULT_LOFI_STATIONS: LofiStation[] = [
   // Study With Me Stations
@@ -77,6 +77,14 @@ export const DEFAULT_LOFI_STATIONS: LofiStation[] = [
   },
 ];
 
+export const DEFAULT_VIDEO_SETTINGS: VideoSettings = {
+  opacity: 0.85,
+  blur: 0,
+  showNativeControls: true,
+  muteVideoAudio: false,
+  pipSize: 'medium',
+};
+
 interface LofiStoreState {
   currentStationId: string;
   isPlaying: boolean;
@@ -84,12 +92,17 @@ interface LofiStoreState {
   stations: LofiStation[];
   customYoutubeId: string | null;
   videoMode: VideoMode;
+  videoSettings: VideoSettings;
 
   setStation: (stationId: string) => void;
   togglePlay: () => void;
   setPlaying: (playing: boolean) => void;
   setVolume: (vol: number) => void;
   setVideoMode: (mode: VideoMode) => void;
+  updateVideoSettings: (settings: Partial<VideoSettings>) => void;
+  setPipSize: (size: PipSize) => void;
+  toggleNativeControls: () => void;
+  toggleMuteVideoAudio: () => void;
   setCustomYoutubeUrl: (urlOrId: string, isStudyWithMe?: boolean) => boolean;
   getCurrentStation: () => LofiStation;
 }
@@ -128,7 +141,12 @@ export function extractYoutubeId(input: string): string | null {
 
 const STORAGE_KEY = 'dreamscape_lofi_state';
 
-function loadStoredLofi(): { currentStationId: string; volume: number; videoMode: VideoMode } {
+function loadStoredLofi(): {
+  currentStationId: string;
+  volume: number;
+  videoMode: VideoMode;
+  videoSettings: VideoSettings;
+} {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
@@ -137,10 +155,19 @@ function loadStoredLofi(): { currentStationId: string; volume: number; videoMode
         currentStationId: parsed.currentStationId || 'study-lofi-desk',
         volume: typeof parsed.volume === 'number' ? parsed.volume : 0.75,
         videoMode: parsed.videoMode || 'pip',
+        videoSettings: {
+          ...DEFAULT_VIDEO_SETTINGS,
+          ...(parsed.videoSettings || {}),
+        },
       };
     }
   } catch {}
-  return { currentStationId: 'study-lofi-desk', volume: 0.75, videoMode: 'pip' };
+  return {
+    currentStationId: 'study-lofi-desk',
+    volume: 0.75,
+    videoMode: 'pip',
+    videoSettings: DEFAULT_VIDEO_SETTINGS,
+  };
 }
 
 const initial = loadStoredLofi();
@@ -152,6 +179,7 @@ export const useLofiStore = create<LofiStoreState>((set, get) => ({
   stations: DEFAULT_LOFI_STATIONS,
   customYoutubeId: null,
   videoMode: initial.videoMode,
+  videoSettings: initial.videoSettings,
 
   setStation: (stationId: string) => {
     set({ currentStationId: stationId, isPlaying: true, customYoutubeId: null });
@@ -160,6 +188,7 @@ export const useLofiStore = create<LofiStoreState>((set, get) => ({
         currentStationId: stationId,
         volume: get().volume,
         videoMode: get().videoMode,
+        videoSettings: get().videoSettings,
       }));
     } catch {}
   },
@@ -180,6 +209,7 @@ export const useLofiStore = create<LofiStoreState>((set, get) => ({
         currentStationId: get().currentStationId,
         volume: clamped,
         videoMode: get().videoMode,
+        videoSettings: get().videoSettings,
       }));
     } catch {}
   },
@@ -191,8 +221,38 @@ export const useLofiStore = create<LofiStoreState>((set, get) => ({
         currentStationId: get().currentStationId,
         volume: get().volume,
         videoMode,
+        videoSettings: get().videoSettings,
       }));
     } catch {}
+  },
+
+  updateVideoSettings: (partial: Partial<VideoSettings>) => {
+    set(state => {
+      const updated = { ...state.videoSettings, ...partial };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          currentStationId: state.currentStationId,
+          volume: state.volume,
+          videoMode: state.videoMode,
+          videoSettings: updated,
+        }));
+      } catch {}
+      return { videoSettings: updated };
+    });
+  },
+
+  setPipSize: (pipSize: PipSize) => {
+    get().updateVideoSettings({ pipSize });
+  },
+
+  toggleNativeControls: () => {
+    const current = get().videoSettings.showNativeControls;
+    get().updateVideoSettings({ showNativeControls: !current });
+  },
+
+  toggleMuteVideoAudio: () => {
+    const current = get().videoSettings.muteVideoAudio;
+    get().updateVideoSettings({ muteVideoAudio: !current });
   },
 
   setCustomYoutubeUrl: (input: string, isStudyWithMe = true) => {

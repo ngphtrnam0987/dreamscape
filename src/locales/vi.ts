@@ -209,12 +209,46 @@ export const vi: Record<TranslationKey, string> = {
   clearData: 'Xóa Toàn Bộ Dữ Liệu',
   confirmClearData: 'Bạn có chắc chắn muốn xóa toàn bộ thống kê và bản phối cá nhân không?',
 
+  // Video Appearance & Controls
+  videoSettings: 'Tùy Chỉnh Thanh Video Đã Nhúng',
+  videoOpacity: 'Độ Mờ / Sáng Video',
+  videoBlur: 'Hiệu Ứng Làm Mờ (Blur)',
+  showNativeControls: 'Hiện Thanh Tua & Nút Video YouTube',
+  showNativeControlsDesc: 'Hiển thị thanh tua tiến độ, chỉnh độ phân giải và thời gian của video YouTube',
+  muteVideoAudio: 'Chỉ Tắt Tiếng Video',
+  muteVideoAudioDesc: 'Giữ video phát hình nhưng tắt âm để nghe trọn vẹn tiếng mưa và thiên nhiên Dreamscape',
+  pipSize: 'Kích Thước Khung PiP',
+  pipSmall: 'Nhỏ',
+  pipMedium: 'Vừa',
+  pipLarge: 'Lớn (Rạp Chiếu)',
+
+  // Zen Scenery Mode
+  zenMode: 'Chế Độ Cảnh Tĩnh (H)',
+  zenModeDesc: 'Ẩn toàn bộ giao diện để ngắm trọn vẹn cảnh sắc tuyệt đẹp',
+  exitZenModeHint: 'Nhấn phím H hoặc chạm vào màn hình để hiện lại giao diện',
+
+  // Tibetan Singing Bowl Chime
+  tibetanChime: 'Chuông Chánh Niệm',
+  playChimeTip: 'Gõ chuông xoay Tây Tạng thư giãn',
+
   // Keyboard shortcuts
-  shortcutsTitle: 'Phím Tắt Tiện Lợi',
+  shortcutsTitle: 'Bảng Phím Tắt Tiện Lợi',
+  playbackShortcuts: 'Phát & Âm Lượng',
+  viewShortcuts: 'Giao Diện & Không Gian',
+  toolShortcuts: 'Công Cụ Tập Trung',
   spaceShortcut: 'Bắt Đầu / Tạm Dừng Đồng Hồ',
   mShortcut: 'Bật / Tắt Tiếng Toàn Bộ',
-  fShortcut: 'Bật / Tắt Chế Độ Tập Trung',
-  escShortcut: 'Đóng Cửa Sổ / Thoát Tập Trung',
+  fShortcut: 'Bật / Tắt Chế Độ Tập Trung (F)',
+  hShortcut: 'Bật / Tắt Chế Độ Cảnh Tĩnh (H)',
+  cShortcut: 'Đổi Cỡ Đồng Hồ (Nhỏ / Vừa / To / Ẩn)',
+  lShortcut: 'Mở Đài Nhạc Lofi & Video (L)',
+  tShortcut: 'Mở Đồng Hồ Pomodoro (T)',
+  bShortcut: 'Mở Hướng Dẫn Thở Chánh Niệm (B)',
+  nShortcut: 'Mở Ghi Chú Nhanh (N)',
+  sShortcut: 'Mở Bộ Phối Âm (S)',
+  escShortcut: 'Đóng Cửa Sổ / Thoát Tập Trung (Esc)',
+  oneToEightShortcut: 'Chuyển Đổi Nhanh Không Gian 1 - 8',
+  helpShortcut: 'Bảng Hướng Dẫn Phím Tắt (?)',
 
   // Generic
   cancel: 'Hủy',

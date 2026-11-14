@@ -18,13 +18,13 @@ import {
 } from 'lucide-react';
 
 export const BottomControls: React.FC = () => {
-  const { openModal, toggleModal, isFocusMode, language, isFullscreen, toggleFullscreen } = useUIStore();
+  const { openModal, toggleModal, isFocusMode, isZenMode, language, isFullscreen, toggleFullscreen } = useUIStore();
   const { masterVolume, setMasterVolume, isMuted, toggleMute, channels, sleepTimerRemainingSeconds } = useAudioStore();
   const { remainingSeconds, isRunning, mode, settings, toggleClockSize } = useTimerStore();
   const { isPlaying: isLofiPlaying } = useLofiStore();
   const [showMobileVolume, setShowMobileVolume] = useState(false);
 
-  if (isFocusMode) return null;
+  if (isFocusMode || isZenMode) return null;
 
   const activeSoundCount = Object.values(channels).filter(c => c.isPlaying).length;
 

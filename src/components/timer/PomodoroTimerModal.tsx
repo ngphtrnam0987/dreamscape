@@ -5,6 +5,7 @@ import { useStatsStore } from '../../stores/useStatsStore';
 import { Modal } from '../ui/Modal';
 import { getTranslation } from '../../locales';
 import { TimerMode } from '../../types/timer';
+import { audioEngine } from '../../audio/AudioEngine';
 import {
   Play,
   Pause,
@@ -344,15 +345,25 @@ export const PomodoroTimerModal: React.FC = () => {
                 />
               </label>
 
-              <label className="flex items-center justify-between text-slate-300 cursor-pointer">
-                <span>{getTranslation(language, 'soundChime')}</span>
+              <div className="flex items-center justify-between text-slate-300">
+                <div className="flex items-center gap-2">
+                  <span>{getTranslation(language, 'soundChime')}</span>
+                  <button
+                    type="button"
+                    onClick={() => audioEngine.playChime(0.5)}
+                    className="text-[10px] text-amber-400 hover:text-amber-300 px-1.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/20"
+                    title="Test chime"
+                  >
+                    Preview
+                  </button>
+                </div>
                 <input
                   type="checkbox"
                   checked={settings.soundAlertEnabled}
                   onChange={e => updateSettings({ soundAlertEnabled: e.target.checked })}
                   className="w-4 h-4 accent-amber-500 rounded"
                 />
-              </label>
+              </div>
             </div>
 
             <div className="flex items-center gap-1.5 text-[11px] text-slate-400 pt-1">
