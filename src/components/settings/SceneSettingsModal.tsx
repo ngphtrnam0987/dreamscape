@@ -39,6 +39,29 @@ export const SceneSettingsModal: React.FC = () => {
       maxWidthClass="max-w-xl"
     >
       <div className="space-y-5">
+        {/* Quick Graphics & Weather Studio Link */}
+        <button
+          onClick={() => openModal('graphics')}
+          className="w-full p-3 rounded-2xl bg-gradient-to-r from-sky-500/20 via-purple-500/20 to-emerald-500/20 border border-sky-400/30 hover:border-sky-400/50 text-white font-medium text-xs flex items-center justify-between transition-all group shadow-sm"
+        >
+          <div className="flex items-center gap-2.5">
+            <Sparkles className="w-4 h-4 text-sky-400 group-hover:scale-110 transition-transform" />
+            <div className="text-left">
+              <div className="font-bold text-white">
+                {language === 'vi' ? 'Cài Đặt Đồ Họa & Thời Tiết' : 'Graphics & Weather Studio'}
+              </div>
+              <div className="text-[10px] text-slate-300">
+                {language === 'vi'
+                  ? '🍃 Eco Saver 30FPS · ⚖️ Cân Bằng 60FPS · 💎 Max Setting 120Hz & 8 Kiểu Thời Tiết'
+                  : '🍃 Eco Saver 30FPS · ⚖️ Balanced 60FPS · 💎 Ultra 120Hz & 8 Weather Atmosphere Types'}
+              </div>
+            </div>
+          </div>
+          <span className="text-sky-300 font-semibold text-xs group-hover:translate-x-0.5 transition-transform">
+            &rarr;
+          </span>
+        </button>
+
         {/* Global Atmosphere Controls */}
         <div className="space-y-4 p-4 rounded-2xl bg-white/5 border border-white/10">
           <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400">

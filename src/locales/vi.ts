@@ -273,6 +273,8 @@ export const vi: Record<TranslationKey, string> = {
   hShortcut: 'Bật / Tắt Chế Độ Cảnh Tĩnh (H)',
   cShortcut: 'Đổi Cỡ Đồng Hồ (Nhỏ / Vừa / To / Ẩn)',
   vShortcut: 'Đổi Kiểu Dáng Đồng Hồ (V)',
+  gShortcut: 'Đổi Cấu Hình Đồ Hoạ (Eco / Balanced / Ultra)',
+  wShortcut: 'Đổi Kiểu Thời Tiết Động (Nắng, Mưa, Tuyết, Bão...)',
   lShortcut: 'Mở Đài Nhạc Lofi & Video (L)',
   tShortcut: 'Mở Đồng Hồ Pomodoro (T)',
   bShortcut: 'Mở Hướng Dẫn Thở Chánh Niệm (B)',

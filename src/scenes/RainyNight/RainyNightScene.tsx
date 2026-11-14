@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSceneStore } from '../../stores/useSceneStore';
-import { createFramePacer } from '../canvasPerformance';
+import { createSceneFramePacer } from '../canvasPerformance';
 
 interface RainDrop {
   x: number;
@@ -102,7 +102,7 @@ export const RainyNightScene: React.FC = () => {
     let nextLightningTime = Date.now() + 8000 + Math.random() * 14000;
 
     let lastTime = performance.now();
-    const pacer = createFramePacer(lowPerf ? 30 : 50);
+    const pacer = createSceneFramePacer();
 
     const render = (time: number) => {
       animFrameId = requestAnimationFrame(render);

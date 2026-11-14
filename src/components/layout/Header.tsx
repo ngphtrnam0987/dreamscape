@@ -19,6 +19,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Type,
+  Cpu,
+  BatteryCharging,
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
@@ -31,7 +33,7 @@ export const Header: React.FC = () => {
     isZenMode,
     toggleZenMode,
   } = useUIStore();
-  const { currentSceneId, nextScene, previousScene } = useSceneStore();
+  const { currentSceneId, nextScene, previousScene, settings } = useSceneStore();
   const { playChime } = useAudioStore();
   const { tasks } = useTaskStore();
 
@@ -157,6 +159,35 @@ export const Header: React.FC = () => {
           aria-label={getTranslation(language, 'typography')}
         >
           <Type className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-400" />
+        </button>
+
+        {/* Graphics & Weather Studio Button */}
+        <button
+          onClick={() => openModal('graphics')}
+          className={`flex items-center gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-xl border transition-all text-xs font-semibold ${
+            settings.graphicsQuality === 'ultra'
+              ? 'bg-purple-500/20 border-purple-400/40 text-purple-200 shadow-sm'
+              : settings.graphicsQuality === 'eco'
+              ? 'bg-emerald-500/20 border-emerald-400/40 text-emerald-300 shadow-sm'
+              : 'glass-pill text-slate-300 hover:text-white'
+          }`}
+          title={`${language === 'vi' ? 'Đồ Họa & Thời Tiết' : 'Graphics & Weather'} (G)`}
+          aria-label="Graphics & Weather"
+        >
+          {settings.graphicsQuality === 'eco' ? (
+            <BatteryCharging className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+          ) : settings.graphicsQuality === 'ultra' ? (
+            <Sparkles className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+          ) : (
+            <Cpu className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+          )}
+          <span className="hidden sm:inline text-[10px] font-mono uppercase tracking-wider">
+            {settings.graphicsQuality === 'eco'
+              ? 'Eco'
+              : settings.graphicsQuality === 'ultra'
+              ? 'Ultra'
+              : '60 FPS'}
+          </span>
         </button>
 
         {/* Language Switcher */}

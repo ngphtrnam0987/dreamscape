@@ -4,6 +4,7 @@ import { useAudioStore } from '../stores/useAudioStore';
 import { useUIStore } from '../stores/useUIStore';
 import { useSceneStore, SCENES_INFO } from '../stores/useSceneStore';
 import { CLOCK_STYLES_INFO } from '../types/timer';
+import { WEATHER_TYPES_INFO } from '../types/weather';
 import { getTranslation } from '../locales';
 
 export function useKeyboardShortcuts() {
@@ -101,6 +102,34 @@ export function useKeyboardShortcuts() {
             info ? (language === 'vi' ? info.nameVi : info.name) : activeStyle
           )
         );
+        return;
+      }
+
+      // 'G' or 'g': Cycle Graphics Quality Tier
+      if (e.key === 'g' || e.key === 'G') {
+        e.preventDefault();
+        useSceneStore.getState().cycleGraphicsQuality();
+        const q = useSceneStore.getState().settings.graphicsQuality;
+        const msg =
+          q === 'eco'
+            ? (language === 'vi' ? '🍃 Đồ Hoạ: Tiết Kiệm Eco (30 FPS)' : '🍃 Graphics: Eco Saver (30 FPS)')
+            : q === 'ultra'
+            ? (language === 'vi' ? '💎 Đồ Hoạ: Max Setting (120Hz/Ultra)' : '💎 Graphics: Ultra Cinema (120Hz)')
+            : (language === 'vi' ? '⚖️ Đồ Hoạ: Cân Bằng Chuẩn (60 FPS)' : '⚖️ Graphics: Balanced (60 FPS)');
+        showToast(msg);
+        return;
+      }
+
+      // 'W' or 'w': Cycle Dynamic Weather Atmosphere
+      if (e.key === 'w' || e.key === 'W') {
+        e.preventDefault();
+        useSceneStore.getState().cycleWeather();
+        const curW = useSceneStore.getState().settings.weather;
+        const wInfo = WEATHER_TYPES_INFO.find(item => item.id === curW);
+        const msg = wInfo
+          ? (language === 'vi' ? `🌦️ Thời Tiết: ${wInfo.nameVi}` : `🌦️ Weather: ${wInfo.name}`)
+          : 'Weather';
+        showToast(msg);
         return;
       }
 

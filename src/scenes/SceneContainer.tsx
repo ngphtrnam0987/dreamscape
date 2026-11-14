@@ -13,6 +13,7 @@ import { CozyCafeScene } from './CozyCafe/CozyCafeScene';
 import { SnowyAuroraScene } from './SnowyAurora/SnowyAuroraScene';
 import { NeonCyberpunkScene } from './NeonCyberpunk/NeonCyberpunkScene';
 import { BambooSanctuaryScene } from './BambooSanctuary/BambooSanctuaryScene';
+import { WeatherOverlay } from './WeatherOverlay';
 
 let cachedStaticNoise: string | null = null;
 function getStaticNoiseDataUrl(): string {
@@ -238,7 +239,21 @@ export const SceneContainer: React.FC = () => {
         >
           {currentSceneId === 'bamboo-sanctuary' && <BambooSanctuaryScene />}
         </div>
+
+        {/* Dynamic Universal Weather Overlay */}
+        <WeatherOverlay />
       </div>
+
+      {/* Ultra Max Setting Cinema Bloom Glow */}
+      {settings.bloomGlow && !settings.lowPerformanceMode && (
+        <div
+          className="absolute inset-0 pointer-events-none z-14 mix-blend-screen opacity-35"
+          style={{
+            background:
+              'radial-gradient(ellipse at 50% 30%, rgba(254, 240, 138, 0.08), rgba(56, 189, 248, 0.05) 50%, transparent 80%)',
+          }}
+        />
+      )}
 
       {/* Dynamic Cursor Spotlight Effect */}
       {settings.parallax3D && !settings.lowPerformanceMode && (

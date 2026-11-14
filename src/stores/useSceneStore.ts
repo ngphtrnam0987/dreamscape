@@ -1,5 +1,14 @@
 import { create } from 'zustand';
-import { SceneId, SceneSettings, SceneSpecificSettings, SceneInfo } from '../types/scene';
+import {
+  SceneId,
+  SceneSettings,
+  SceneSpecificSettings,
+  SceneInfo,
+  GraphicsQualityPreset,
+  FpsTarget,
+} from '../types/scene';
+import { WeatherType, WEATHER_TYPES_INFO } from '../types/weather';
+import { useAudioStore } from './useAudioStore';
 
 export const SCENES_INFO: SceneInfo[] = [
   {
@@ -120,9 +129,15 @@ const DEFAULT_SETTINGS: SceneSettings = {
   animationIntensity: 1.0,
   particleDensity: 1.0,
   lowPerformanceMode: false,
+  graphicsQuality: 'balanced',
+  fpsTarget: 60,
+  weather: 'scene-default',
+  weatherIntensity: 1.0,
+  syncWeatherAudio: true,
+  bloomGlow: false,
   colorGrade: 'standard',
   filmGrain: false,
-  parallax3D: false,
+  parallax3D: true,
   ambientCursor: true,
   uiSounds: true,
   specific: {
@@ -145,6 +160,12 @@ interface SceneState {
   setScene: (sceneId: SceneId) => void;
   nextScene: () => void;
   previousScene: () => void;
+  setGraphicsQuality: (quality: GraphicsQualityPreset) => void;
+  cycleGraphicsQuality: () => void;
+  setFpsTarget: (fps: FpsTarget) => void;
+  setWeather: (weather: WeatherType) => void;
+  cycleWeather: () => void;
+  setWeatherIntensity: (intensity: number) => void;
   updateSettings: (partial: Partial<SceneSettings>) => void;
   updateSpecificSettings: (sceneId: SceneId, partial: SceneSpecificSettings) => void;
   resetSettings: () => void;
@@ -201,6 +222,90 @@ export const useSceneStore = create<SceneState>((set, get) => ({
     const currentIndex = SCENES_INFO.findIndex(s => s.id === currentSceneId);
     const prevIndex = (currentIndex - 1 + SCENES_INFO.length) % SCENES_INFO.length;
     setScene(SCENES_INFO[prevIndex].id);
+  },
+
+  setGraphicsQuality: (quality: GraphicsQualityPreset) => {
+    let partial: Partial<SceneSettings> = { graphicsQuality: quality };
+    if (quality === 'eco') {
+      partial = {
+        graphicsQuality: 'eco',
+        lowPerformanceMode: true,
+        fpsTarget: 30,
+        particleDensity: 0.4,
+        parallax3D: false,
+        ambientCursor: false,
+        filmGrain: false,
+        bloomGlow: false,
+      };
+    } else if (quality === 'balanced') {
+      partial = {
+        graphicsQuality: 'balanced',
+        lowPerformanceMode: false,
+        fpsTarget: 60,
+        particleDensity: 1.0,
+        parallax3D: true,
+        ambientCursor: true,
+        filmGrain: false,
+        bloomGlow: false,
+      };
+    } else if (quality === 'ultra') {
+      partial = {
+        graphicsQuality: 'ultra',
+        lowPerformanceMode: false,
+        fpsTarget: 120,
+        particleDensity: 1.6,
+        parallax3D: true,
+        ambientCursor: true,
+        filmGrain: true,
+        bloomGlow: true,
+      };
+    }
+    get().updateSettings(partial);
+  },
+
+  cycleGraphicsQuality: () => {
+    const { settings, setGraphicsQuality } = get();
+    const cycleMap: Record<GraphicsQualityPreset, GraphicsQualityPreset> = {
+      eco: 'balanced',
+      balanced: 'ultra',
+      ultra: 'eco',
+      custom: 'balanced',
+    };
+    const next = cycleMap[settings.graphicsQuality || 'balanced'] || 'balanced';
+    setGraphicsQuality(next);
+  },
+
+  setFpsTarget: (fps: FpsTarget) => {
+    get().updateSettings({ fpsTarget: fps, graphicsQuality: 'custom' });
+  },
+
+  setWeather: (weather: WeatherType) => {
+    const { settings, updateSettings } = get();
+    updateSettings({ weather });
+
+    // Optional audio link: smoothly bring up matching sound channels
+    if (settings.syncWeatherAudio) {
+      try {
+        const info = WEATHER_TYPES_INFO.find(w => w.id === weather);
+        if (info && info.suggestedChannels.length > 0) {
+          const audio = useAudioStore.getState();
+          for (const ch of info.suggestedChannels) {
+            audio.setChannelVolume(ch.id as any, ch.volume);
+          }
+        }
+      } catch {}
+    }
+  },
+
+  cycleWeather: () => {
+    const { settings, setWeather } = get();
+    const currentIndex = WEATHER_TYPES_INFO.findIndex(w => w.id === settings.weather);
+    const nextIndex = (currentIndex + 1) % WEATHER_TYPES_INFO.length;
+    setWeather(WEATHER_TYPES_INFO[nextIndex].id);
+  },
+
+  setWeatherIntensity: (intensity: number) => {
+    get().updateSettings({ weatherIntensity: intensity });
   },
 
   updateSettings: (partial) => {

@@ -271,6 +271,8 @@ export const en = {
   hShortcut: 'Toggle Zen Scenery Mode (Hide UI)',
   cShortcut: 'Cycle Ambient Clock Size (S / M / L / Off)',
   vShortcut: 'Cycle Clock Visual Style (V)',
+  gShortcut: 'Cycle Graphics Quality Tier (Eco / Balanced / Ultra)',
+  wShortcut: 'Cycle Dynamic Weather Atmosphere (Clear, Rain, Snow, Storm...)',
   lShortcut: 'Toggle Lofi Radio & Video Panel',
   tShortcut: 'Toggle Pomodoro Timer',
   bShortcut: 'Toggle Mindful Breathing Guide',

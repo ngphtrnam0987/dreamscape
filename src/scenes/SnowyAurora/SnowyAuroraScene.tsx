@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSceneStore } from '../../stores/useSceneStore';
-import { createFramePacer } from '../canvasPerformance';
+import { createSceneFramePacer } from '../canvasPerformance';
 
 interface Snowflake {
   x: number;
@@ -63,7 +63,7 @@ export const SnowyAuroraScene: React.FC = () => {
     }));
 
     let time = 0;
-    const pacer = createFramePacer(lowPerf ? 30 : 50);
+    const pacer = createSceneFramePacer();
 
     const render = (timestamp: number) => {
       animFrameId = requestAnimationFrame(render);

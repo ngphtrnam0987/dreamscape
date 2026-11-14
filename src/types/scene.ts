@@ -1,3 +1,5 @@
+import { WeatherType } from './weather';
+
 export type SceneId = 
   | 'rainy-night' 
   | 'forest-retreat' 
@@ -9,6 +11,9 @@ export type SceneId =
   | 'snowy-aurora'
   | 'neon-cyberpunk'
   | 'bamboo-sanctuary';
+
+export type GraphicsQualityPreset = 'eco' | 'balanced' | 'ultra' | 'custom';
+export type FpsTarget = 30 | 60 | 120;
 
 export interface SceneSpecificSettings {
   // Rainy Night
@@ -66,6 +71,12 @@ export interface SceneSettings {
   animationIntensity: number; // 0.2 - 2.0
   particleDensity: number; // 0.2 - 2.0
   lowPerformanceMode: boolean;
+  graphicsQuality: GraphicsQualityPreset;
+  fpsTarget: FpsTarget;
+  weather: WeatherType;
+  weatherIntensity: number; // 0.5 - 2.0
+  syncWeatherAudio: boolean;
+  bloomGlow: boolean;
   colorGrade: ColorGrade;
   filmGrain: boolean;
   parallax3D: boolean;

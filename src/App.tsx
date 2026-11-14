@@ -9,6 +9,7 @@ import { AudioMixerPanel } from './components/audio/AudioMixerPanel';
 import { PomodoroTimerModal } from './components/timer/PomodoroTimerModal';
 import { PresetsModal } from './components/presets/PresetsModal';
 import { SceneSettingsModal } from './components/settings/SceneSettingsModal';
+import { GraphicsModal } from './components/settings/GraphicsModal';
 import { StatsModal } from './components/stats/StatsModal';
 import { BreathingGuideModal } from './components/mindfulness/BreathingGuideModal';
 import { QuickNotesModal } from './components/notes/QuickNotesModal';
@@ -55,6 +56,7 @@ export const App: React.FC = () => {
       <PomodoroTimerModal />
       <PresetsModal />
       <SceneSettingsModal />
+      <GraphicsModal />
       <StatsModal />
       <BreathingGuideModal />
       <QuickNotesModal />

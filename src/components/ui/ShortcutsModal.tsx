@@ -24,6 +24,8 @@ export const ShortcutsModal: React.FC = () => {
         { key: 'F', desc: getTranslation(language, 'fShortcut') },
         { key: 'C', desc: getTranslation(language, 'cShortcut') },
         { key: 'V', desc: getTranslation(language, 'vShortcut') },
+        { key: 'G', desc: language === 'vi' ? 'Đổi cấu hình Đồ hoạ (Eco / Balanced / Ultra)' : 'Cycle Graphics Tier (Eco / Balanced / Ultra)' },
+        { key: 'W', desc: language === 'vi' ? 'Đổi kiểu Thời tiết (Mưa, Tuyết, Nắng, Bão...)' : 'Cycle Dynamic Weather (Rain, Snow, Clear...)' },
         { key: '1 - 8', desc: getTranslation(language, 'oneToEightShortcut') },
         { key: '[ / ]', desc: getTranslation(language, 'prevNextSceneShortcut') },
       ],
