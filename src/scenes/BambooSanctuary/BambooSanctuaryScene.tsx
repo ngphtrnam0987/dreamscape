@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSceneStore } from '../../stores/useSceneStore';
+import { createFramePacer } from '../canvasPerformance';
 
 interface Firefly {
   x: number;
@@ -67,10 +68,11 @@ export const BambooSanctuaryScene: React.FC = () => {
     }));
 
     let time = 0;
+    const pacer = createFramePacer(lowPerf ? 30 : 50);
 
-    const render = () => {
-      if (document.visibilityState === 'hidden') {
-        animFrameId = requestAnimationFrame(render);
+    const render = (timestamp: number) => {
+      animFrameId = requestAnimationFrame(render);
+      if (!pacer.shouldRender(timestamp)) {
         return;
       }
 
@@ -168,15 +170,17 @@ export const BambooSanctuaryScene: React.FC = () => {
         const pulse = (Math.sin(f.phase) + 1) * 0.5;
         const currentAlpha = f.baseAlpha * (0.3 + pulse * 0.7);
 
-        // Firefly soft light halo
-        const halo = ctx.createRadialGradient(f.x, f.y, 1, f.x, f.y, f.size * 4);
-        halo.addColorStop(0, f.color);
-        halo.addColorStop(1, 'rgba(0,0,0,0)');
-        ctx.fillStyle = halo;
-        ctx.globalAlpha = currentAlpha * 0.8;
-        ctx.beginPath();
-        ctx.arc(f.x, f.y, f.size * 4, 0, Math.PI * 2);
-        ctx.fill();
+        // Firefly soft light halo (skipped in Low Perf mode to save GPU fill rate)
+        if (!lowPerf) {
+          const halo = ctx.createRadialGradient(f.x, f.y, 1, f.x, f.y, f.size * 4);
+          halo.addColorStop(0, f.color);
+          halo.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.fillStyle = halo;
+          ctx.globalAlpha = currentAlpha * 0.8;
+          ctx.beginPath();
+          ctx.arc(f.x, f.y, f.size * 4, 0, Math.PI * 2);
+          ctx.fill();
+        }
 
         // Firefly bright core
         ctx.fillStyle = '#ffffff';

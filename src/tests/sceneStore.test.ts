@@ -13,7 +13,7 @@ describe('useSceneStore', () => {
     expect(currentSceneId).toBe('rainy-night');
     expect(settings.colorGrade).toBe('standard');
     expect(settings.filmGrain).toBe(false);
-    expect(settings.parallax3D).toBe(true);
+    expect(settings.parallax3D).toBe(false);
     expect(settings.ambientCursor).toBe(true);
     expect(settings.uiSounds).toBe(true);
   });

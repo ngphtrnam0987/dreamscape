@@ -122,7 +122,7 @@ const DEFAULT_SETTINGS: SceneSettings = {
   lowPerformanceMode: false,
   colorGrade: 'standard',
   filmGrain: false,
-  parallax3D: true,
+  parallax3D: false,
   ambientCursor: true,
   uiSounds: true,
   specific: {

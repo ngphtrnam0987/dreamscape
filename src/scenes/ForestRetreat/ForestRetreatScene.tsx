@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSceneStore } from '../../stores/useSceneStore';
+import { createFramePacer } from '../canvasPerformance';
 
 interface Leaf {
   x: number;
@@ -78,10 +79,11 @@ export const ForestRetreatScene: React.FC = () => {
     }));
 
     let timeOffset = 0;
+    const pacer = createFramePacer(lowPerf ? 30 : 50);
 
-    const render = () => {
-      if (document.visibilityState === 'hidden') {
-        animFrameId = requestAnimationFrame(render);
+    const render = (timestamp: number) => {
+      animFrameId = requestAnimationFrame(render);
+      if (!pacer.shouldRender(timestamp)) {
         return;
       }
 

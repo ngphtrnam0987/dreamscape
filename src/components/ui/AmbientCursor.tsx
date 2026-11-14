@@ -21,15 +21,51 @@ export const AmbientCursor: React.FC = () => {
   const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    // Only activate on pointer-fine devices (desktops, mice)
-    if (window.matchMedia('(pointer: coarse)').matches) {
+    // Only activate on pointer-fine devices and when not in lowPerf
+    if (window.matchMedia('(pointer: coarse)').matches || settings.lowPerformanceMode) {
       return;
     }
+
+    let rafId: number | null = null;
+    let isRunning = false;
+
+    const animate = () => {
+      const diffX = mouseX.current - ringX.current;
+      const diffY = mouseY.current - ringY.current;
+
+      ringX.current += diffX * 0.25;
+      ringY.current += diffY * 0.25;
+
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${mouseX.current}px, ${mouseY.current}px, 0)`;
+      }
+
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${ringX.current}px, ${ringY.current}px, 0)`;
+      }
+
+      // Enter sleep when ring catches up to mouse position (0% GPU/CPU at rest)
+      if (Math.abs(diffX) < 0.1 && Math.abs(diffY) < 0.1) {
+        isRunning = false;
+        rafId = null;
+        return;
+      }
+
+      rafId = requestAnimationFrame(animate);
+    };
+
+    const wakeRaf = () => {
+      if (!isRunning) {
+        isRunning = true;
+        rafId = requestAnimationFrame(animate);
+      }
+    };
 
     const onMouseMove = (e: MouseEvent) => {
       mouseX.current = e.clientX;
       mouseY.current = e.clientY;
       setVisible(true);
+      wakeRaf();
 
       // Check if hovering over interactive elements
       const target = e.target as HTMLElement | null;
@@ -71,6 +107,7 @@ export const AmbientCursor: React.FC = () => {
         useAudioStore.getState().playUiFeedback('tap');
       }
     };
+
     const onMouseUp = () => setIsClicking(false);
     const onMouseLeave = () => setVisible(false);
 
@@ -79,37 +116,17 @@ export const AmbientCursor: React.FC = () => {
     window.addEventListener('mouseup', onMouseUp);
     document.addEventListener('mouseleave', onMouseLeave);
 
-    // Smooth 60/120fps ring lerp interpolation loop
-    let rafId: number;
-    const animate = () => {
-      // Lerp ring towards mouse with spring factor 0.22
-      ringX.current += (mouseX.current - ringX.current) * 0.22;
-      ringY.current += (mouseY.current - ringY.current) * 0.22;
-
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${mouseX.current}px, ${mouseY.current}px, 0)`;
-      }
-
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ringX.current}px, ${ringY.current}px, 0)`;
-      }
-
-      rafId = requestAnimationFrame(animate);
-    };
-
-    rafId = requestAnimationFrame(animate);
-
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mousedown', onMouseDown);
       window.removeEventListener('mouseup', onMouseUp);
       document.removeEventListener('mouseleave', onMouseLeave);
-      cancelAnimationFrame(rafId);
+      if (rafId) cancelAnimationFrame(rafId);
       if (idleTimer.current) clearTimeout(idleTimer.current);
     };
-  }, [isZenMode]);
+  }, [isZenMode, settings.lowPerformanceMode]);
 
-  if (!settings.ambientCursor) return null;
+  if (!settings.ambientCursor || settings.lowPerformanceMode) return null;
 
   return (
     <div
