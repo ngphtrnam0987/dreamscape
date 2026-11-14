@@ -85,4 +85,25 @@ describe('useTimerStore', () => {
     store.setClockDisplayType('pomodoro');
     expect(useTimerStore.getState().settings.clockDisplayType).toBe('pomodoro');
   });
+
+  it('updates clockStyle and cycles through visual styles', () => {
+    const store = useTimerStore.getState();
+    expect(store.settings.clockStyle).toBe('minimal');
+
+    store.setClockStyle('flip');
+    expect(useTimerStore.getState().settings.clockStyle).toBe('flip');
+
+    store.setClockStyle('analog');
+    expect(useTimerStore.getState().settings.clockStyle).toBe('analog');
+
+    store.setClockStyle('radial');
+    store.cycleClockStyle(); // radial -> matrix
+    expect(useTimerStore.getState().settings.clockStyle).toBe('matrix');
+
+    store.cycleClockStyle(); // matrix -> zen
+    expect(useTimerStore.getState().settings.clockStyle).toBe('zen');
+
+    store.cycleClockStyle(); // zen -> minimal
+    expect(useTimerStore.getState().settings.clockStyle).toBe('minimal');
+  });
 });

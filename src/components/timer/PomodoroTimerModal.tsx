@@ -4,7 +4,7 @@ import { useTimerStore } from '../../stores/useTimerStore';
 import { useStatsStore } from '../../stores/useStatsStore';
 import { Modal } from '../ui/Modal';
 import { getTranslation } from '../../locales';
-import { TimerMode } from '../../types/timer';
+import { TimerMode, ClockStyle, CLOCK_STYLES_INFO } from '../../types/timer';
 import { audioEngine } from '../../audio/AudioEngine';
 import {
   Play,
@@ -15,6 +15,7 @@ import {
   Bell,
   CheckCircle,
   Clock,
+  Palette,
 } from 'lucide-react';
 
 export const PomodoroTimerModal: React.FC = () => {
@@ -187,6 +188,43 @@ export const PomodoroTimerModal: React.FC = () => {
               <span>{getTranslation(language, 'sessionsCompletedToday')}:</span>
               <span className="font-semibold text-amber-300">{todayStats.sessions}</span>
             </div>
+          </div>
+        </div>
+
+        {/* Clock Visual Style Selector */}
+        <div className="w-full p-2.5 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+          <div className="flex items-center justify-between text-xs">
+            <div className="flex items-center gap-1.5 text-slate-300">
+              <Palette className="w-3.5 h-3.5 text-amber-400" />
+              <span className="font-medium">{getTranslation(language, 'clockStyle')}</span>
+            </div>
+            <span className="text-[10px] font-mono text-slate-400">
+              {language === 'vi' ? 'Phím tắt V' : 'Hotkey V'}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+            {CLOCK_STYLES_INFO.map((style) => {
+              const active = (settings.clockStyle || 'minimal') === style.id;
+              return (
+                <button
+                  key={style.id}
+                  onClick={() => updateSettings({ clockStyle: style.id as ClockStyle })}
+                  className={`p-2 rounded-xl text-left transition-all border ${
+                    active
+                      ? 'bg-amber-500/25 border-amber-400/50 text-white shadow-sm ring-1 ring-amber-400/30'
+                      : 'bg-white/5 border-white/10 text-slate-400 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <div className="text-[11px] font-bold truncate">
+                    {language === 'vi' ? style.nameVi : style.name}
+                  </div>
+                  <div className="text-[9px] text-slate-400 truncate opacity-80 mt-0.5">
+                    {language === 'vi' ? style.descVi : style.desc}
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 

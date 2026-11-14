@@ -1,6 +1,13 @@
 import { create } from 'zustand';
 import confetti from 'canvas-confetti';
-import { TimerMode, TimerSettings, ClockSize, ClockDisplayType } from '../types/timer';
+import {
+  TimerMode,
+  TimerSettings,
+  ClockSize,
+  ClockDisplayType,
+  ClockStyle,
+  CLOCK_STYLES_INFO,
+} from '../types/timer';
 import { audioEngine } from '../audio/AudioEngine';
 import { useStatsStore } from './useStatsStore';
 
@@ -24,6 +31,8 @@ interface TimerStoreState {
   updateSettings: (partial: Partial<TimerSettings>) => void;
   setClockSize: (size: ClockSize) => void;
   setClockDisplayType: (type: ClockDisplayType) => void;
+  setClockStyle: (style: ClockStyle) => void;
+  cycleClockStyle: () => void;
   toggleClockSize: () => void;
   tick: () => void;
 }
@@ -38,6 +47,7 @@ const DEFAULT_SETTINGS: TimerSettings = {
   soundAlertEnabled: true,
   clockSize: 'medium',
   clockDisplayType: 'pomodoro',
+  clockStyle: 'minimal',
 };
 
 const STORAGE_KEY = 'dreamscape_timer_state';
@@ -213,6 +223,25 @@ export const useTimerStore = create<TimerStoreState>((set, get) => ({
 
   setClockDisplayType: (clockDisplayType: ClockDisplayType) => {
     get().updateSettings({ clockDisplayType });
+  },
+
+  setClockStyle: (clockStyle: ClockStyle) => {
+    get().updateSettings({ clockStyle });
+  },
+
+  cycleClockStyle: () => {
+    const styles: ClockStyle[] = [
+      'minimal',
+      'flip',
+      'digital-led',
+      'analog',
+      'radial',
+      'matrix',
+      'zen',
+    ];
+    const current = get().settings.clockStyle || 'minimal';
+    const nextIdx = (styles.indexOf(current) + 1) % styles.length;
+    get().setClockStyle(styles[nextIdx]);
   },
 
   toggleClockSize: () => {

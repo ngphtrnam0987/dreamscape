@@ -3,7 +3,18 @@ import { useTimerStore } from '../../stores/useTimerStore';
 import { useUIStore } from '../../stores/useUIStore';
 import { useSceneStore, SCENES_INFO } from '../../stores/useSceneStore';
 import { getTranslation } from '../../locales';
-import { ClockSize, ClockDisplayType } from '../../types/timer';
+import {
+  ClockSize,
+  ClockDisplayType,
+  ClockStyle,
+  CLOCK_STYLES_INFO,
+} from '../../types/timer';
+import { FlipClockDisplay } from './clockStyles/FlipClockDisplay';
+import { DigitalLedClockDisplay } from './clockStyles/DigitalLedClockDisplay';
+import { AnalogClockDisplay } from './clockStyles/AnalogClockDisplay';
+import { RadialClockDisplay } from './clockStyles/RadialClockDisplay';
+import { MatrixClockDisplay } from './clockStyles/MatrixClockDisplay';
+import { ZenClockDisplay } from './clockStyles/ZenClockDisplay';
 import {
   Play,
   Pause,
@@ -14,6 +25,7 @@ import {
   Minimize2,
   Settings,
   X,
+  Palette,
 } from 'lucide-react';
 
 export const AmbientClock: React.FC = () => {
@@ -31,9 +43,10 @@ export const AmbientClock: React.FC = () => {
     settings,
     setClockSize,
     setClockDisplayType,
+    cycleClockStyle,
   } = useTimerStore();
 
-  const { isFocusMode, isZenMode, language, openModal } = useUIStore();
+  const { isFocusMode, isZenMode, language, openModal, showToast } = useUIStore();
   const { currentSceneId } = useSceneStore();
   const [realtime, setRealtime] = useState<Date>(new Date());
   const [isHovered, setIsHovered] = useState(false);
@@ -48,6 +61,7 @@ export const AmbientClock: React.FC = () => {
 
   const clockSize = settings.clockSize || 'medium';
   const displayType = settings.clockDisplayType || 'pomodoro';
+  const clockStyle: ClockStyle = settings.clockStyle || 'minimal';
 
   // If set to hidden or in pure Zen scenery mode, do not render on screen
   if (clockSize === 'hidden' || isZenMode) return null;
@@ -113,6 +127,142 @@ export const AmbientClock: React.FC = () => {
     setClockDisplayType(nextType[displayType] || 'pomodoro');
   };
 
+  const handleCycleStyle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    cycleClockStyle();
+    const active = useTimerStore.getState().settings.clockStyle || 'minimal';
+    const styleObj = CLOCK_STYLES_INFO.find(s => s.id === active);
+    showToast(
+      getTranslation(language, 'clockStyleToast').replace(
+        '{style}',
+        styleObj ? (language === 'vi' ? styleObj.nameVi : styleObj.name) : active
+      )
+    );
+  };
+
+  const activeStyleInfo = CLOCK_STYLES_INFO.find(s => s.id === clockStyle) || CLOCK_STYLES_INFO[0];
+  const activeStyleName = language === 'vi' ? activeStyleInfo.nameVi : activeStyleInfo.name;
+
+  const timeString =
+    displayType === 'pomodoro'
+      ? formatPomodoro(remainingSeconds)
+      : displayType === 'realtime'
+      ? formatRealtime(realtime, clockStyle !== 'flip')
+      : formatStopwatch(stopwatchSeconds);
+
+  const progressRatio =
+    totalDurationSeconds > 0
+      ? (totalDurationSeconds - remainingSeconds) / totalDurationSeconds
+      : 0;
+
+  // Render distinct clock faces
+  const renderClockFace = (size: 'medium' | 'large') => {
+    switch (clockStyle) {
+      case 'flip':
+        return (
+          <FlipClockDisplay
+            timeString={timeString}
+            size={size}
+            accentColor={accentColor}
+          />
+        );
+      case 'digital-led':
+        return (
+          <DigitalLedClockDisplay
+            timeString={timeString}
+            size={size}
+            accentColor={accentColor}
+          />
+        );
+      case 'analog':
+        return (
+          <AnalogClockDisplay
+            realtime={realtime}
+            remainingSeconds={remainingSeconds}
+            totalDurationSeconds={totalDurationSeconds}
+            stopwatchSeconds={stopwatchSeconds}
+            displayType={displayType}
+            size={size}
+            accentColor={accentColor}
+          />
+        );
+      case 'radial':
+        return (
+          <RadialClockDisplay
+            timeString={timeString}
+            progressRatio={progressRatio}
+            size={size}
+            accentColor={accentColor}
+            subtitle={
+              displayType === 'pomodoro'
+                ? mode
+                : displayType === 'realtime'
+                ? formatDateString(realtime)
+                : 'Flow'
+            }
+          />
+        );
+      case 'matrix':
+        return (
+          <MatrixClockDisplay
+            timeString={timeString}
+            size={size}
+            statusText={
+              displayType === 'pomodoro'
+                ? `POMODORO: ${mode.toUpperCase()} ${Math.round(progressRatio * 100)}%`
+                : displayType === 'realtime'
+                ? `TIME: ${realtime.toLocaleTimeString()}`
+                : `STOPWATCH: ${formatStopwatch(stopwatchSeconds)}`
+            }
+          />
+        );
+      case 'zen':
+        return (
+          <ZenClockDisplay
+            timeString={timeString}
+            size={size}
+            accentColor={accentColor}
+            subtitle={
+              displayType === 'pomodoro'
+                ? `${mode} • ${Math.round(totalDurationSeconds / 60)}m`
+                : displayType === 'realtime'
+                ? formatDateString(realtime)
+                : 'Flow'
+            }
+          />
+        );
+      case 'minimal':
+      default:
+        return (
+          <div
+            onClick={toggleDisplayType}
+            className={`cursor-pointer select-none text-center ${
+              size === 'large'
+                ? 'max-w-[95vw] overflow-hidden'
+                : 'my-1 group-hover:scale-[1.02] transition-transform'
+            }`}
+            title="Click to toggle display mode"
+          >
+            <h1
+              className={`font-mono font-black text-white leading-none select-none drop-shadow-lg ${
+                size === 'large'
+                  ? 'text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10.5rem] tracking-tighter'
+                  : 'text-4xl sm:text-5xl tracking-tighter'
+              }`}
+              style={{
+                textShadow:
+                  size === 'large'
+                    ? `0 0 35px ${accentColor}40, 0 10px 40px rgba(0,0,0,0.9)`
+                    : undefined,
+              }}
+            >
+              {timeString}
+            </h1>
+          </div>
+        );
+    }
+  };
+
   // -------------------------------------------------------------
   // SIZE 1: SMALL (Compact floating pill)
   // -------------------------------------------------------------
@@ -149,24 +299,17 @@ export const AmbientClock: React.FC = () => {
             onClick={toggleDisplayType}
             className="font-mono text-sm sm:text-base font-bold text-white tracking-wider cursor-pointer select-none"
           >
-            {displayType === 'pomodoro'
-              ? formatPomodoro(remainingSeconds)
-              : displayType === 'realtime'
-              ? formatRealtime(realtime, false)
-              : formatStopwatch(stopwatchSeconds)}
+            {timeString}
           </span>
 
-          {/* Mode badge */}
-          {displayType === 'pomodoro' && (
-            <span className="text-[9px] uppercase font-mono tracking-wider px-1.5 py-0.5 rounded-md bg-white/10 text-slate-300 hidden xs:inline">
-              {mode === 'focus' ? 'Focus' : 'Break'}
-            </span>
-          )}
-          {displayType === 'stopwatch' && (
-            <span className="text-[9px] uppercase font-mono tracking-wider px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 hidden xs:inline">
-              Flow
-            </span>
-          )}
+          {/* Quick Style Switcher Icon */}
+          <button
+            onClick={handleCycleStyle}
+            className="p-1 rounded-lg text-slate-400 hover:text-amber-300 transition-colors shrink-0"
+            title={`${getTranslation(language, 'clockStyle')}: ${activeStyleName} (V)`}
+          >
+            <Palette className="w-3 h-3 text-amber-400/80" />
+          </button>
 
           {/* Quick Play/Pause (Pomodoro or Stopwatch) */}
           {displayType !== 'realtime' && (
@@ -216,14 +359,10 @@ export const AmbientClock: React.FC = () => {
   // SIZE 2: MEDIUM (Elegant frosted glass card)
   // -------------------------------------------------------------
   if (clockSize === 'medium') {
-    const progressRatio = totalDurationSeconds > 0 ? (totalDurationSeconds - remainingSeconds) / totalDurationSeconds : 0;
-
     return (
       <div
         className={`fixed z-20 inset-x-0 ${
-          isFocusMode
-            ? 'top-1/2 -translate-y-1/2'
-            : 'top-14 sm:top-24'
+          isFocusMode ? 'top-1/2 -translate-y-1/2' : 'top-14 sm:top-24'
         } flex justify-center pointer-events-none px-3`}
       >
         <aside
@@ -232,10 +371,10 @@ export const AmbientClock: React.FC = () => {
           onMouseLeave={() => setIsHovered(false)}
           className={`pointer-events-auto ${
             isFocusMode ? 'scale-100 sm:scale-110' : ''
-          } w-full max-w-[320px] sm:max-w-[340px] rounded-3xl glass-panel shadow-2xl border border-white/20 p-3.5 sm:p-5 flex flex-col items-center animate-fade-in group`}
+          } w-full max-w-[340px] sm:max-w-[380px] rounded-3xl glass-panel shadow-2xl border border-white/20 p-3.5 sm:p-5 flex flex-col items-center animate-fade-in group`}
         >
-          {/* Top Header bar with Mode Badge & Size Pills */}
-          <div className="w-full flex items-center justify-between text-xs mb-2">
+          {/* Top Header bar with Mode Badge, Style Pill & Size Pills */}
+          <div className="w-full flex items-center justify-between text-xs mb-2.5">
             <button
               onClick={toggleDisplayType}
               className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 transition-colors"
@@ -249,7 +388,9 @@ export const AmbientClock: React.FC = () => {
               ) : displayType === 'realtime' ? (
                 <>
                   <Clock className="w-3.5 h-3.5 text-sky-400 shrink-0" />
-                  <span className="font-semibold text-[11px]">{getTranslation(language, 'clockTypeRealtime')}</span>
+                  <span className="font-semibold text-[11px]">
+                    {getTranslation(language, 'clockTypeRealtime')}
+                  </span>
                 </>
               ) : (
                 <>
@@ -257,6 +398,16 @@ export const AmbientClock: React.FC = () => {
                   <span className="font-semibold text-[11px]">Flow Stopwatch</span>
                 </>
               )}
+            </button>
+
+            {/* Quick Clock Style Pill Button */}
+            <button
+              onClick={handleCycleStyle}
+              className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-white/5 hover:bg-white/15 border border-white/10 text-slate-300 hover:text-white transition-all text-[11px]"
+              title={`${getTranslation(language, 'cycleClockStyle')} (V)`}
+            >
+              <Palette className="w-3 h-3 text-amber-400 shrink-0" />
+              <span className="truncate max-w-[85px]">{activeStyleName}</span>
             </button>
 
             {/* Quick Size buttons */}
@@ -292,36 +443,34 @@ export const AmbientClock: React.FC = () => {
             </div>
           </div>
 
-          {/* Big Monospace Time Display */}
-          <div
-            onClick={toggleDisplayType}
-            className="my-1 cursor-pointer select-none text-center group-hover:scale-[1.02] transition-transform"
-            title="Click to toggle display mode"
-          >
-            <div className="text-4xl sm:text-5xl font-mono font-extrabold text-white tracking-tighter drop-shadow-lg">
-              {displayType === 'pomodoro'
-                ? formatPomodoro(remainingSeconds)
-                : displayType === 'realtime'
-                ? formatRealtime(realtime, true)
-                : formatStopwatch(stopwatchSeconds)}
-            </div>
-            <div className="text-xs text-slate-400 mt-0.5 font-medium truncate max-w-[280px]">
-              {displayType === 'pomodoro' ? (
-                isRunning ? 'Counting down...' : 'Paused — Click to Resume'
-              ) : displayType === 'realtime' ? (
-                formatDateString(realtime)
-              ) : (
-                isRunning ? 'Flow state active...' : 'Stopwatch paused — Click start'
-              )}
-            </div>
+          {/* Clock Face Rendered by Active Style */}
+          <div className="my-1.5 flex justify-center w-full">
+            {renderClockFace('medium')}
           </div>
 
+          {/* Subtitle status line */}
+          {clockStyle !== 'analog' && clockStyle !== 'radial' && (
+            <div className="text-xs text-slate-400 mt-1 font-medium truncate max-w-[280px] text-center">
+              {displayType === 'pomodoro'
+                ? isRunning
+                  ? 'Counting down...'
+                  : 'Paused — Click to Resume'
+                : displayType === 'realtime'
+                ? formatDateString(realtime)
+                : isRunning
+                ? 'Flow state active...'
+                : 'Stopwatch paused — Click start'}
+            </div>
+          )}
+
           {/* Progress Bar for Pomodoro */}
-          {displayType === 'pomodoro' && (
+          {displayType === 'pomodoro' && clockStyle !== 'radial' && clockStyle !== 'analog' && (
             <div className="w-full bg-white/10 rounded-full h-1.5 my-2.5 overflow-hidden">
               <div
                 className={`h-full transition-all duration-300 rounded-full ${
-                  mode === 'focus' ? 'bg-amber-400 shadow-sm shadow-amber-400/50' : 'bg-emerald-400 shadow-sm shadow-emerald-400/50'
+                  mode === 'focus'
+                    ? 'bg-amber-400 shadow-sm shadow-amber-400/50'
+                    : 'bg-emerald-400 shadow-sm shadow-emerald-400/50'
                 }`}
                 style={{ width: `${Math.min(100, progressRatio * 100)}%` }}
               />
@@ -329,7 +478,7 @@ export const AmbientClock: React.FC = () => {
           )}
 
           {/* Action Controls Toolbar */}
-          <div className="flex items-center justify-center gap-2 sm:gap-2.5 mt-1 w-full pt-1">
+          <div className="flex items-center justify-center gap-2 sm:gap-2.5 mt-2 w-full pt-1">
             {displayType === 'pomodoro' ? (
               <>
                 <button
@@ -344,7 +493,7 @@ export const AmbientClock: React.FC = () => {
                   onClick={handlePlayPause}
                   className={`px-4 py-1.5 rounded-xl font-semibold text-xs transition-all flex items-center gap-1.5 shadow-md ${
                     isRunning
-                      ? 'bg-amber-500 text-slate-950 shadow-amber-500/20'
+                      ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-amber-500/20'
                       : 'bg-white/15 hover:bg-white/25 text-white'
                   }`}
                 >
@@ -441,7 +590,7 @@ export const AmbientClock: React.FC = () => {
 
       <div className="relative pointer-events-auto flex flex-col items-center group max-w-[96vw]">
         {/* Top Minimal Badge & Mode Switcher */}
-        <div className="flex items-center gap-2 mb-2 transition-opacity duration-300">
+        <div className="flex items-center gap-2 mb-3 transition-opacity duration-300">
           <button
             onClick={toggleDisplayType}
             className="flex items-center gap-1.5 px-3 py-1 rounded-full glass-panel-subtle text-xs font-mono font-medium text-slate-300 hover:text-white border border-white/10 shadow-lg"
@@ -450,7 +599,9 @@ export const AmbientClock: React.FC = () => {
               <>
                 <Timer className="w-3.5 h-3.5 text-amber-400 animate-pulse shrink-0" />
                 <span className="uppercase tracking-widest text-[10px] sm:text-[11px] font-bold">
-                  {mode === 'focus' ? getTranslation(language, 'focus') : getTranslation(language, 'shortBreak')}
+                  {mode === 'focus'
+                    ? getTranslation(language, 'focus')
+                    : getTranslation(language, 'shortBreak')}
                 </span>
               </>
             ) : displayType === 'realtime' ? (
@@ -469,45 +620,51 @@ export const AmbientClock: React.FC = () => {
               </>
             )}
           </button>
+
+          {/* Quick Style Switcher Pill */}
+          <button
+            onClick={handleCycleStyle}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full glass-panel-subtle text-xs font-mono text-amber-300 hover:text-white border border-white/10 shadow-lg transition-colors"
+            title={`${getTranslation(language, 'cycleClockStyle')} (V)`}
+          >
+            <Palette className="w-3 h-3 shrink-0" />
+            <span className="text-[10px] sm:text-[11px] font-semibold">{activeStyleName}</span>
+          </button>
         </div>
 
-        {/* Grand Cinematic Digital Clock Display (Mobile-responsive font scaling) */}
-        <div
-          onClick={toggleDisplayType}
-          className="cursor-pointer transition-transform duration-300 hover:scale-[1.015] text-center max-w-[95vw] overflow-hidden"
-          title="Click to toggle display mode"
-        >
-          <h1
-            className="text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10.5rem] font-mono font-black tracking-tighter text-white drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)] leading-none select-none break-all"
-            style={{
-              textShadow: `0 0 35px ${accentColor}40, 0 10px 40px rgba(0,0,0,0.9)`,
-            }}
-          >
-            {displayType === 'pomodoro'
-              ? formatPomodoro(remainingSeconds)
-              : displayType === 'realtime'
-              ? formatRealtime(realtime, true)
-              : formatStopwatch(stopwatchSeconds)}
-          </h1>
+        {/* Grand Cinematic Clock Face (Rendered according to active style) */}
+        <div className="my-2 flex justify-center w-full">
+          {renderClockFace('large')}
         </div>
 
         {/* Subtitle Information */}
-        <div className="mt-2 text-xs sm:text-sm font-medium text-slate-300 tracking-wider uppercase font-mono opacity-80 text-center">
-          {displayType === 'pomodoro' ? (
-            <span>
-              {isRunning ? 'Flow State Active' : 'Session Paused'} • {Math.round(totalDurationSeconds / 60)} min
-            </span>
-          ) : displayType === 'realtime' ? (
-            <span>{realtime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
-          ) : (
-            <span>{isRunning ? 'Deep Work Flowing...' : 'Stopwatch Paused'}</span>
-          )}
-        </div>
+        {clockStyle !== 'zen' && clockStyle !== 'analog' && clockStyle !== 'matrix' && (
+          <div className="mt-2 text-xs sm:text-sm font-medium text-slate-300 tracking-wider uppercase font-mono opacity-80 text-center">
+            {displayType === 'pomodoro' ? (
+              <span>
+                {isRunning ? 'Flow State Active' : 'Session Paused'} •{' '}
+                {Math.round(totalDurationSeconds / 60)} min
+              </span>
+            ) : displayType === 'realtime' ? (
+              <span>
+                {realtime.toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: true,
+                })}
+              </span>
+            ) : (
+              <span>{isRunning ? 'Deep Work Flowing...' : 'Stopwatch Paused'}</span>
+            )}
+          </div>
+        )}
 
         {/* Floating Action Controls Dock */}
         <div
           className={`flex flex-wrap items-center justify-center gap-1.5 sm:gap-3 px-3 sm:px-4 py-2 mt-3 sm:mt-4 rounded-2xl glass-panel shadow-2xl border border-white/15 transition-all duration-300 max-w-[94vw] ${
-            isHovered || !isRunning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
+            isHovered || !isRunning
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-2 pointer-events-none'
           }`}
         >
           {displayType !== 'realtime' && (
@@ -549,10 +706,24 @@ export const AmbientClock: React.FC = () => {
             className="px-2.5 py-1.5 rounded-xl glass-pill text-xs text-slate-300 hover:text-white flex items-center gap-1.5"
             title="Toggle between Pomodoro and Realtime Clock"
           >
-            {displayType === 'pomodoro' ? <Clock className="w-3.5 h-3.5 text-sky-400" /> : <Timer className="w-3.5 h-3.5 text-amber-400" />}
+            {displayType === 'pomodoro' ? (
+              <Clock className="w-3.5 h-3.5 text-sky-400" />
+            ) : (
+              <Timer className="w-3.5 h-3.5 text-amber-400" />
+            )}
             <span className="hidden xs:inline">
               {displayType === 'pomodoro' ? 'Realtime' : 'Pomodoro'}
             </span>
+          </button>
+
+          {/* Clock Style Cycle Button in Dock */}
+          <button
+            onClick={handleCycleStyle}
+            className="px-2.5 py-1.5 rounded-xl glass-pill text-xs text-amber-300 hover:text-white flex items-center gap-1.5"
+            title={`${getTranslation(language, 'cycleClockStyle')} (V)`}
+          >
+            <Palette className="w-3.5 h-3.5" />
+            <span className="capitalize">{clockStyle}</span>
           </button>
 
           {/* Clock Size Selector Buttons: S / M / L / Hide */}

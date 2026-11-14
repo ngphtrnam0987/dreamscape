@@ -3,6 +3,8 @@ import { useTimerStore } from '../stores/useTimerStore';
 import { useAudioStore } from '../stores/useAudioStore';
 import { useUIStore } from '../stores/useUIStore';
 import { useSceneStore, SCENES_INFO } from '../stores/useSceneStore';
+import { CLOCK_STYLES_INFO } from '../types/timer';
+import { getTranslation } from '../locales';
 
 export function useKeyboardShortcuts() {
   const {
@@ -13,6 +15,7 @@ export function useKeyboardShortcuts() {
     totalDurationSeconds,
     resumeTimer,
     toggleClockSize,
+    cycleClockStyle,
   } = useTimerStore();
 
   const { toggleMute } = useAudioStore();
@@ -25,6 +28,7 @@ export function useKeyboardShortcuts() {
     isZenMode,
     toggleZenMode,
     showToast,
+    language,
   } = useUIStore();
 
   const { setScene, nextScene, previousScene } = useSceneStore();
@@ -82,6 +86,21 @@ export function useKeyboardShortcuts() {
       if (e.key === 'c' || e.key === 'C') {
         e.preventDefault();
         toggleClockSize();
+        return;
+      }
+
+      // 'V' or 'v': Cycle Clock Visual Style
+      if (e.key === 'v' || e.key === 'V') {
+        e.preventDefault();
+        cycleClockStyle();
+        const activeStyle = useTimerStore.getState().settings.clockStyle || 'minimal';
+        const info = CLOCK_STYLES_INFO.find(s => s.id === activeStyle);
+        showToast(
+          getTranslation(language, 'clockStyleToast').replace(
+            '{style}',
+            info ? (language === 'vi' ? info.nameVi : info.name) : activeStyle
+          )
+        );
         return;
       }
 
@@ -189,6 +208,7 @@ export function useKeyboardShortcuts() {
     remainingSeconds,
     totalDurationSeconds,
     toggleClockSize,
+    cycleClockStyle,
     toggleMute,
     activeModal,
     closeModal,
@@ -201,5 +221,6 @@ export function useKeyboardShortcuts() {
     nextScene,
     previousScene,
     showToast,
+    language,
   ]);
 }
